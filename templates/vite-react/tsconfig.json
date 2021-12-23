@@ -1,9 +1,9 @@
 {
-  "exclude": ["node_modules"],
+  "exclude": ["../vite-react-app/node_modules"],
   "extends": "@vinxi/tsconfig/vite.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+    "rootDir": "../vite-react-app/src",
+    "outDir": "../vite-react-app/dist"
   },
-  "include": ["src"]
+  "include": ["../vite-react-app/src"]
 }
