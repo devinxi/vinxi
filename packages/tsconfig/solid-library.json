@@ -2,11 +2,15 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Solid Library",
   "extends": "./base.json",
+  "exclude": ["node_modules"],
+  "include": ["src"],
   "compilerOptions": {
     "lib": ["ES2015"],
     "module": "ESNext",
     "target": "ES6",
     "jsx": "preserve",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "jsxImportSource": "solid-js"
   }
 }
