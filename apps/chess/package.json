@@ -1,11 +1,11 @@
 {
-  "name": "chess",
+  "name": "solid-chess",
   "version": "0.0.0-alpha.0",
   "description": "",
   "scripts": {
     "dev": "vite --clearScreen false",
     "build": "vite build",
-    "deploy": "vercel deploy dist --team=turborepo --confirm",
+    "deploy": "vercel deploy --confirm",
     "lint": "TIMING=1 eslint src/**/*.tsx --fix && tsc --noEmit",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
