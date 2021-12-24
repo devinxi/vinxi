@@ -1,4 +1,3 @@
-import { CSSProperties } from "@stitches/core";
 import {
   createEffect,
   createMemo,
@@ -12,7 +11,6 @@ import { render } from "solid-js/web";
 import { mergeProps } from "solid-js/web";
 import { useFrame, useThree } from "solid-three";
 import { useRef } from "solid-react-compat";
-import { Instance } from "src/solid-three/core/renderer";
 import {
   Vector3,
   Group,
@@ -187,7 +185,7 @@ export const Html = (props: PropsWithChildren<HtmlProps>) => {
     props
   );
 
-  const groupProps = splitProps(props, [
+  const [groupProps] = splitProps(props, [
     "eps",
     "distanceFactor",
     "sprite",
@@ -212,8 +210,8 @@ export const Html = (props: PropsWithChildren<HtmlProps>) => {
   const size = useThree(({ size }) => size);
   const raycaster = useThree(({ raycaster }) => raycaster);
 
-  const [el] = createSignal(document.createElement(props.as));
-  const group: Group = <group {...groupProps} />;
+  const [el] = createSignal(document.createElement(props.as ?? "div"));
+  const group: Group = (<group {...groupProps} />) as unknown as Group;
   const oldZoom = useRef(0);
   const oldPosition = useRef([0, 0]);
   const transformOuterRef = useRef<HTMLDivElement>(null!);
@@ -226,7 +224,7 @@ export const Html = (props: PropsWithChildren<HtmlProps>) => {
       if (props.transform) {
         el().style.cssText = `position:absolute;top:0;left:0;pointer-events:none;overflow:hidden;`;
       } else {
-        const vec = props.calculatePosition(group, camera(), size());
+        const vec = props.calculatePosition!(group, camera(), size());
         el().style.cssText = `position:absolute;top:0;left:0;transform:translate3d(${vec[0]}px,${vec[1]}px,0);transform-origin:0 0;`;
       }
       let target = gl().domElement.parentNode;
@@ -245,7 +243,7 @@ export const Html = (props: PropsWithChildren<HtmlProps>) => {
     if (props.wrapperClass) el().className = props.wrapperClass;
   });
 
-  const styles: CSSProperties = createMemo(() => {
+  const styles = createMemo(() => {
     if (props.transform) {
       return {
         position: "absolute",
