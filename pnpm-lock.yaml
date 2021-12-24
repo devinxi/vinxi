@@ -14,9 +14,7 @@ importers:
     specifiers:
       '@babel/plugin-syntax-typescript': ^7.16.5
       '@iconify/json': ^1.1.443
-      '@radix-ui/popper': ^0.1.0
       '@rollup/plugin-babel': ^5.3.0
-      '@solid-primitives/resize-observer': 1.0.3
       '@stitches/core': 1.2.6
       '@types/three': 0.135.0
       '@use-gesture/vanilla': ^10.2.4
@@ -32,11 +30,11 @@ importers:
       mitt: ^3.0.0
       popmotion: ^11.0.3
       solid-js: 1.3.0-beta.10
-      solid-leva: workspace:*
-      solid-react-compat: workspace:^0.0.0
+      solid-leva: '*'
+      solid-react-compat: '*'
       solid-start: ^0.1.0-alpha.0
       solid-start-cloudflare-workers: ^0.1.0-alpha.12
-      solid-three: workspace:*
+      solid-three: '*'
       solid-use: ^0.3.3
       three: 0.135.0
       three-stdlib: ^2.6.1
@@ -52,8 +50,6 @@ importers:
       wrangler: ^0.0.3
       zustand: ^3.6.7
     dependencies:
-      '@radix-ui/popper': 0.1.0
-      '@solid-primitives/resize-observer': 1.0.3
       '@stitches/core': 1.2.6
       '@use-gesture/vanilla': 10.2.4
       '@vanilla-extract/css': 1.6.8
@@ -192,7 +188,7 @@ importers:
       colord: 2.9.1
       merge-value: ^1.0.0
       solid-js: ^1.3.0-beta.10
-      solid-react-compat: workspace:*
+      solid-react-compat: '*'
       three: 0.135.0
       tsm: ^2.2.1
       tsup: ^5.10.1
@@ -226,9 +222,9 @@ importers:
       colord: 2.9.1
       dequal: 2.0.2
       merge-value: ^1.0.0
-      solid-colorful: workspace:*
+      solid-colorful: '*'
       solid-js: ^1.3.0-beta.10
-      solid-react-compat: workspace:*
+      solid-react-compat: '*'
       three: 0.135.0
       tsd: 0.19.0
       tsm: ^2.2.1
@@ -2308,13 +2304,6 @@ packages:
   /@polka/url/1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
 
-  /@radix-ui/popper/0.1.0:
-    resolution: {integrity: sha512-uzYeElL3w7SeNMuQpXiFlBhTT+JyaNMCwDfjKkrzugEcYrf5n52PHqncNdQPUtR42hJh8V9FsqyEDbDxkeNjJQ==}
-    dependencies:
-      '@babel/runtime': 7.16.5
-      csstype: 3.0.10
-    dev: false
-
   /@remix-run/dev/1.1.1:
     resolution: {integrity: sha512-dkzMVgMzaQUppf2za3kD+izsEK1hLsLQSVtDD3wN7pBMEbWXaEkWb2X2lj3c9yRDArPB7y5+09rm4SUnE4mL6A==}
     hasBin: true
@@ -2603,12 +2592,6 @@ packages:
       kleur: 4.1.4
       yargs-parser: 20.2.9
     dev: true
-
-  /@solid-primitives/resize-observer/1.0.3:
-    resolution: {integrity: sha512-20wCg9Arx+XIjC8LtqmdtS4MlPKEVEK80RN/EV7ABdyQZaUQk+abDdIX/1RlBmO0DL+4Wrb72aOgDytgmdJCSg==}
-    dependencies:
-      solid-js: 1.2.6
-    dev: false
 
   /@stitches/core/1.2.6:
     resolution: {integrity: sha512-nDGhYDZw74uL7D4FYwpya2Sgr1LucsdrF7Nr6Ut4jQD49sBK36S2eC2oCAlfAX0JksH0QVfOrWwUipp3uaID1w==}
@@ -10543,10 +10526,6 @@ packages:
       solid-js: ^1.0.0
     dependencies:
       solid-js: 1.3.0-beta.10
-    dev: false
-
-  /solid-js/1.2.6:
-    resolution: {integrity: sha512-NvPHJ5Vj5f+ZJWIioickrC55seovSkDtm5NzSpnoUk3z4tATv0STpy5iuGNEn51ZORUcwpZzrMAtOCGziXU1XA==}
     dev: false
 
   /solid-js/1.3.0-beta.10:
