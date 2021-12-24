@@ -1,6 +1,6 @@
 import sync from "framesync";
 import { useContext } from "solid-js";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { usePresence } from "../../../components/AnimatePresence/use-presence";
 import {
   LayoutGroupContext,

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Hue } from "./Hue";
 import { Saturation } from "./Saturation";
 import { Alpha } from "./Alpha";
@@ -6,7 +7,7 @@ import { ColorModel, ColorPickerBaseProps, AnyColor } from "../../types";
 import { useColorManipulation } from "../../hooks/useColorManipulation";
 import { useStyleSheet } from "../../hooks/useStyleSheet";
 import { formatClassName } from "../../utils/format";
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 
 interface Props<T extends AnyColor> extends Partial<ColorPickerBaseProps<T>> {
   colorModel: ColorModel<T>;
@@ -36,10 +37,10 @@ Props<T>) => {
       ref={(el) => (nodeRef.current = el)}
       className={nodeClassName}
     >
-      <Saturation hsva={hsva} onChange={updateHsva} />
-      <Hue hue={hsva.h} onChange={updateHsva} />
+      <Saturation hsva={hsva()} onChange={updateHsva} />
+      <Hue hue={hsva().h} onChange={updateHsva} />
       <Alpha
-        hsva={hsva}
+        hsva={hsva()}
         onChange={updateHsva}
         className="react-colorful__last-control"
       />

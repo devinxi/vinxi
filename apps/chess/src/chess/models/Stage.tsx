@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import * as THREE from "three";
 import { ContactShadows } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";

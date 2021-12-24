@@ -3,7 +3,7 @@ import { formatClassName } from "../../utils/format";
 
 interface Props {
   className?: string;
-  top?: number;
+  top: number;
   left: number;
   color: string;
 }

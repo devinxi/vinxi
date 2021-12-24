@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { OrthographicCamera as OrthographicCameraImpl } from "three";
 import mergeRefs from "react-merge-refs";
 import { motion } from "../../render/three/motion";

@@ -1,4 +1,4 @@
-import { css } from "src/leva/styles";
+import { css } from "src/styles";
 
 const iconWidth = 40;
 

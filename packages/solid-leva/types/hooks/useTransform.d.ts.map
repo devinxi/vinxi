@@ -1,0 +1,1 @@
+{"version":3,"file":"useTransform.d.ts","sourceRoot":"","sources":["../../src/hooks/useTransform.ts"],"names":[],"mappings":";AACA,wBAAgB,YAAY,CAAC,CAAC,SAAS,WAAW,KAAK;IACrD,KAAK,CAAC,SAAS,CAAC,CAAC,CAAC;IAClB,CAAC,KAAK,EAAE;QAAE,CAAC,CAAC,EAAE,MAAM,CAAC;QAAC,CAAC,CAAC,EAAE,MAAM,CAAA;KAAE,KAAK,IAAI;CAC5C,CAUA"}

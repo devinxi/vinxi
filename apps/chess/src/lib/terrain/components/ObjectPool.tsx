@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 
 export class ObjectPoolImpl<T> {
   pool: Record<any, any[]> = {};

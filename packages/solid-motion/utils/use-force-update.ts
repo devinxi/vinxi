@@ -1,6 +1,6 @@
 import sync from "framesync";
 import { Accessor, createSignal } from "solid-js";
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 import { useUnmountEffect } from "./use-unmount-effect";
 
 export function useForceUpdate(): [VoidFunction, Accessor<number>] {

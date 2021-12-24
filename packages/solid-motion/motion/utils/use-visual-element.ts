@@ -1,5 +1,5 @@
-import * as React from "src/react";
-import { useRef, MutableRefObject } from "src/react";
+import * as React from "solid-react-compat";
+import { useRef, MutableRefObject } from "solid-react-compat";
 import { useContext, createEffect } from "solid-js";
 import { PresenceContext } from "../../context/PresenceContext";
 import { MotionProps } from "../../motion/types";

@@ -4,7 +4,7 @@ import {
   createRenderEffect,
   onCleanup,
 } from "solid-js";
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 
 export function useToggle(toggled: Accessor<boolean>) {
   const wrapperRef = useRef<HTMLDivElement>(null);

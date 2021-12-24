@@ -1,4 +1,4 @@
-import { useMemo } from "src/react";
+import { useMemo } from "solid-react-compat";
 import { MotionProps } from "../../motion/types";
 import { isForcedMotionValue } from "../../motion/utils/is-forced-motion-value";
 import { MotionValue } from "../../value";

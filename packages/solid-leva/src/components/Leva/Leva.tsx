@@ -50,7 +50,7 @@ import { createEffect } from "solid-js";
 // }
 
 import { render } from "solid-js/web";
-import { levaStore } from "src/leva/store";
+import { levaStore } from "src/store";
 import { LevaPanel } from "./LevaPanel";
 let rootInitialized = false;
 let rootEl: HTMLElement | null = null;

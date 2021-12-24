@@ -635,6 +635,7 @@ var undestructurePlugin = (mode) => {
 };
 
 // index.ts
+var import_vite_tsconfig_paths = __toESM(require("vite-tsconfig-paths"));
 var config = {
   moduleName: "solid-js/web",
   generate: "dynamic",
@@ -653,6 +654,7 @@ var config = {
 };
 var plugin = () => {
   return [
+    (0, import_vite_tsconfig_paths.default)(),
     undestructurePlugin("ts"),
     (0, import_vite_plugin_solid.default)({
       solid: config,

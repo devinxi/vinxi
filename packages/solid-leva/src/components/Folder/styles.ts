@@ -1,4 +1,4 @@
-import { css } from "src/leva/styles";
+import { css } from "src/styles";
 
 export const folder = css({});
 

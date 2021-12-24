@@ -1,6 +1,6 @@
 import { extend, Node } from "@react-three/fiber";
 import { folder } from "@/leva";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import SimplexNoise from "simplex-noise";
 import * as perlin from "./perlin";
 import { useControls } from "./leva";

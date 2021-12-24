@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { DOMMotionComponents } from "./types";
 import { HTMLRenderState } from "../html/types";
 import { SVGRenderState } from "../svg/types";

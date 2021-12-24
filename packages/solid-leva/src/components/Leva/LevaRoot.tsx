@@ -13,7 +13,7 @@ import {
 import { TitleWithFilter } from "./Filter";
 import { StoreType } from "../../types";
 import { createEffect, createMemo, createSignal, Show } from "solid-js";
-import { levaStore } from "src/leva/store";
+import { levaStore } from "src/store";
 
 export type LevaRootProps = {
   /**

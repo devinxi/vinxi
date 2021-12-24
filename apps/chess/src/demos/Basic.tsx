@@ -1,7 +1,7 @@
 import { Canvas, useFrame, useThree } from "solid-three";
 import { Component, createRenderEffect, onCleanup, untrack } from "solid-js";
 import { OrbitControls } from "src/drei/OrbitControls";
-import { createControls } from "src/leva";
+import { createControls } from "solid-leva";
 import { Board } from "src/chess/models/chess/Board";
 
 const PerspectiveCamera: Component = ({ position = [10, 5, 10] } = {}) => {

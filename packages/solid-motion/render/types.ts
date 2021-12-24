@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { startAnimation } from "../animation/utils/transitions";
 import { MotionProps, MotionStyle } from "../motion/types";
 import { VisualState } from "../motion/utils/use-visual-state";

@@ -1,7 +1,7 @@
-import { Show } from "solid-js";
+import { Show, JSX } from "solid-js";
 import { row, inputRow } from "./StyledUI";
 
-export function Row(props: any) {
+export function Row(props: any): JSX.Element {
   return (
     <Show
       when={!props.input}

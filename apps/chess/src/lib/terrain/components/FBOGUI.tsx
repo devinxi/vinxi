@@ -1,5 +1,5 @@
 import { useThree } from "@react-three/fiber";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 
 type FBOGUIProps = {
   children: React.ReactNode;

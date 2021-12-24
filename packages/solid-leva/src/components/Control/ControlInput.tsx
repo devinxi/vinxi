@@ -4,7 +4,7 @@ import { InputContext } from "../../context";
 import { useInputSetters } from "../../hooks";
 import { inputWrapper } from "../UI/StyledUI";
 import type { DataInput } from "../../types";
-import { createEffect, Dynamic } from "solid-three";
+import { Dynamic } from "solid-js/web";
 
 type ControlInputProps = Omit<DataInput, "__refCount" | "key"> & {
   valueKey: string;

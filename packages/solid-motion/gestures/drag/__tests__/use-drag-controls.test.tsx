@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { render } from "../../../../jest.setup";
 import { motion, useDragControls } from "../../../";
 import { MockDrag, drag } from "./utils";

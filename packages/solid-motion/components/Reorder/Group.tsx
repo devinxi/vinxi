@@ -1,5 +1,5 @@
 import { invariant } from "hey-listen";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import {
   forwardRef,
   FunctionComponent,

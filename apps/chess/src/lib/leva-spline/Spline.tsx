@@ -9,7 +9,7 @@ import {
   colord,
   styled,
 } from "@/leva/plugin";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import * as props from "./spline-plugin";
 import { Color } from "./Color";
 import { PickerContainer } from "./StyledColor";

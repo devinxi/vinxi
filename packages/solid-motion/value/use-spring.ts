@@ -5,7 +5,7 @@ import { useMotionValue } from "./use-motion-value";
 import { useOnChange } from "./use-on-change";
 import { MotionConfigContext } from "../context/MotionConfigContext";
 import { createComputed, useContext } from "solid-js";
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 
 /**
  * Creates a `MotionValue` that, when `set`, will use a spring animation to animate to its new state.

@@ -1,5 +1,5 @@
 import { render } from "../../../../jest.setup";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { act } from "react-dom/test-utils";
 import {
   AnimatePresence,

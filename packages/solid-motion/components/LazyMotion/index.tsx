@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { createEffect, useRef, useState } from "solid-js";
 import { LazyContext } from "../../context/LazyContext";
 import { loadFeatures } from "../../motion/features/definitions";

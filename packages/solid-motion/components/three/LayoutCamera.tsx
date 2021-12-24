@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { PerspectiveCamera as PerspectiveCameraImpl } from "three";
 import mergeRefs from "react-merge-refs";
 import { LayoutCameraProps } from "./types";

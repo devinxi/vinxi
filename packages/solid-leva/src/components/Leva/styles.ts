@@ -1,4 +1,4 @@
-import { css } from "src/leva/styles";
+import { css } from "src/styles";
 import { inputRow } from "../UI/StyledUI";
 
 export const root = css({

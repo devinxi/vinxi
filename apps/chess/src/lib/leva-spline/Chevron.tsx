@@ -1,5 +1,5 @@
 import { styled } from "@/leva/plugin";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 
 // TODO remove as any when this is corrected by stitches
 const Svg = styled("svg", {

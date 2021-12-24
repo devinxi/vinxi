@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { createEffect, useRef } from "solid-js";
 import { Euler, Vector3 } from "three";
 import { Canvas, Object3DNode } from "@react-three/fiber";

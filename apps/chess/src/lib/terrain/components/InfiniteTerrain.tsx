@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import * as THREE from "three";
 import {
   TerrainMesh as TerrainMeshImpl,

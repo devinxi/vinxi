@@ -1,5 +1,5 @@
 import { render } from "../../../../jest.setup";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { renderToString, renderToStaticMarkup } from "react-dom/server";
 import { useRef, useLayoutEffect, useState } from "solid-js";
 import { Reorder } from "..";

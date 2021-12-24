@@ -1,7 +1,7 @@
 // reference: https://medium.com/@luruke/simple-postprocessing-in-three-js-91936ecadfb7
 // and @gsimone ;)
 import * as THREE from "three";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 
 export function createScreenQuadGeometry() {
   const geometry = new THREE.BufferGeometry();

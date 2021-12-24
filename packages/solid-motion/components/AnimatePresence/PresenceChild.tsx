@@ -1,5 +1,5 @@
-import * as React from "src/react";
-import { useMemo } from "src/react";
+import * as React from "solid-react-compat";
+import { useMemo } from "solid-react-compat";
 import {
   PresenceContext,
   PresenceContextProps,

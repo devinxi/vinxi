@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import sync from "framesync";
 import { MotionConfig } from "../../../components/MotionConfig";
 import { act } from "react-dom/test-utils";

@@ -46,7 +46,7 @@ const getMixer = (v: any) => (isCustomValueType(v) ? v.mix : undefined);
  * Every value in the output range must be of the same type and in the same format.
  *
  * ```jsx
- * import * as React from "src/react"
+ * import * as React from "solid-react-compat"
  * import { transform } from "framer-motion"
  *
  * export function MyComponent() {
@@ -83,7 +83,7 @@ export function transform<T>(
  * Every value in the output range must be of the same type and in the same format.
  *
  * ```jsx
- * import * as React from "src/react"
+ * import * as React from "solid-react-compat"
  * import { Frame, transform } from "framer"
  *
  * export function MyComponent() {

@@ -1,4 +1,4 @@
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 import { EventInfo } from "../events/types";
 import { isNodeOrChild } from "./utils/is-node-or-child";
 import { addPointerEvent, usePointerEvent } from "../events/use-pointer-event";

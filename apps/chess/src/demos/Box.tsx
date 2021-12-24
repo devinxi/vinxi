@@ -1,6 +1,6 @@
 import { useFrame } from "solid-three";
 import { createEffect, createSignal, Match, Switch } from "solid-js";
-import { button, createControls, folder } from "src/leva";
+import { button, createControls, folder } from "solid-leva";
 import { Html } from "src/drei/Html";
 import { animate } from "popmotion";
 import { PieceModel } from "src/chess/models/chess/Piece";

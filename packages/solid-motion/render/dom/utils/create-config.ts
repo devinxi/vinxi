@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { FeatureComponents } from "../../../motion/features/types";
 import { isSVGComponent } from "./is-svg-component";
 import { MotionComponentConfig } from "../../../motion";

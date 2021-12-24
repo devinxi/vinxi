@@ -1,5 +1,5 @@
-import * as React from "src/react";
-import { useCallback } from "src/react";
+import * as React from "solid-react-compat";
+import { useCallback } from "solid-react-compat";
 import { VisualElement } from "../../render/types";
 import { isRefObject } from "../../utils/is-ref-object";
 import { VisualState } from "./use-visual-state";

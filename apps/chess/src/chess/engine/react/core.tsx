@@ -9,7 +9,7 @@ import {
   initializeRegisteredSystems,
   executeWorld,
 } from "../ecs";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { CameraComponent } from "../systems/CameraSystem";
 import { TransformComponent } from "../systems/TransformSystem";
 import { NameComponent } from "../components/NameComponent";

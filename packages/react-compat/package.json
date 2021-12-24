@@ -1,0 +1,42 @@
+{
+  "name": "solid-react-compat",
+  "version": "0.0.0",
+  "module": "./dist/index.es.js",
+  "main": "./dist/index.cjs.js",
+  "types": "./types/index.d.ts",
+  "sideEffects": false,
+  "private": true,
+  "license": "MIT",
+  "files": [
+    "dist/**",
+    "types/**",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "vitest",
+    "build": "vite build && tsc",
+    "dev": "vite",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
+  "devDependencies": {
+    "@vinxi/tsconfig": "*",
+    "solid-js": "^1.3.0-beta.10",
+    "typescript": "^4.5.3",
+    "vite": "^2.7.6",
+    "vite-preset-solid": "workspace:*"
+  },
+  "peerDependencies": {
+    "solid-js": "*"
+  },
+  "jest": {
+    "preset": "scripts/jest/node"
+  },
+  "dependencies": {}
+}

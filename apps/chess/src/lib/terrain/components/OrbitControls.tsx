@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { OrbitControls as OrbitContorlsImpl } from "@react-three/drei";
 import { useEditorStore } from "./useEditorStore";
 

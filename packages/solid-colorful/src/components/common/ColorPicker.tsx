@@ -5,7 +5,7 @@ import { ColorModel, ColorPickerBaseProps, AnyColor } from "../../types";
 import { useColorManipulation } from "../../hooks/useColorManipulation";
 import { useStyleSheet } from "../../hooks/useStyleSheet";
 import { formatClassName } from "../../utils/format";
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 import { createEffect, mergeProps, splitProps } from "solid-js";
 
 interface Props<T extends AnyColor> extends Partial<ColorPickerBaseProps<T>> {
@@ -15,7 +15,7 @@ interface Props<T extends AnyColor> extends Partial<ColorPickerBaseProps<T>> {
 export const ColorPicker = <T extends AnyColor>(props: Props<T>) => {
   const merged = mergeProps({ color: props.colorModel.defaultColor }, props);
   let nodeRef = useRef<HTMLDivElement>();
-  useStyleSheet(nodeRef);
+  useStyleSheet({ current: nodeRef.current! });
 
   const [hsva, updateHsva] = useColorManipulation<T>(merged);
 

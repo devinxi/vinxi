@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { render } from "../../../../jest.setup";
 import { BoundingBox, motion, motionValue, MotionValue } from "../../../";
 import { MockDrag, drag, deferred, frame, Point, sleep } from "./utils";

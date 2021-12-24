@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 const { Label, Row, Number } = Components;
 import { RangeGrid } from "./StyledNumber";
 import { RangeSlider } from "./RangeSlider";

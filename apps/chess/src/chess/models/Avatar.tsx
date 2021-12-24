@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 
 function Avatar() {
   React.createEffect(() => {

@@ -1,0 +1,15 @@
+{
+  "extends": "@vinxi/tsconfig/solid-library.json",
+  "include": ["./src"],
+  "compilerOptions": {
+    "outDir": "./types",
+    "rootDir": "./src",
+    "jsxImportSource": "solid-js",
+    "emitDeclarationOnly": true,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["./src/*"]
+    }
+  },
+  "exclude": ["dist", "build", "node_modules"]
+}

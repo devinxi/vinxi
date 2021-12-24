@@ -1,5 +1,5 @@
 import { useContext } from "solid-js";
-import { useMemo } from "src/react";
+import { useMemo } from "solid-react-compat";
 import { MotionContext, MotionContextProps } from ".";
 import { MotionProps } from "../../motion/types";
 import { getCurrentTreeVariants } from "./utils";

@@ -7,7 +7,7 @@ import { useToggle } from "../../hooks";
 import { useStoreContext } from "../../context";
 import type { Tree } from "../../types";
 import { createEffect, createSignal, For, Show } from "solid-js";
-import { useTh } from "src/leva/styles";
+import { useTh } from "src/styles";
 
 type FolderProps = { name: string; path?: string; tree: Tree };
 

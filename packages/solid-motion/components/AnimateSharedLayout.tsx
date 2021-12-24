@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { useConstant } from "../utils/use-constant";
 import { LayoutGroup } from "./LayoutGroup";
 

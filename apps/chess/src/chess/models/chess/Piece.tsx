@@ -6,7 +6,7 @@ import * as THREE from "three";
 // import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 // import { folder, useControls } from "@/lib/leva";
-// import * as React from "src/react";
+// import * as React from "solid-react-compat";
 // import { useSpring } from "@react-spring/core";
 // import { a } from "@react-spring/three";
 // import { Color, PieceSymbol, Square } from "@/lib/chess/types";
@@ -26,7 +26,7 @@ import {
 // import { useAtomValue } from "jotai/utils";
 import { Color, useFrame } from "solid-three";
 import { useGLTF } from "src/drei/useGLTF";
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 import { createEffect, Suspense } from "solid-js";
 import { mergeProps } from "solid-js";
 import { folder, useControls } from "@/lib/leva";

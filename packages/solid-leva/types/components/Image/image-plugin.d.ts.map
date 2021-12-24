@@ -1,0 +1,1 @@
+{"version":3,"file":"image-plugin.d.ts","sourceRoot":"","sources":["../../../src/components/Image/image-plugin.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,aAAa,CAAA;AAE7C,eAAO,MAAM,QAAQ,MAAO,GAAG,KAAG,MAAM,GAAG,SAW1C,CAAA;AAED,eAAO,MAAM,MAAM,OAAQ,GAAG,KAAK,GAAG,YAA0C,CAAA;AAEhF,eAAO,MAAM,SAAS,cAAe,UAAU;;CAE9C,CAAA"}

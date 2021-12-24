@@ -1,5 +1,5 @@
 import { ReactThreeFiber, useFrame, useThree } from "@react-three/fiber";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { useKeyboardInput } from "src/Keyboard";
 import * as THREE from "three";
 import { useViewer } from "../../../engine/react/Demo";

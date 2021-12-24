@@ -1,5 +1,5 @@
 import { createMemo, onCleanup, PropsWithChildren, splitProps } from "solid-js";
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 import { useEventCallback } from "../../hooks/useEventCallback";
 import { clamp } from "../../utils/clamp";
 
@@ -73,7 +73,7 @@ interface Props {
 
 export const Interactive = (props: PropsWithChildren<Props>) => {
   const container = useRef<HTMLDivElement>(null);
-  const touchId = useRef(null);
+  const touchId = useRef<number>(null);
   let hasTouch = false;
 
   const data = createMemo(() => {

@@ -36,6 +36,7 @@ export const Hue = (props: Props) => {
         <Pointer
           className="react-colorful__hue-pointer"
           left={props.hue / 360}
+          top={0}
           color={hsvaToHslString({ h: props.hue, s: 100, v: 100, a: 1 })}
         />
       </Interactive>

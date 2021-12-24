@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { Text } from "@react-three/drei";
 import { WebGLRenderTarget } from "three";
 

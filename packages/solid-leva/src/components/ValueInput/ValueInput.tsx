@@ -17,7 +17,7 @@ type ValueInputProps = {
   onKeyDown?: (event: React.KeyboardEvent) => void;
 };
 
-export function ValueInput(props: ValueInputProps) {
+export function ValueInput(props: ValueInputProps): JSX.Element {
   const { id: _id, emitOnEditStart, emitOnEditEnd } = useInputContext();
   const inputId = props.id || _id;
   let inputRef: HTMLInputElement;

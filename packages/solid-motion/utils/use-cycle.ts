@@ -11,7 +11,7 @@ type CycleState<T> = [T, Cycle];
  * An index value can be passed to the returned `cycle` function to cycle to a specific index.
  *
  * ```jsx
- * import * as React from "src/react"
+ * import * as React from "solid-react-compat"
  * import { motion, useCycle } from "framer-motion"
  *
  * export const MyComponent = () => {

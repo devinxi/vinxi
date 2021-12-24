@@ -1,5 +1,5 @@
 import { Accessor, createEffect, createSignal } from "solid-js";
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 import { ColorModel, AnyColor, HsvaColor } from "../types";
 import { equalColorObjects } from "../utils/compare";
 
@@ -21,7 +21,7 @@ export function useColorManipulation<T extends AnyColor>(props: {
   // Update local HSVA-value if `color` property value is changed,
   // but only if that's not the same color that we just sent to the parent
   createEffect(() => {
-    if (!props.colorModel.equal(props.color, cache.current.color)) {
+    if (!props.colorModel.equal(props.color, cache.current!.color)) {
       const newHsva = props.colorModel.toHsva(props.color);
       cache.current = { hsva: newHsva, color: props.color };
       updateHsva(newHsva);
@@ -33,14 +33,14 @@ export function useColorManipulation<T extends AnyColor>(props: {
   createEffect(() => {
     let newColor;
     if (
-      !equalColorObjects(hsva(), cache.current.hsva) &&
+      !equalColorObjects(hsva(), cache.current!.hsva) &&
       !props.colorModel.equal(
         (newColor = props.colorModel.fromHsva(hsva())),
-        cache.current.color
+        cache.current!.color
       )
     ) {
       cache.current = { hsva: hsva(), color: newColor };
-      props.onChange(newColor);
+      props.onChange?.(newColor);
     }
   });
 

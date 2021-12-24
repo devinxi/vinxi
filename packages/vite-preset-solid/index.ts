@@ -2,6 +2,8 @@ import { HTMLElements, SVGElements } from "./elements";
 import solidPlugin from "vite-plugin-solid";
 import inspect from "vite-plugin-inspect";
 import { undestructurePlugin } from "./vite-plugin-solid-undestructure";
+import tsconfigPaths from "vite-tsconfig-paths";
+
 let config = {
   moduleName: "solid-js/web",
   // @ts-ignore
@@ -22,6 +24,7 @@ let config = {
 
 let plugin = () => {
   return [
+    tsconfigPaths(),
     undestructurePlugin("ts"),
     solidPlugin({
       solid: config as any,

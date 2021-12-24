@@ -49,6 +49,7 @@ export const Alpha = (props: Props) => {
         <Pointer
           className="react-colorful__alpha-pointer"
           left={props.hsva.a}
+          top={0}
           color={hsvaToHslaString(props.hsva)}
         />
       </Interactive>

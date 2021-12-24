@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { LayoutGroup } from "../index";
 import { LayoutGroupContext } from "../../../context/LayoutGroupContext";
 

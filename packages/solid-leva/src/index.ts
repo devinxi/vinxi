@@ -40,5 +40,6 @@ export { LevaPanel } from "./components/Leva";
 
 // export folder, monitor, button
 export * from "./helpers";
+export * from "./plugin";
 
 export { LevaInputs };

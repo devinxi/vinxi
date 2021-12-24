@@ -1,8 +1,4 @@
-import {
-  RgbaColorPicker,
-  RgbaColor,
-  RgbColorPicker,
-} from "src/solid-colorful/src";
+import { RgbaColorPicker, RgbaColor, RgbColorPicker } from "solid-colorful";
 import { colord } from "colord";
 import { pickerWrapper, colorPreview, pickerContainer } from "./StyledColor";
 import { ValueInput } from "../ValueInput";

@@ -1,4 +1,4 @@
-import { useMemo } from "src/react";
+import { useMemo } from "solid-react-compat";
 import { MotionProps } from "../../motion/types";
 import { copyRawValuesOnly } from "../html/use-props";
 import { ResolvedValues } from "../types";

@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { useAtom } from "jotai";
 import { $ } from "src/atoms";
 import { useAtomValue, useUpdateAtom } from "jotai/utils";

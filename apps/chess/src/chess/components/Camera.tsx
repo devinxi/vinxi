@@ -1,4 +1,4 @@
-import { createControls } from "src/leva";
+import { createControls } from "solid-leva";
 import { Dynamic } from "solid-three";
 import { OrthographicCamera } from "three";
 

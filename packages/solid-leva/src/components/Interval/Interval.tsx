@@ -9,7 +9,7 @@ import type {
   IntervalProps,
   InternalInterval,
 } from "./interval-types";
-import { useRef } from "src/react";
+import { useRef } from "solid-react-compat";
 import { DragGesture } from "@use-gesture/vanilla";
 import { createEffect, splitProps } from "solid-js";
 import {

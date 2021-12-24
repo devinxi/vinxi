@@ -1,4 +1,4 @@
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { MotionProps } from "../types";
 import { VisualState } from "../utils/use-visual-state";
 import { CreateVisualElement, VisualElement } from "../../render/types";

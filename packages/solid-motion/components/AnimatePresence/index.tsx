@@ -8,7 +8,7 @@ import {
   ReactNode,
   useContext,
 } from "solid-js";
-import * as React from "src/react";
+import * as React from "solid-react-compat";
 import { AnimatePresenceProps } from "./types";
 import { useForceUpdate } from "../../utils/use-force-update";
 import { PresenceChild } from "./PresenceChild";

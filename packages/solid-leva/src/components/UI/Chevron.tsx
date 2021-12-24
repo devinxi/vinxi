@@ -1,4 +1,4 @@
-import { css } from "src/leva/styles";
+import { css } from "src/styles";
 // TODO remove as any when this is corrected by stitches
 const svg = css({
   fill: "currentColor",

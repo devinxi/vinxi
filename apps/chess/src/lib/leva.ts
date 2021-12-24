@@ -1,11 +1,11 @@
-import { folder as levaFolder } from "src/leva";
-import {
+import { folder as levaFolder } from "solid-leva";
+import type {
   FolderInput,
   FolderSettings,
   Schema,
   SchemaToValues,
-} from "src/leva/plugin";
-import { createControls } from "src/leva";
+} from "solid-leva";
+import { createControls } from "solid-leva";
 
 declare type HookSettings = {
   store?: any;
