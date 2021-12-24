@@ -1,5 +1,5 @@
 import { HTMLElements, SVGElements } from "./elements";
-import solidPlugin from "vite-plugin-solid";
+import solidPlugin from "@vinxi/vite-plugin-solid";
 import inspect from "vite-plugin-inspect";
 import { undestructurePlugin } from "./vite-plugin-solid-undestructure";
 import tsconfigPaths from "vite-tsconfig-paths";
