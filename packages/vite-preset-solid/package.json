@@ -8,12 +8,16 @@
     "index.js"
   ],
   "scripts": {
-    "build": "esbuild index.ts --format=cjs --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect > index.js",
+    "build": "esbuild index.ts --format=cjs --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect --external:@rollup/plugin-babel --external:babel-plugin-solid-labels > index.js",
     "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "dependencies": {
-    "esbuild": "^0.14.8",
+    "@rollup/plugin-babel": "^5.3.0",
     "vite-plugin-inspect": "*",
+    "babel-plugin-solid-labels": "^0.9.4",
     "vite-plugin-solid": "workspace:*"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.8"
   }
 }

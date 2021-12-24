@@ -1,0 +1,12 @@
+{
+  "extends": "@vinxi/tsconfig/vite-solid.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "jsxImportSource": "solid-js",
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": ["./src"]
+}

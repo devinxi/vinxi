@@ -1,7 +1,7 @@
 import { HTMLElements, SVGElements } from "./elements";
 import solidPlugin from "vite-plugin-solid";
 import inspect from "vite-plugin-inspect";
-
+import { undestructurePlugin } from "./vite-plugin-solid-undestructure";
 let config = {
   moduleName: "solid-js/web",
   // @ts-ignore
@@ -22,8 +22,12 @@ let config = {
 
 let plugin = () => {
   return [
+    undestructurePlugin("ts"),
     solidPlugin({
-      solid: config,
+      solid: config as any,
+      babel: {
+        plugins: [require("babel-plugin-solid-labels")],
+      },
     }),
     inspect(),
   ];
