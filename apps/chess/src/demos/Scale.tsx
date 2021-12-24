@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from "solid-three";
 import { createEffect, createSignal, For, Show } from "solid-js";
-import { OrbitControls } from "src/drei/OrbitControls";
+import { OrbitControls } from "solid-drei";
 import { FasterBox } from "./FasterBox";
 import { Plane } from "./Plane";
 

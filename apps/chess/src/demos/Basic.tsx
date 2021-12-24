@@ -1,6 +1,6 @@
 import { Canvas, useFrame, useThree } from "solid-three";
 import { Component, createRenderEffect, onCleanup, untrack } from "solid-js";
-import { OrbitControls } from "src/drei/OrbitControls";
+import { OrbitControls } from "solid-drei";
 import { createControls } from "solid-leva";
 import { Board } from "src/chess/models/chess/Board";
 

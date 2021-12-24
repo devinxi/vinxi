@@ -25,7 +25,7 @@ import {
 } from "@/lib/chess";
 // import { useAtomValue } from "jotai/utils";
 import { Color, useFrame } from "solid-three";
-import { useGLTF } from "src/drei/useGLTF";
+import { useGLTF } from "solid-drei";
 import { useRef } from "solid-react-compat";
 import { createEffect, Suspense } from "solid-js";
 import { mergeProps } from "solid-js";
@@ -127,9 +127,9 @@ export function Piece(props) {
         // {...bind}
         piece={pieceMap[props.piece]}
         onPointerDown={() => {
-          if (color === turn) {
-            setSelectedSquare(square);
-          }
+          // if (color === turn) {
+          //   setSelectedSquare(square);
+          // }
         }}
         rotation={[
           -Math.PI / 4,
