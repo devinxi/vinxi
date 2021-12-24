@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "solid-js": "^1.3.0-beta.10",
-    "solid-three": "workspace:*",
+    "solid-three": "*",
     "three": "*"
   },
   "devDependencies": {

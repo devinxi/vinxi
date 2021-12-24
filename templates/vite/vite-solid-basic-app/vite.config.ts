@@ -1,4 +1,4 @@
-import solidPlugin from "vite-plugin-solid";
+import solidPlugin from "@vinxi/vite-plugin-solid";
 import { defineConfig } from "vite";
 
 export default defineConfig({

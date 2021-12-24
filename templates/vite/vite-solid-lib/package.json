@@ -12,23 +12,19 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "vite build",
+    "build": "vite build && tsc",
     "dev": "vite",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
     "@vinxi/tsconfig": "*",
-    "rollup-plugin-dts": "^4.0.1",
     "solid-js": "^1.3.0-beta.10",
     "typescript": "^4.5.3",
     "vite": "^2.7.6",
-    "vite-plugin-solid": "^2.1.4"
+    "@vinxi/vite-preset-solid": "*"
   },
   "jest": {
     "preset": "scripts/jest/node"
-  },
-  "dependencies": {
-    "vite-dts": "^1.0.4"
   }
 }

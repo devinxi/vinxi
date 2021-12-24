@@ -1,13 +1,17 @@
 {
   "name": "@vinxi/vite-preset-solid",
-  "version": "0.0.1-alpha.10",
+  "version": "0.0.1-alpha.11",
   "license": "MIT",
   "main": "index.js",
+  "module": "index.mjs",
   "files": [
-    "index.js"
+    "index.js",
+    "index.mjs"
   ],
   "scripts": {
-    "build": "esbuild index.ts --format=cjs --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect --external:@rollup/plugin-babel --external:babel-plugin-solid-labels --external:vite-tsconfig-paths > index.js",
+    "build:cjs": "esbuild index.ts --format=cjs --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect --external:@rollup/plugin-babel --external:babel-plugin-solid-labels --external:vite-tsconfig-paths > index.js",
+    "build:esm": "esbuild index.ts --format=esm --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect --external:@rollup/plugin-babel --external:babel-plugin-solid-labels --external:vite-tsconfig-paths > index.mjs",
+    "build": "npm run build:cjs && npm run build:esm",
     "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "dependencies": {

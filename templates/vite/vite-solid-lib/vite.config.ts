@@ -1,6 +1,5 @@
 import { build, defineConfig } from "vite";
-import solidPlugin from "vite-plugin-solid";
-import dts from "vite-dts";
+import solidPlugin from "@vinxi/vite-preset-solid";
 // import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 // import { HTMLElements } from "./src/solid-three/html-elements";
 // import { SVGElements } from "./src/solid-three/constants";
@@ -18,5 +17,5 @@ export default defineConfig({
     },
     polyfillDynamicImport: false,
   },
-  plugins: [solidPlugin(), dts()],
+  plugins: [solidPlugin()],
 });

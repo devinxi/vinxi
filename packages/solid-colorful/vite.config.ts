@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import solid from "vite-preset-solid";
+import solid from "@vinxi/vite-preset-solid";
 
 export default defineConfig({
   build: {

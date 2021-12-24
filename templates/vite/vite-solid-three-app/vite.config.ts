@@ -1,4 +1,4 @@
-import solid from "vite-preset-solid";
+import solid from "@vinxi/vite-preset-solid";
 
 import { defineConfig } from "vite";
 

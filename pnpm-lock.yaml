@@ -12,29 +12,26 @@ importers:
 
   apps/chess:
     specifiers:
-      '@babel/plugin-syntax-typescript': ^7.16.5
       '@iconify/json': ^1.1.443
-      '@rollup/plugin-babel': ^5.3.0
       '@stitches/core': 1.2.6
       '@types/three': 0.135.0
       '@use-gesture/vanilla': ^10.2.4
       '@vanilla-extract/css': ^1.6.8
       '@vanilla-extract/vite-plugin': ^3.1.1
-      babel-plugin-solid-labels: ^0.9.4
+      '@vinxi/vite-preset-solid': ^0.0.1-alpha.10
       bitecs: ^0.3.34
       colord: 2.9.1
       dequal: 2.0.2
-      dom-expressions: ^0.30.9
       iconify: ^1.3.0
       merge-value: ^1.0.0
       mitt: ^3.0.0
       popmotion: ^11.0.3
       solid-js: 1.3.0-beta.10
-      solid-leva: '*'
-      solid-react-compat: '*'
+      solid-leva: ^0.0.1-alpha.10
+      solid-react-compat: ^0.0.1-alpha.10
       solid-start: ^0.1.0-alpha.0
       solid-start-cloudflare-workers: ^0.1.0-alpha.12
-      solid-three: '*'
+      solid-three: ^0.0.1-alpha.10
       solid-use: ^0.3.3
       three: 0.135.0
       three-stdlib: ^2.6.1
@@ -43,10 +40,7 @@ importers:
       utility-types: ^3.10.0
       v8n: ^1.3.3
       vite: ^2.7.1
-      vite-plugin-inspect: ^0.3.11
       vite-plugin-windicss: ^1.3.0
-      vite-preset-solid: workspace:*
-      vite-tsconfig-paths: ^3.3.17
       wrangler: ^0.0.3
       zustand: ^3.6.7
     dependencies:
@@ -74,20 +68,14 @@ importers:
       wrangler: 0.0.3
       zustand: 3.6.7
     devDependencies:
-      '@babel/plugin-syntax-typescript': 7.16.5
       '@iconify/json': 1.1.447
-      '@rollup/plugin-babel': 5.3.0
       '@types/three': 0.135.0
-      babel-plugin-solid-labels: 0.9.6_solid-js@1.3.0-beta.10
-      dom-expressions: 0.30.9
+      '@vinxi/vite-preset-solid': link:../../packages/vite-preset-solid
       iconify: 1.3.0
       three-stdlib: 2.6.2_three@0.135.0
       unplugin-icons: 0.12.23_vite@2.7.6
       vite: 2.7.6
-      vite-plugin-inspect: 0.3.11_vite@2.7.6
       vite-plugin-windicss: 1.6.1_vite@2.7.6
-      vite-preset-solid: link:../../packages/vite-preset-solid
-      vite-tsconfig-paths: 3.3.17_vite@2.7.6
 
   packages/babel-plugin-jsx-dom-expressions:
     specifiers:
@@ -107,12 +95,6 @@ importers:
       '@rollup/plugin-node-resolve': 13.1.1_rollup@2.62.0
       dom-expressions: link:../dom-expressions
       rollup: 2.62.0
-
-  packages/babel-preset-solid:
-    specifiers:
-      babel-plugin-jsx-dom-expressions: workspace:*
-    dependencies:
-      babel-plugin-jsx-dom-expressions: link:../babel-plugin-jsx-dom-expressions
 
   packages/dom-expressions:
     specifiers:
@@ -135,16 +117,16 @@ importers:
   packages/react-compat:
     specifiers:
       '@vinxi/tsconfig': '*'
+      '@vinxi/vite-preset-solid': '*'
       solid-js: ^1.3.0-beta.10
       typescript: ^4.5.3
       vite: ^2.7.6
-      vite-preset-solid: workspace:*
     devDependencies:
       '@vinxi/tsconfig': link:../tsconfig
+      '@vinxi/vite-preset-solid': link:../vite-preset-solid
       solid-js: 1.3.0-beta.10
       typescript: 4.5.4
       vite: 2.7.6
-      vite-preset-solid: link:../vite-preset-solid
 
   packages/scripts:
     specifiers:
@@ -185,6 +167,7 @@ importers:
     specifiers:
       '@use-gesture/vanilla': ^10.2.4
       '@vinxi/tsconfig': '*'
+      '@vinxi/vite-preset-solid': '*'
       colord: 2.9.1
       merge-value: ^1.0.0
       solid-js: ^1.3.0-beta.10
@@ -195,7 +178,6 @@ importers:
       typescript: ^4.5.3
       v8n: ^1.3.3
       vite: ^2.7.6
-      vite-preset-solid: workspace:*
       zustand: ^3.6.7
     dependencies:
       '@use-gesture/vanilla': 10.2.4
@@ -206,19 +188,20 @@ importers:
       zustand: 3.6.7
     devDependencies:
       '@vinxi/tsconfig': link:../tsconfig
+      '@vinxi/vite-preset-solid': link:../vite-preset-solid
       solid-js: 1.3.0-beta.10
       three: 0.135.0
       tsm: 2.2.1
       tsup: 5.11.7_typescript@4.5.4
       typescript: 4.5.4
       vite: 2.7.6
-      vite-preset-solid: link:../vite-preset-solid
 
   packages/solid-leva:
     specifiers:
       '@stitches/core': 1.2.6
       '@use-gesture/vanilla': ^10.2.4
       '@vinxi/tsconfig': '*'
+      '@vinxi/vite-preset-solid': '*'
       colord: 2.9.1
       dequal: 2.0.2
       merge-value: ^1.0.0
@@ -233,7 +216,6 @@ importers:
       utility-types: ^3.10.0
       v8n: ^1.3.3
       vite: ^2.7.6
-      vite-preset-solid: workspace:*
       zustand: ^3.6.7
     dependencies:
       '@stitches/core': 1.2.6
@@ -249,20 +231,19 @@ importers:
       zustand: 3.6.7
     devDependencies:
       '@vinxi/tsconfig': link:../tsconfig
+      '@vinxi/vite-preset-solid': link:../vite-preset-solid
       solid-js: 1.3.0-beta.10
       three: 0.135.0
       tsm: 2.2.1
       tsup: 5.11.7_typescript@4.5.4
       typescript: 4.5.4
       vite: 2.7.6
-      vite-preset-solid: link:../vite-preset-solid
 
   packages/solid-three:
     specifiers:
       '@types/three': ^0.135.0
       '@vinxi/tsconfig': '*'
-      babel-plugin-jsx-dom-expressions: workspace:*
-      babel-preset-solid: workspace:*
+      '@vinxi/vite-plugin-solid': '*'
       rollup: ^2.61.1
       rollup-plugin-dts: ^4.0.1
       solid-js: ^1.3.0-beta.10
@@ -273,15 +254,13 @@ importers:
       vite: ^2.7.6
       vite-dts: ^1.0.4
       vite-plugin-inspect: ^0.3.11
-      vite-plugin-solid: workspace:*
       zustand: ^3.6.7
     dependencies:
       '@types/three': 0.135.0
       zustand: 3.6.7
     devDependencies:
       '@vinxi/tsconfig': link:../tsconfig
-      babel-plugin-jsx-dom-expressions: link:../babel-plugin-jsx-dom-expressions
-      babel-preset-solid: link:../babel-preset-solid
+      '@vinxi/vite-plugin-solid': link:../vite-plugin-solid
       rollup: 2.61.1
       rollup-plugin-dts: 4.0.1_rollup@2.61.1+typescript@4.5.4
       solid-js: 1.3.0-beta.10
@@ -292,7 +271,6 @@ importers:
       vite: 2.7.6
       vite-dts: 1.0.4_vite@2.7.6
       vite-plugin-inspect: 0.3.11_vite@2.7.6
-      vite-plugin-solid: link:../vite-plugin-solid
 
   packages/tsconfig:
     specifiers: {}
@@ -309,7 +287,7 @@ importers:
       '@skypack/package-check': ^0.2.2
       '@types/babel__core': ^7.1.16
       '@types/node': ^16.11.6
-      babel-preset-solid: workspace:*
+      '@vinxi/babel-plugin-jsx-dom-expressions': 0.31.0-beta.6
       merge-anything: ^4.0.1
       prettier: ^2.4.1
       rollup: ^2.59.0
@@ -321,7 +299,7 @@ importers:
     dependencies:
       '@babel/core': 7.16.5
       '@babel/preset-typescript': 7.16.5_@babel+core@7.16.5
-      babel-preset-solid: link:../babel-preset-solid
+      '@vinxi/babel-plugin-jsx-dom-expressions': link:../babel-plugin-jsx-dom-expressions
       merge-anything: 4.0.2
       solid-js: 1.3.0-beta.10
       solid-refresh: 0.3.3_solid-js@1.3.0-beta.10
@@ -343,12 +321,12 @@ importers:
   packages/vite-plugin-solid/playground:
     specifiers:
       '@babel/plugin-syntax-top-level-await': ^7.14.5
+      '@vinxi/vite-plugin-solid': workspace:*
       solid-app-router: ^0.1.11
       solid-js: ^1.3.0-beta.10
       solid-meta: ^0.27.2
       solid-utils: ^0.8.1
       vite: ^2.6.13
-      vite-plugin-solid: workspace:*
     dependencies:
       solid-app-router: 0.1.14_solid-js@1.3.0-beta.10
       solid-js: 1.3.0-beta.10
@@ -356,22 +334,22 @@ importers:
       solid-utils: 0.8.1_solid-js@1.3.0-beta.10
     devDependencies:
       '@babel/plugin-syntax-top-level-await': 7.14.5
+      '@vinxi/vite-plugin-solid': link:..
       vite: 2.7.6
-      vite-plugin-solid: link:..
 
   packages/vite-preset-solid:
     specifiers:
       '@rollup/plugin-babel': ^5.3.0
+      '@vinxi/vite-plugin-solid': '*'
       babel-plugin-solid-labels: ^0.9.4
       esbuild: ^0.14.8
       vite-plugin-inspect: '*'
-      vite-plugin-solid: workspace:*
       vite-tsconfig-paths: '*'
     dependencies:
       '@rollup/plugin-babel': 5.3.0
+      '@vinxi/vite-plugin-solid': link:../vite-plugin-solid
       babel-plugin-solid-labels: 0.9.6
       vite-plugin-inspect: 0.3.11
-      vite-plugin-solid: link:../vite-plugin-solid
       vite-tsconfig-paths: 3.3.17
     devDependencies:
       esbuild: 0.14.8
@@ -516,50 +494,45 @@ importers:
     specifiers:
       '@vinxi/scripts': '*'
       '@vinxi/tsconfig': '*'
+      '@vinxi/vite-plugin-solid': ^2.1.4
       '@vinxi/vite-solid-lib': workspace:^0.0.0
       solid-js: ^1.3.0-beta.10
       typescript: ^4.5.3
       vite: ^2.6.14
-      vite-plugin-solid: ^2.1.4
     dependencies:
       '@vinxi/vite-solid-lib': link:../vite-solid-lib
       solid-js: 1.3.0-beta.10
     devDependencies:
       '@vinxi/scripts': link:../../../packages/scripts
       '@vinxi/tsconfig': link:../../../packages/tsconfig
+      '@vinxi/vite-plugin-solid': link:../../../packages/vite-plugin-solid
       typescript: 4.5.4
       vite: 2.7.6
-      vite-plugin-solid: link:../../../packages/vite-plugin-solid
 
   templates/vite/vite-solid-lib:
     specifiers:
       '@vinxi/tsconfig': '*'
-      rollup-plugin-dts: ^4.0.1
+      '@vinxi/vite-preset-solid': '*'
       solid-js: ^1.3.0-beta.10
       typescript: ^4.5.3
       vite: ^2.7.6
-      vite-dts: ^1.0.4
-      vite-plugin-solid: ^2.1.4
-    dependencies:
-      vite-dts: 1.0.4_vite@2.7.6
     devDependencies:
       '@vinxi/tsconfig': link:../../../packages/tsconfig
-      rollup-plugin-dts: 4.0.1_typescript@4.5.4
+      '@vinxi/vite-preset-solid': link:../../../packages/vite-preset-solid
       solid-js: 1.3.0-beta.10
       typescript: 4.5.4
       vite: 2.7.6
-      vite-plugin-solid: link:../../../packages/vite-plugin-solid
 
   templates/vite/vite-solid-three-app:
     specifiers:
       '@vinxi/scripts': '*'
       '@vinxi/tsconfig': '*'
+      '@vinxi/vite-preset-solid': '*'
       solid-js: ^1.3.0-beta.10
       solid-three: workspace:*
       three: '*'
       typescript: ^4.5.3
       vite: ^2.6.14
-      vite-preset-solid: workspace:*
     dependencies:
       solid-js: 1.3.0-beta.10
       solid-three: link:../../../packages/solid-three
@@ -567,9 +540,9 @@ importers:
     devDependencies:
       '@vinxi/scripts': link:../../../packages/scripts
       '@vinxi/tsconfig': link:../../../packages/tsconfig
+      '@vinxi/vite-preset-solid': link:../../../packages/vite-preset-solid
       typescript: 4.5.4
       vite: 2.7.6
-      vite-preset-solid: link:../../../packages/vite-preset-solid
 
 packages:
 
@@ -1228,15 +1201,6 @@ packages:
       '@babel/core': 7.16.5
       '@babel/helper-plugin-utils': 7.16.5
 
-  /@babel/plugin-syntax-typescript/7.16.5:
-    resolution: {integrity: sha512-/d4//lZ1Vqb4mZ5xTep3dDK888j7BGM/iKqBmndBaoYAFPlPKrGU608VVBz5JeyAb6YQDjRu1UKqj86UhwWVgw==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/helper-plugin-utils': 7.16.5
-    dev: true
-
   /@babel/plugin-syntax-typescript/7.16.5_@babel+core@7.16.5:
     resolution: {integrity: sha512-/d4//lZ1Vqb4mZ5xTep3dDK888j7BGM/iKqBmndBaoYAFPlPKrGU608VVBz5JeyAb6YQDjRu1UKqj86UhwWVgw==}
     engines: {node: '>=6.9.0'}
@@ -1839,6 +1803,7 @@ packages:
 
   /@cush/relative/1.0.0:
     resolution: {integrity: sha512-RpfLEtTlyIxeNPGKcokS+p3BZII/Q3bYxryFRglh5H3A3T8q9fsLYm72VYAMEOOIBLEa8o93kFLiBDUWKrwXZA==}
+    dev: false
 
   /@emotion/hash/0.8.0:
     resolution: {integrity: sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==}
@@ -2413,6 +2378,7 @@ packages:
     dependencies:
       '@babel/helper-module-imports': 7.16.0
       '@rollup/pluginutils': 3.1.0
+    dev: false
 
   /@rollup/plugin-babel/5.3.0_8cd0afedab2ed70931b10646d8fe8b0e:
     resolution: {integrity: sha512-9uIC8HZOnVLrLHxayq/PTzw+uS25E14KPUBh5ktF+18Mjo5yK0ToMMx6epY0uEgkjwJw0aBW4x2horYXh8juWw==}
@@ -2527,6 +2493,7 @@ packages:
       '@types/estree': 0.0.39
       estree-walker: 1.0.1
       picomatch: 2.3.0
+    dev: false
 
   /@rollup/pluginutils/3.1.0_rollup@2.61.1:
     resolution: {integrity: sha512-GksZ6pr6TpIjHm8h9lSQ8pi8BE9VeubNT0OMJ3B5uZJ8pz73NPiqOtCog/x2/QzM1ENChPKxMDhiQuRHsqc+lg==}
@@ -3694,23 +3661,9 @@ packages:
       - supports-color
     dev: false
 
-  /babel-plugin-solid-labels/0.9.6_solid-js@1.3.0-beta.10:
-    resolution: {integrity: sha512-d8Y18b8BIga2HwWV6OfPLdI9qvnwzfv28O4sIRr3hKFBPA3k0QTbGemKn/m4gzxjFu+jDjrKkEwSvbit7Oi+FQ==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      '@babel/core': ^7.16
-      solid-js: ^1.2
-    dependencies:
-      '@babel/helper-module-imports': 7.16.0
-      '@babel/traverse': 7.16.5
-      '@babel/types': 7.16.0
-      solid-js: 1.3.0-beta.10
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /babel-plugin-transform-rename-import/2.3.0:
     resolution: {integrity: sha512-dPgJoT57XC0PqSnLgl2FwNvxFrWlspatX2dkk7yjKQj5HHGw071vAcOf+hqW8ClqcBDMvEbm6mevn5yHAD8mlQ==}
+    dev: false
 
   /babel-preset-current-node-syntax/1.0.1_@babel+core@7.16.5:
     resolution: {integrity: sha512-M7LQ0bxarkxQoN+vz5aJPsLBn77n8QgTFmo8WK0/44auK2xlCXrYcUxHFxgU7qW5Yzw/CjmLRK2uJzaCd7LvqQ==}
@@ -4779,6 +4732,7 @@ packages:
 
   /devalue/2.0.1:
     resolution: {integrity: sha512-I2TiqT5iWBEyB8GRfTDP0hiLZ0YeDJZ+upDxjBfOC2lebO5LezQMv7QvIUTzdb64jQyAKLf1AHADtGN+jw6v8Q==}
+    dev: false
 
   /dicer/0.3.0:
     resolution: {integrity: sha512-MdceRRWqltEG2dZqO769g27N/3PXfcKl04VhYnBlo2YhH7zPi88VebsjTKclaOyiuMaGU72hTfw3VkUitGcVCA==}
@@ -4822,13 +4776,6 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: false
-
-  /dom-expressions/0.30.9:
-    resolution: {integrity: sha512-zl3sjqK5NUmMTZpU2taTFUcoqsLmrbKGcfl0RID8BmJ9ZRhIYfvYb31ODHJkYXPlF/QL88+NOdCYCTdKDBl+HA==}
-    dependencies:
-      babel-plugin-transform-rename-import: 2.3.0
-      devalue: 2.0.1
-    dev: true
 
   /domain-browser/4.19.0:
     resolution: {integrity: sha512-fRA+BaAWOR/yr/t7T9E9GJztHPeFjj8U35ajyAjCDtAAnTn1Rc1f6W6VGPJrO1tkQv9zWu+JRof7z6oQtiYVFQ==}
@@ -6457,6 +6404,7 @@ packages:
 
   /glob-regex/0.3.2:
     resolution: {integrity: sha512-m5blUd3/OqDTWwzBBtWBPrGlAzatRywHameHeekAZyZrskYouOGdNB8T/q6JucucvJXtOuyHIn0/Yia7iDasDw==}
+    dev: false
 
   /glob-to-regexp/0.4.1:
     resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
@@ -6525,6 +6473,7 @@ packages:
 
   /globrex/0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+    dev: false
 
   /got/11.8.3:
     resolution: {integrity: sha512-7gtQ5KiPh1RtGS9/Jbv1ofDpBFuq42gyfEib+ejaRBJuj/3tQFeR5+gw57e4ipaU8c/rCjvX6fkQz2lyDlGAOg==}
@@ -8107,6 +8056,7 @@ packages:
       parse-json: 5.2.0
       strip-bom: 4.0.0
       type-fest: 0.6.0
+    dev: true
 
   /loader-utils/1.2.3:
     resolution: {integrity: sha512-fkpz8ejdnEMG3s37wGL07iSBDg99O9D5yflE9RGNH3hRdx9SOwYfnGYdZOUIZitN8E+E2vkq3MUMYMvPYl5ZZA==}
@@ -9915,6 +9865,7 @@ packages:
       glob-regex: 0.3.2
       slash: 3.0.0
       tslib: 1.14.1
+    dev: false
 
   /redent/3.0.0:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
@@ -10208,19 +10159,6 @@ packages:
     dependencies:
       magic-string: 0.25.7
       rollup: 2.61.1
-      typescript: 4.5.4
-    optionalDependencies:
-      '@babel/code-frame': 7.16.0
-    dev: true
-
-  /rollup-plugin-dts/4.0.1_typescript@4.5.4:
-    resolution: {integrity: sha512-DNv5F8pro/r0Hkx3JWKRtJZocDnqXfgypoajeiaNq134rYaFcEIl/oas5PogD1qexMadVijsHyVko1Chig0OOQ==}
-    engines: {node: '>=v12.22.6'}
-    peerDependencies:
-      rollup: ^2.56.3
-      typescript: ^4.4.2
-    dependencies:
-      magic-string: 0.25.7
       typescript: 4.5.4
     optionalDependencies:
       '@babel/code-frame': 7.16.0
@@ -11870,6 +11808,7 @@ packages:
     dependencies:
       load-json-file: 6.2.0
       vite: 2.7.6
+    dev: true
 
   /vite-plugin-inspect/0.3.11:
     resolution: {integrity: sha512-YsaV4bhJ++EULZamWVudMsq0VTugR/0slgbSj/A9JI9KmsGsXBCN4zBx0ptd0TkKrRniLbqO7iQqdZaybuLGvQ==}
@@ -11922,20 +11861,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
-
-  /vite-tsconfig-paths/3.3.17_vite@2.7.6:
-    resolution: {integrity: sha512-wx+rfC53moVLxMBj2EApJZgY6HtvWUFVZ4dBxNGYBxSSqU6UaHdKlcOxrfGDxyTGtYEr9beWCryHn18C4EtZkg==}
-    peerDependencies:
-      vite: '>2.0.0-0'
-    dependencies:
-      debug: 4.3.3
-      globrex: 0.1.2
-      recrawl-sync: 2.2.1
-      tsconfig-paths: 3.12.0
-      vite: 2.7.6
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /vite/2.7.6:
     resolution: {integrity: sha512-PBNoc87rDYLtkpFU9dbVeGdbcyKzz6c34oScqivE3FEa3BhVa4ASupCzcz0eDIiSECovfLcQnLUJt9vhiEU08g==}
