@@ -2,7 +2,7 @@
   "exclude": ["node_modules"],
   "extends": "@vinxi/tsconfig/vite-solid.json",
   "compilerOptions": {
-    "rootDir": "src"
+    "rootDir": "./"
   },
-  "include": ["src"]
+  "include": ["./"]
 }

@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "^1.0.23"
   },
   "turbo": {
     "pipeline": {
@@ -24,6 +24,7 @@
         "outputs": [
           "dist/**",
           ".next/**",
+          "types/**",
           "public/dist/**"
         ],
         "dependsOn": [

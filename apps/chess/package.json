@@ -1,25 +1,24 @@
 {
-  "name": "vite-solid",
+  "name": "chess",
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --port 3001 --clearScreen false",
+    "dev": "vite --clearScreen false",
     "build": "vite build",
     "deploy": "vercel deploy dist --team=turborepo --confirm",
     "lint": "TIMING=1 eslint src/**/*.tsx --fix && tsc --noEmit",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@vinxi/vite-solid-lib": "workspace:^0.0.0",
-    "solid-js": "^1.3.0-beta.10"
+    "solid-js": "^1.3.0-beta.10",
+    "solid-three": "workspace:*",
+    "three": "*"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
     "@vinxi/scripts": "*",
     "@vinxi/tsconfig": "*",
     "typescript": "^4.5.3",
     "vite": "^2.6.14",
-    "vite-plugin-solid": "^2.1.4"
+    "vite-preset-solid": "workspace:*"
   }
 }

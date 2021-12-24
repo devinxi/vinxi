@@ -1,9 +1,9 @@
 {
-  "name": "vite-react",
+  "name": "vite-react-app",
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --port 3001 --clearScreen false",
+    "dev": "vite --clearScreen false",
     "build": "vite build",
     "deploy": "vercel deploy dist --team=turborepo --confirm",
     "lint": "TIMING=1 eslint src/**/*.tsx --fix && tsc --noEmit",

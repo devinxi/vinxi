@@ -1,9 +1,9 @@
 {
-  "name": "vite-solid",
+  "name": "vite-solid-app",
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --port 3001 --clearScreen false",
+    "dev": "vite --clearScreen false",
     "build": "vite build",
     "deploy": "vercel deploy dist --team=turborepo --confirm",
     "lint": "TIMING=1 eslint src/**/*.tsx --fix && tsc --noEmit",
@@ -14,8 +14,6 @@
     "solid-js": "^1.3.0-beta.10"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
     "@vinxi/scripts": "*",
     "@vinxi/tsconfig": "*",
     "typescript": "^4.5.3",

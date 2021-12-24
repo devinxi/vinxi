@@ -1,4 +1,4 @@
-import { CounterButton } from "../src";
+import { CounterButton } from "../src/index";
 
 export function App() {
   return (
