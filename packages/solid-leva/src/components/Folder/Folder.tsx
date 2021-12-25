@@ -8,6 +8,7 @@ import { useStoreContext } from "../../context";
 import type { Tree } from "../../types";
 import { createEffect, createSignal, For, Show, JSX } from "solid-js";
 import { useTh } from "src/styles";
+import { effect } from "solid-js/web";
 
 type FolderProps = { name: string; path?: string; tree: Tree };
 
@@ -45,7 +46,12 @@ const Folder = ({ name, path, tree }: FolderProps) => {
         toggled={toggled()}
         toggle={() => setToggle((t) => !t)}
       />
-      <TreeWrapper parent={newPath} tree={tree} toggled={toggled()} />
+      <TreeWrapper
+        parent={newPath}
+        tree={tree}
+        isRoot={false}
+        toggled={toggled()}
+      />
     </div>
   );
 };
@@ -61,10 +67,13 @@ type TreeWrapperProps = {
 
 export const TreeWrapper = (props: TreeWrapperProps) => {
   const { wrapperRef, contentRef } = useToggle(() => props.toggled);
+  effect: {
+    console.log(props.isRoot);
+  }
   return (
     <div
       class={wrapper({
-        isRoot: props.isRoot,
+        isRoot: props.isRoot ?? false,
         fill: props.fill,
         flat: props.flat,
       })}

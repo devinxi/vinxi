@@ -27,7 +27,6 @@ function InputProvider(props) {
 }
 
 export function ControlInput(props: ControlInputProps) {
-  console.log("HEREEE");
   const { displayValue, onChange, onUpdate } = useInputSetters(props);
 
   const Input = Plugins[props.type].component;
