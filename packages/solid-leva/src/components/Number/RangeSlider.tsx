@@ -9,21 +9,21 @@ import {
   range as rangeClass,
 } from "./rangeStyles";
 import { DragGesture } from "@use-gesture/vanilla";
-import { createEffect } from "solid-js";
+import { createEffect, JSX } from "solid-js";
 
 export function RangeSlider(props: RangeSliderProps) {
-  let ref: HTMLDivElement;
-  let scrubberRef: HTMLDivElement;
+  let ref: HTMLDivElement | undefined;
+  let scrubberRef: HTMLDivElement | undefined;
   let rangeWidth: number;
   const scrubberWidth = useTh("sizes", "scrubberWidth");
 
   createEffect(() => {
     new DragGesture(
-      scrubberRef,
+      scrubberRef!,
       ({ event, first, xy: [x], movement: [mx], memo }) => {
         if (first) {
           // rangeWidth is the width of the slider el minus the width of the scrubber el itself
-          const { width, left } = ref.getBoundingClientRect();
+          const { width, left } = ref!.getBoundingClientRect();
           rangeWidth = width - parseFloat(scrubberWidth);
 
           const targetIsScrub = event?.target === scrubberRef;

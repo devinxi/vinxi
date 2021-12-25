@@ -23,6 +23,9 @@ export interface HtmlProps {
     as?: string;
     wrapperClass?: string;
     pointerEvents?: PointerEventsProperties;
+    ref?: (el: HTMLElement) => void;
+    style?: any;
+    class?: string;
 }
 export declare const Html: (props: PropsWithChildren<HtmlProps>) => JSX.Element;
 export {};

@@ -1,6 +1,6 @@
-import * as React, { useRef, useCallback } from "solid-js";
+import { useRef, useCallback } from "solid-react-compat";
+import { css } from "src/styles";
 import { useInputContext } from "../../context";
-import { styled } from "../../styles";
 import { useInputSetters } from "../../hooks";
 import { sanitizeValue } from "../../utils";
 import { Number } from "../Number";
@@ -21,8 +21,8 @@ function Coordinate<T extends Record<string, number>>({
 
   const setValue = useCallback(
     (newValue: any) =>
-      // @ts-expect-error
       onUpdate({
+        // @ts-ignore
         [valueKey]: sanitizeValue(
           { type: "NUMBER", value: valueRef.current, settings },
           newValue
@@ -43,7 +43,7 @@ function Coordinate<T extends Record<string, number>>({
       id={id}
       label={valueKey as string}
       value={value[valueKey]}
-      displayValue={number.displayValue}
+      displayValue={number.displayValue()}
       onUpdate={number.onUpdate}
       onChange={number.onChange}
       settings={settings}

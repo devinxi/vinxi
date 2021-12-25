@@ -11,7 +11,7 @@ export { debounce, clamp, pad, evaluate, range, invertedRange, mergeRefs, } from
 export { normalizeKeyedNumberSettings } from "../components/Vector/vector-utils";
 export { createPlugin } from "../plugin-system";
 export * from "../components/Vector/vector-plugin";
-export { useDrag, useCanvas2d, useTransform, useInput, useValue, useValues, useInputSetters, } from "../hooks";
+export { useDrag, useCanvas2d, useTransform, useInput, useInputSetters, } from "../hooks";
 export { useInputContext, useStoreContext } from "../context";
 export { keyframes, useTh } from "../styles";
 export * from "../types/public";

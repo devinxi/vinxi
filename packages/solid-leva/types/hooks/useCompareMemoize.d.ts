@@ -1,2 +1,2 @@
-export declare function useCompareMemoize(value: any, deep: boolean): any;
+export declare function useCompareMemoize(value: any, deep: boolean): unknown;
 //# sourceMappingURL=useCompareMemoize.d.ts.map

@@ -1,6 +1,6 @@
 import { useStoreContext } from "../../context";
 import { LevaRoot, LevaRootProps } from "./LevaRoot";
-
+import { JSX } from "solid-js";
 type LevaPanelProps = Partial<LevaRootProps>;
 
 // uses custom store

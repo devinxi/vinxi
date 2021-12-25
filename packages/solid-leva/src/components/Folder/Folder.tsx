@@ -6,7 +6,7 @@ import { Control } from "../Control";
 import { useToggle } from "../../hooks";
 import { useStoreContext } from "../../context";
 import type { Tree } from "../../types";
-import { createEffect, createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For, Show, JSX } from "solid-js";
 import { useTh } from "src/styles";
 
 type FolderProps = { name: string; path?: string; tree: Tree };
@@ -17,7 +17,7 @@ const Folder = ({ name, path, tree }: FolderProps) => {
   const { collapsed, color } = store.getFolderSettings(newPath);
   const [toggled, setToggle] = createSignal(!collapsed);
 
-  let folderRef: HTMLDivElement;
+  let folderRef: HTMLDivElement | undefined;
 
   const widgetColor = useTh("colors", "folderWidgetColor");
   const textColor = useTh("colors", "folderTextColor");
@@ -99,7 +99,7 @@ export const TreeWrapper = (props: TreeWrapperProps) => {
             >
               <Control
                 key={props.tree[key].path}
-                valueKey={props.tree[key].valueKey}
+                valueKey={(props.tree[key] as any).valueKey}
                 path={props.tree[key].path}
               />
             </Show>

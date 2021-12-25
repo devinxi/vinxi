@@ -170,6 +170,10 @@ export interface HtmlProps {
   as?: string;
   wrapperClass?: string;
   pointerEvents?: PointerEventsProperties;
+
+  ref?: (el: HTMLElement) => void;
+  style?: any;
+  class?: string;
 }
 
 export const Html = (props: PropsWithChildren<HtmlProps>) => {
@@ -185,7 +189,7 @@ export const Html = (props: PropsWithChildren<HtmlProps>) => {
     props
   );
 
-  const [groupProps] = splitProps(props, [
+  const [groupProps, rest] = splitProps(props, [
     "eps",
     "distanceFactor",
     "sprite",
@@ -201,6 +205,9 @@ export const Html = (props: PropsWithChildren<HtmlProps>) => {
     "wrapperClass",
     "pointerEvents",
     "children",
+    "ref",
+    "style",
+    "class",
     // "style",
   ]);
 
@@ -211,7 +218,7 @@ export const Html = (props: PropsWithChildren<HtmlProps>) => {
   const raycaster = useThree(({ raycaster }) => raycaster);
 
   const [el] = createSignal(document.createElement(props.as ?? "div"));
-  const group: Group = (<group {...groupProps} />) as unknown as Group;
+  const group: Group = (<group {...rest} />) as unknown as Group;
   const oldZoom = useRef(0);
   const oldPosition = useRef([0, 0]);
   const transformOuterRef = useRef<HTMLDivElement>(null!);
@@ -315,14 +322,18 @@ export const Html = (props: PropsWithChildren<HtmlProps>) => {
     camera().updateMatrixWorld();
     group.updateWorldMatrix(true, false);
     const vec = props.transform
-      ? oldPosition.current
-      : props.calculatePosition(group, camera(), size());
+      ? oldPosition.current!
+      : (props.calculatePosition ?? defaultCalculatePosition)(
+          group,
+          camera(),
+          size()
+        );
 
     if (
       props.transform ||
-      Math.abs(oldZoom.current - camera().zoom) > props.eps ||
-      Math.abs(oldPosition.current[0] - vec[0]) > props.eps ||
-      Math.abs(oldPosition.current[1] - vec[1]) > props.eps
+      Math.abs(oldZoom.current! - camera().zoom) > props.eps! ||
+      Math.abs(oldPosition.current![0] - vec[0]) > props.eps! ||
+      Math.abs(oldPosition.current![1] - vec[1]) > props.eps!
     ) {
       const isBehindCamera = isObjectBehindCamera(group, camera());
       let raytraceTarget: null | undefined | boolean | Object3D[] = false;
@@ -354,7 +365,11 @@ export const Html = (props: PropsWithChildren<HtmlProps>) => {
         else el().style.display = visible.current ? "block" : "none";
       }
 
-      el().style.zIndex = `${objectZIndex(group, camera(), props.zIndexRange)}`;
+      el().style.zIndex = `${objectZIndex(
+        group,
+        camera(),
+        props.zIndexRange!
+      )}`;
       if (props.transform) {
         const [widthHalf, heightHalf] = [size().width / 2, size().height / 2];
         const fov = camera().projectionMatrix.elements[5] * heightHalf;

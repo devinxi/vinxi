@@ -1,3 +1,3 @@
-/// <reference types="react" />
-export declare function useDeepMemo<T>(fn: () => T, deps: React.DependencyList | undefined): any;
+import { Accessor } from "solid-js";
+export declare function useDeepMemo<T>(fn: () => T, deps: []): Accessor<T>;
 //# sourceMappingURL=useDeepMemo.d.ts.map

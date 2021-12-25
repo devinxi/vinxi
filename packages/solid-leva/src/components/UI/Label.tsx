@@ -7,7 +7,7 @@ import {
 } from "./StyledUI";
 import { useInputContext, usePanelSettingsContext } from "../../context";
 import { LevaErrors, warn } from "../../utils";
-import { createSignal } from "solid-js";
+import { createSignal, JSX } from "solid-js";
 
 function OptionalToggle() {
   const { id, disable, disabled } = useInputContext();

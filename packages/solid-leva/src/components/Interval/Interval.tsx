@@ -11,7 +11,7 @@ import type {
 } from "./interval-types";
 import { useRef } from "solid-react-compat";
 import { DragGesture } from "@use-gesture/vanilla";
-import { createEffect, splitProps } from "solid-js";
+import { createEffect, splitProps, JSX } from "solid-js";
 import {
   indicator,
   rangeWrapper,
@@ -40,7 +40,7 @@ function IntervalSlider({
 
   createEffect(() => {
     new DragGesture(
-      ref.current,
+      ref.current!,
       ({ event, first, xy: [x], movement: [mx], memo = {} }) => {
         if (first) {
           const { width, left } = ref.current!.getBoundingClientRect();
@@ -59,7 +59,7 @@ function IntervalSlider({
             memo.pos = value[memo.key as keyof InternalInterval];
         }
         const newValue =
-          memo.pos + invertedRange(mx / rangeWidth.current, 0, max - min);
+          memo.pos + invertedRange(mx / rangeWidth.current!, 0, max - min);
 
         onDrag({
           [memo.key]: sanitizeStep(

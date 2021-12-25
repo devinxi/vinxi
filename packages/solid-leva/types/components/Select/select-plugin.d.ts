@@ -5,8 +5,8 @@ export declare const format: (value: any, { values }: InternalSelectSettings) =>
 export declare const normalize: (input: SelectInput) => {
     value: unknown;
     settings: {
-        keys: string[];
-        values: unknown[];
+        keys: any;
+        values: any;
     };
 };
 //# sourceMappingURL=select-plugin.d.ts.map

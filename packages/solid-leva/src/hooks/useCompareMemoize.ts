@@ -1,4 +1,5 @@
 import { dequal } from "dequal/lite";
+import { useRef } from "solid-react-compat";
 import shallow from "zustand/shallow";
 
 export function useCompareMemoize(value: any, deep: boolean) {

@@ -2,17 +2,16 @@
   "name": "@vinxi/vite-preset-solid",
   "version": "0.0.1-alpha.11",
   "license": "MIT",
-  "main": "index.js",
-  "module": "index.mjs",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "files": [
-    "index.js",
-    "index.mjs"
+    "dist"
   ],
   "scripts": {
-    "build:cjs": "esbuild index.ts --format=cjs --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect --external:@rollup/plugin-babel --external:babel-plugin-solid-labels --external:vite-tsconfig-paths > index.js",
-    "build:esm": "esbuild index.ts --format=esm --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect --external:@rollup/plugin-babel --external:babel-plugin-solid-labels --external:vite-tsconfig-paths > index.mjs",
-    "build": "npm run build:cjs && npm run build:esm",
-    "clean": "rm -rf .turbo && rm -rf node_modules"
+    "build:cjs": "esbuild src/index.ts --format=cjs --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect --external:@rollup/plugin-babel --external:babel-plugin-solid-labels --external:vite-tsconfig-paths > dist/index.js",
+    "build:esm": "esbuild src/index.ts --format=esm --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect --external:@rollup/plugin-babel --external:babel-plugin-solid-labels --external:vite-tsconfig-paths > dist/index.mjs",
+    "build": "mkdir -p dist && npm run build:cjs && npm run build:esm",
+    "clean": "rm -rf .turbo && rm -rf dist && rm -rf node_modules"
   },
   "dependencies": {
     "@rollup/plugin-babel": "^5.3.0",

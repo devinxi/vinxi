@@ -1,11 +1,11 @@
 export * from './Vector3d';
-declare const _default: import("../../types").InternalPlugin<import("../..").InputWithSettings<number[] | {
+declare const _default: import("../../types").InternalPlugin<import("../..").InputWithSettings<{
     [x: string]: number;
-}, import("../Vector/vector-types").VectorSettings<number[] | {
+} | number[], import("../Vector/vector-types").VectorSettings<{
     [x: string]: number;
-}, "x" | "y" | "z">, "value">, number[] | {
+} | number[], "x" | "y" | "z">, "value">, {
     [x: string]: number;
-}, unknown, {
+} | number[], unknown, {
     [x: string]: import("../..").InternalNumberSettings;
 } & {
     format: import("../Vector/vector-types").Format;

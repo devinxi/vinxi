@@ -6,7 +6,7 @@ import {
   selectContainer,
 } from "./StyledSelect";
 import type { SelectProps } from "./select-types";
-import { For } from "solid-js";
+import { For, JSX } from "solid-js";
 
 export function Select(
   props: Pick<

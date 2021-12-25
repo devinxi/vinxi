@@ -12,7 +12,7 @@ import {
 } from "../../context";
 import { TitleWithFilter } from "./Filter";
 import { StoreType } from "../../types";
-import { createEffect, createMemo, createSignal, Show } from "solid-js";
+import { createEffect, JSX, createMemo, createSignal, Show } from "solid-js";
 import { levaStore } from "src/store";
 
 export type LevaRootProps = {
@@ -60,7 +60,7 @@ export type LevaRootProps = {
         /**
          * Overwrites the default title content (6 dots if drag is enabled) if set to a non undefined value.
          */
-        title?: React.ReactNode;
+        title?: JSX.Element;
         /**
          * Toggle whether the leva panel can be dragged around via the title bar.
          */
@@ -100,7 +100,7 @@ export function LevaRoot(props: LevaRootProps) {
     <Show when={props.store}>
       <ThemeContext.Provider value={themeContext()}>
         <LevaCore
-          store={props.store}
+          store={props.store as any}
           toggled={toggled()}
           setToggle={setToggle}
           rootClass={themeContext().className}
@@ -116,7 +116,7 @@ type LevaCoreProps = Omit<LevaRootProps, "theme" | "hidden" | "collapsed"> & {
   store: StoreType;
   rootClass: string;
   toggled: boolean;
-  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  setToggle: (value: boolean) => void;
 };
 
 // {

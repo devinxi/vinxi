@@ -1,12 +1,10 @@
-// import { createEffect, useRef } from 'react'
+import { createEffect } from "solid-js";
+import { useRef, RefObject } from "solid-react-compat";
 import { debounce } from "../utils";
 
 export function useCanvas2d(
   fn: Function
-): [
-  React.RefObject<HTMLCanvasElement>,
-  React.RefObject<CanvasRenderingContext2D>
-] {
+): [RefObject<HTMLCanvasElement>, RefObject<CanvasRenderingContext2D>] {
   const canvas = useRef<HTMLCanvasElement>(null);
   const ctx = useRef<CanvasRenderingContext2D | null>(null);
   const hasFired = useRef(false);

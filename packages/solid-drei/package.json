@@ -35,13 +35,13 @@
   },
   "peerDependencies": {
     "solid-js": "*",
-    "solid-three": "*"
+    "solid-three": "0.0.1-alpha.11"
   },
   "jest": {
     "preset": "scripts/jest/node"
   },
   "dependencies": {
-    "solid-react-compat": "^0.0.1-alpha.11",
+    "solid-react-compat": "0.0.1-alpha.11",
     "three-stdlib": "^2.6.1"
   }
 }

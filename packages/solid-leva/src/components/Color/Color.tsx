@@ -9,6 +9,7 @@ import type { ColorProps, Color as ColorType } from "./color-types";
 import { createSignal, onCleanup, Show } from "solid-js";
 import { Dynamic, Portal } from "solid-js/web";
 import { overlay } from "../UI/StyledUI";
+import { JSX } from "solid-js";
 
 function convertToRgb(value: ColorType, format: string) {
   return format !== "rgb" ? colord(value).toRgb() : (value as RgbaColor);

@@ -7,7 +7,7 @@ import { useInputContext } from "../../context";
 import type { NumberProps } from "./number-types";
 import { multiplyStep } from "../../utils";
 import { innerNumberLabel } from "../ValueInput/StyledInput";
-import { createSignal, Show } from "solid-js";
+import { createSignal, Show, JSX } from "solid-js";
 
 type DraggableLabelProps = {
   label: string;
@@ -16,7 +16,7 @@ type DraggableLabelProps = {
   onUpdate: (v: any) => void;
 };
 
-const DraggableLabel = (props: DraggableLabelProps) => {
+const DraggableLabel = (props: DraggableLabelProps): JSX.Element => {
   const [dragging, setDragging] = createSignal(false);
   const bind = useDrag(({ active, delta: [dx], event, memo = 0 }) => {
     setDragging(active);
@@ -53,13 +53,13 @@ export function Number(
     label: string;
     innerLabelTrim?: number;
   }
-) {
+): JSX.Element {
   const InnerLabel = (props.innerLabelTrim ?? 1) > 0 && (
     <DraggableLabel
       label={props.label}
       step={props.settings.step}
       onUpdate={props.onUpdate}
-      innerLabelTrim={props.innerLabelTrim}
+      innerLabelTrim={props.innerLabelTrim!}
     />
   );
   return (
@@ -73,7 +73,7 @@ export function Number(
   );
 }
 
-export function NumberComponent() {
+export function NumberComponent(): JSX.Element {
   const props = useInputContext<NumberProps>();
   const hasRange = () =>
     props.settings.max !== Infinity && props.settings.min !== -Infinity;

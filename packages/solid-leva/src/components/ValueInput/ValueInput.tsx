@@ -1,4 +1,4 @@
-import { createEffect } from "solid-js";
+import { createEffect, JSX } from "solid-js";
 import { useInputContext } from "../../context";
 import { parseNumber } from "../../utils";
 import {
@@ -10,17 +10,17 @@ import {
 type ValueInputProps = {
   id?: string;
   value: string;
-  innerLabel?: false | React.ReactNode;
+  innerLabel?: false | JSX.Element;
   type?: "number" | undefined;
   onUpdate: (value: any) => void;
-  onChange: (value: string) => void;
-  onKeyDown?: (event: React.KeyboardEvent) => void;
+  onChange: (value: any) => void;
+  onKeyDown?: (event: Event) => void;
 };
 
 export function ValueInput(props: ValueInputProps): JSX.Element {
   const { id: _id, emitOnEditStart, emitOnEditEnd } = useInputContext();
   const inputId = props.id || _id;
-  let inputRef: HTMLInputElement;
+  let inputRef: HTMLInputElement | undefined;
 
   const update = (fn: (value: string) => void) => (event: any) => {
     const _value = event.currentTarget.value;
@@ -43,7 +43,7 @@ export function ValueInput(props: ValueInputProps): JSX.Element {
     return () => ref?.removeEventListener("blur", _onUpdate);
   }, [update, props.onUpdate, emitOnEditEnd]);
 
-  const onKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyPress = (event: any) => {
     if (event.key === "Enter") {
       update(props.onUpdate)(event);
       // event.currentTarget.blur()

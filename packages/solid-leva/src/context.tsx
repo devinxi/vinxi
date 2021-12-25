@@ -1,8 +1,8 @@
-import { createContext, useContext } from "solid-js";
+import { createContext, useContext, Context, JSX } from "solid-js";
 import type { FullTheme } from "./styles";
 import type { StoreType, PanelSettingsType, InputContextProps } from "./types";
 
-export const InputContext = createContext({});
+export const InputContext: Context<{}> = createContext({});
 
 export function useInputContext<T = {}>() {
   return useContext(InputContext) as InputContextProps & T;
@@ -31,7 +31,7 @@ type LevaStoreProviderProps = {
   store: StoreType;
 };
 
-export function LevaStoreProvider(props: LevaStoreProviderProps) {
+export function LevaStoreProvider(props: LevaStoreProviderProps): JSX.Element {
   return (
     <StoreContext.Provider value={props.store}>
       {props.children}

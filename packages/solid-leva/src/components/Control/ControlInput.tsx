@@ -5,6 +5,7 @@ import { useInputSetters } from "../../hooks";
 import { inputWrapper } from "../UI/StyledUI";
 import type { DataInput } from "../../types";
 import { Dynamic } from "solid-js/web";
+import { JSX } from "solid-js";
 
 type ControlInputProps = Omit<DataInput, "__refCount" | "key"> & {
   valueKey: string;
@@ -26,6 +27,7 @@ function InputProvider(props) {
 }
 
 export function ControlInput(props: ControlInputProps) {
+  console.log("HEREEE");
   const { displayValue, onChange, onUpdate } = useInputSetters(props);
 
   const Input = Plugins[props.type].component;

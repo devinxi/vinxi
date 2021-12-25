@@ -3,6 +3,8 @@ import { Label, Row } from "../UI";
 import { inputWrapper } from "./StyledBoolean";
 import type { BooleanProps } from "./boolean-types";
 
+import { JSX } from "solid-js";
+
 export function Boolean({
   value,
   onUpdate,

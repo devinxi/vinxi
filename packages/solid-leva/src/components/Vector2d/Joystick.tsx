@@ -1,15 +1,9 @@
-import * as React, {
-  useState,
-  useRef,
-  useCallback,
-  createEffect,
-  useLayoutEffect,
-} from "solid-js";
+import { useRef, useCallback } from "solid-react-compat";
 import { useDrag } from "../../hooks";
 import { clamp, multiplyStep } from "../../utils";
-import { JoystickTrigger, JoystickPlayground } from "./joystick";
+import { JoystickTrigger, JoystickPlayground } from "./StyledJoystick";
 import { useTh } from "../../styles";
-import { Portal } from "../UI";
+import { Portal } from "solid-js/web";
 import { useTransform } from "../../hooks";
 import type { Vector2d } from "../../types";
 import type { Vector2dProps } from "./vector2d-types";

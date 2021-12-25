@@ -80,7 +80,7 @@ export type TitleWithFilterProps = FilterProps &
 
 export function TitleWithFilter(props: TitleWithFilterProps) {
   const [filterShown, setShowFilter] = createSignal(false);
-  let inputRef: HTMLInputElement;
+  let inputRef: HTMLInputElement | undefined;
 
   // createEffect(() => {
   //   if (filterShown) inputRef.current?.focus();

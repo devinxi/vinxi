@@ -46,7 +46,7 @@ export function useGLTF<T extends string | string[]>(
         await loadingFn(
           extensions(useDraco, useMeshOpt, extendLoader),
           () => {}
-        )(GLTFLoader, path)
+        )(GLTFLoader as any, path as string)
       )[0];
     }
   );

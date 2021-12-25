@@ -29,7 +29,7 @@
     "solid-js": "^1.3.0-beta.10",
     "typescript": "^4.5.3",
     "vite": "^2.7.6",
-    "@vinxi/vite-preset-solid": "*"
+    "@vinxi/vite-preset-solid": "0.0.1-alpha.11"
   },
   "peerDependencies": {
     "solid-js": "*"
@@ -43,7 +43,7 @@
     "dequal": "2.0.2",
     "merge-value": "^1.0.0",
     "solid-colorful": "^0.0.1-alpha.11",
-    "solid-react-compat": "^0.0.1-alpha.11",
+    "solid-react-compat": "0.0.1-alpha.11",
     "v8n": "^1.3.3",
     "zustand": "^3.6.7",
     "@stitches/core": "1.2.6",

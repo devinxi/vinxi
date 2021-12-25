@@ -14,6 +14,7 @@ import {
   createSignal,
   onCleanup,
 } from "solid-js";
+import { createStore, Store } from "solid-js/store";
 import { getValuesForPaths } from "./utils/data";
 import { useLevaPanel } from "./components/Leva";
 
@@ -21,16 +22,18 @@ type HookSettings = { store?: StoreType };
 type SchemaOrFn<S extends Schema = Schema> = S | (() => S);
 
 type FunctionReturnType<S extends Schema> = [
-  Accessor<SchemaToValues<S>>,
+  Store<SchemaToValues<S>>,
   (value: {
     [K in keyof Partial<SchemaToValues<S, true>>]: any;
   }) => void
 ];
 
+type DependencyList = [];
+
 type ReturnType<F extends SchemaOrFn> = F extends SchemaOrFn<infer S>
   ? F extends Function
     ? FunctionReturnType<S>
-    : FunctionReturnType<S>
+    : Store<SchemaToValues<S>>
   : never;
 
 type HookReturnType<
@@ -40,19 +43,19 @@ type HookReturnType<
 
 function parseArgs(
   schemaOrFolderName: string | SchemaOrFn,
-  settingsOrDepsOrSchema?: HookSettings | React.DependencyList | SchemaOrFn,
+  settingsOrDepsOrSchema?: HookSettings | DependencyList | SchemaOrFn,
   depsOrSettingsOrFolderSettings?:
-    | React.DependencyList
+    | DependencyList
     | HookSettings
     | FolderSettings,
-  depsOrSettings?: React.DependencyList | HookSettings,
-  depsOrUndefined?: React.DependencyList
+  depsOrSettings?: DependencyList | HookSettings,
+  depsOrUndefined?: DependencyList
 ) {
   let schema: SchemaOrFn;
   let folderName: string | undefined = undefined;
   let folderSettings: FolderSettings | undefined;
   let hookSettings: HookSettings | undefined;
-  let deps: React.DependencyList | undefined;
+  let deps: DependencyList | undefined;
 
   if (typeof schemaOrFolderName === "string") {
     folderName = schemaOrFolderName;
@@ -63,11 +66,11 @@ function parseArgs(
       if (depsOrSettingsOrFolderSettings) {
         if ("store" in depsOrSettingsOrFolderSettings) {
           hookSettings = depsOrSettingsOrFolderSettings as HookSettings;
-          deps = depsOrSettings as React.DependencyList;
+          deps = depsOrSettings as DependencyList;
         } else {
           folderSettings = depsOrSettingsOrFolderSettings as FolderSettings;
           if (Array.isArray(depsOrSettings)) {
-            deps = depsOrSettings as React.DependencyList;
+            deps = depsOrSettings as DependencyList;
           } else {
             hookSettings = depsOrSettings as HookSettings;
             deps = depsOrUndefined;
@@ -78,10 +81,10 @@ function parseArgs(
   } else {
     schema = schemaOrFolderName as SchemaOrFn;
     if (Array.isArray(settingsOrDepsOrSchema)) {
-      deps = settingsOrDepsOrSchema as React.DependencyList;
+      deps = settingsOrDepsOrSchema as DependencyList;
     } else {
       hookSettings = settingsOrDepsOrSchema as HookSettings;
-      deps = depsOrSettingsOrFolderSettings as React.DependencyList;
+      deps = depsOrSettingsOrFolderSettings as DependencyList;
     }
   }
 
@@ -104,7 +107,7 @@ export function createControls<
   settingsOrDepsOrSchema?: HookSettings | G,
   depsOrSettingsOrFolderSettings?: HookSettings | FolderSettings,
   depsOrSettings?: HookSettings
-  // depsOrUndefined?: React.DependencyList
+  // depsOrUndefined?: DependencyList
 ): HookReturnType<F, G> {
   // We parse the args
   const { folderName, schema, folderSettings, hookSettings, deps } = parseArgs(
@@ -195,18 +198,23 @@ export function createControls<
    * will call the store data.
    * */
 
-  const [controls, setControls] = createSignal(data()[0]);
+  const [controls, setControls] = createSignal<HookReturnType<F, G>>(
+    data()[0] as any
+  );
+
+  const [store, setStore] = createStore<HookReturnType<F, G>>(data()[0] as any);
 
   createEffect(() => {
     let [_, renderPaths] = paths();
     let [initialData] = data();
     levaStore.useStore.subscribe(
-      (s) => {
+      (s: any) => {
         const data = { ...initialData, ...s.data };
         return getValuesForPaths(data, renderPaths);
       },
-      (d) => {
+      (d: any) => {
         setControls(d);
+        setStore(d);
       }
     );
   });
@@ -272,5 +280,7 @@ export function createControls<
 
   // if (schemaIsFunction) return [values, set] as any;
   // return values as any;
-  return [controls, set] as const;
+  return store as any as HookReturnType<F, G>;
 }
+
+export const useControls = createControls;

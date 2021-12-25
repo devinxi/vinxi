@@ -1,1 +1,1 @@
-{"version":3,"file":"tree.d.ts","sourceRoot":"","sources":["../../../src/components/Leva/tree.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAE,IAAI,EAAE,MAAM,aAAa,CAAA;AAEvC,eAAO,MAAM,OAAO,MAAO,MAAM,YAAuB,CAAA;AAExD,eAAO,MAAM,SAAS,UAAW,MAAM,EAAE,kCAAoB,IAY5D,CAAA"}
+{"version":3,"file":"tree.d.ts","sourceRoot":"","sources":["../../../src/components/Leva/tree.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,IAAI,EAAE,MAAM,aAAa,CAAC;AAExC,eAAO,MAAM,OAAO,MAAO,MAAM,YAAuB,CAAC;AAEzD,eAAO,MAAM,SAAS,UAAW,MAAM,EAAE,kCAAoB,IAY5D,CAAC"}

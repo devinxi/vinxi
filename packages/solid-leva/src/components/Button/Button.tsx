@@ -1,5 +1,6 @@
 import { Row } from "../UI";
 import { button } from "./StyledButton";
+import { JSX } from "solid-js";
 
 type ButtonProps = {
   label: string;

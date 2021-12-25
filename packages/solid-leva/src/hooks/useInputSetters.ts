@@ -1,5 +1,5 @@
 import { dequal } from "dequal/lite";
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal, Accessor } from "solid-js";
 import { format } from "../plugin-system";
 
 type Props<V, Settings> = {
@@ -22,7 +22,7 @@ export function useInputSetters<V, Settings extends object>(
   const onUpdate = (updatedValue: any) => {
     try {
       props.setValue(updatedValue);
-    } catch (error) {
+    } catch (error: any) {
       const { type, previousValue } = error;
       // make sure we throw an error if it's not a sanitization error
       if (type !== "LEVA_ERROR") throw error;

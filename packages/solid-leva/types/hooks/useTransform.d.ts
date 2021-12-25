@@ -1,6 +1,6 @@
-/// <reference types="react" />
+import { RefObject } from "solid-react-compat";
 export declare function useTransform<T extends HTMLElement>(): [
-    React.RefObject<T>,
+    RefObject<T>,
     (point: {
         x?: number;
         y?: number;

@@ -1,1 +1,1 @@
-{"version":3,"file":"useValuesForPath.d.ts","sourceRoot":"","sources":["../../src/hooks/useValuesForPath.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,IAAI,EAAE,SAAS,EAAE,MAAM,UAAU,CAAC;AAEhD;;;;GAIG;AACH,wBAAgB,gBAAgB,CAC9B,KAAK,EAAE,SAAS,EAChB,KAAK,EAAE,MAAM,EAAE,EACf,WAAW,EAAE,IAAI,OAKlB"}
+{"version":3,"file":"useValuesForPath.d.ts","sourceRoot":"","sources":["../../src/hooks/useValuesForPath.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,CAAC"}

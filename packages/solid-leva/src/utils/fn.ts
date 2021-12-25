@@ -5,7 +5,7 @@ export const debounce = <F extends Function>(
 ) => {
   let timeout: number = 0;
 
-  return function () {
+  return function (this: any) {
     const args = arguments as any;
     const callNow = immediate && !timeout;
     const next = () => callback.apply(this, args);

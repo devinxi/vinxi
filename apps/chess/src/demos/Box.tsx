@@ -1,7 +1,7 @@
 import { useFrame } from "solid-three";
 import { createEffect, createSignal, Match, Switch } from "solid-js";
 import { button, createControls, folder } from "solid-leva";
-import { Html } from "src/drei/Html";
+import { Html } from "solid-drei";
 import { animate } from "popmotion";
 import { PieceModel } from "src/chess/models/chess/Piece";
 
@@ -12,11 +12,11 @@ export function Box(props: any) {
   const [direction, setDirection] = createSignal(1);
 
   let mesh;
-  const [controls] = createControls("box", {
+  const controls = createControls("box", {
     size: {
-      value: 1,
+      value: 5,
       min: 0,
-      max: 1,
+      max: 10,
     },
     interval: [10, 20],
     material: folder({
@@ -41,7 +41,7 @@ export function Box(props: any) {
   });
 
   useFrame(() =>
-    controls().rotate
+    controls.rotate
       ? setRotation((r) => r + (direction() > 0 ? 0.01 : -0.01))
       : null
   );
@@ -62,7 +62,7 @@ export function Box(props: any) {
       onPointerOver={(e) => setHover(true)}
       onPointerOut={(e) => setHover(false)}
       rotation-y={rotation()}
-      scale={controls().size}
+      scale={controls.size}
       position-y={active() ? 2 : 1}
       castShadow
       {...props}
@@ -70,21 +70,20 @@ export function Box(props: any) {
       <Html ref={ref}>
         <div>Hello World</div>
       </Html>
-
       <Switch fallback={null}>
-        <Match when={controls().shape === "box"}>
+        <Match when={controls.shape === "box"}>
           <boxBufferGeometry args={[1, 1, 1]} />
         </Match>
-        <Match when={controls().shape === "cylinder"}>
+        <Match when={controls.shape === "cylinder"}>
           <cylinderBufferGeometry args={[1, 1, 1]} />
         </Match>
-        <Match when={controls().shape === "tetrahedron"}>
+        <Match when={controls.shape === "tetrahedron"}>
           <tetrahedronBufferGeometry args={[1]} />
         </Match>
       </Switch>
       <meshStandardMaterial
-        wireframe={controls().wireframe}
-        color={hovered() ? "powderblue" : controls().color}
+        wireframe={controls.wireframe}
+        color={hovered() ? "powderblue" : controls.color}
       />
     </mesh>
   );

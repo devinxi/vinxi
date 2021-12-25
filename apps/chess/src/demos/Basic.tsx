@@ -1,10 +1,12 @@
-import { Canvas, useFrame, useThree } from "solid-three";
+import { Canvas, useFrame, useThree, Instance } from "solid-three";
 import { Component, createRenderEffect, onCleanup, untrack } from "solid-js";
 import { OrbitControls } from "solid-drei";
+import { JSX } from "solid-three";
 import { createControls } from "solid-leva";
 import { Board } from "src/chess/models/chess/Board";
+import { Box } from "./Box";
 
-const PerspectiveCamera: Component = ({ position = [10, 5, 10] } = {}) => {
+const PerspectiveCamera = ({ position = [10, 5, 10] } = {}) => {
   const set = useThree(({ set }) => set);
   const camera = useThree(({ camera }) => camera);
   const size = useThree(({ size }) => size);
@@ -17,7 +19,7 @@ const PerspectiveCamera: Component = ({ position = [10, 5, 10] } = {}) => {
       far={1000}
       near={0.1}
       fov={75}
-      position={position}
+      position={position as any}
     />
   ) as unknown as THREE.PerspectiveCamera;
 
@@ -33,11 +35,11 @@ const PerspectiveCamera: Component = ({ position = [10, 5, 10] } = {}) => {
     onCleanup(() => set()({ camera: oldCam }));
   });
 
-  return cam;
+  return cam as unknown as JSX.Element;
 };
 
 export default function App() {
-  const [controls] = createControls("piece", {
+  const controls = createControls("piece", {
     rotationX: { value: 0, max: Math.PI / 2, min: -Math.PI / 2 },
     rotataionY: 0,
     rotationZ: 0,
@@ -51,14 +53,14 @@ export default function App() {
       //   position: [20, 20, 20],
       // }}
     >
-      <PerspectiveCamera position={[controls().positionX, 20, 20]} />
+      <PerspectiveCamera position={[controls.positionX, 20, 20]} />
       <ambientLight intensity={0.5} />
       <directionalLight castShadow intensity={1} position={[10, 10, 10]} />
       <spotLight position={[-10, -10, -10]} intensity={1} />
       {/* <Box position={[-2, 1, 0]} /> */}
-      {/* <Box position={[2, 1, 0]} /> */}
+      <Box position={[2, 1, 0]} />
       {/* <Plane /> */}
-      <ChessBoard />
+      {/* <ChessBoard /> */}
       <OrbitControls />
     </Canvas>
   );

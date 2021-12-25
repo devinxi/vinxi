@@ -1,6 +1,8 @@
-import * as React, { useCallback } from "solid-js";
-import { Label, Portal, Overlay, Row } from "../UI";
-import { useDropzone } from "react-dropzone";
+import { useCallback } from "solid-react-compat";
+import { Label, Row } from "../UI";
+import { Portal } from "solid-js/web";
+import { JSX, Show } from "solid-js";
+// import { useDropzone } from "react-dropzone";
 import {
   DropZone,
   ImageContainer,
@@ -8,7 +10,7 @@ import {
   Instructions,
   ImageLargePreview,
   Remove,
-} from "./image";
+} from "./StyledImage";
 import { useInputContext } from "../../context";
 import { usePopin } from "../../hooks";
 import type { ImageProps } from "./image-types";
@@ -18,14 +20,14 @@ export function ImageComponent() {
   const { popinRef, wrapperRef, shown, show, hide } = usePopin();
 
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    (acceptedFiles: any[]) => {
       if (acceptedFiles.length) onUpdate(acceptedFiles[0]);
     },
     [onUpdate]
   );
 
   const clear = useCallback(
-    (e) => {
+    (e: any) => {
       e.stopPropagation();
       onUpdate(undefined);
     },
@@ -50,15 +52,15 @@ export function ImageComponent() {
           onPointerUp={hide}
           style={{ backgroundImage: value ? `url(${value})` : "none" }}
         />
-        {shown && !!value && (
+        <Show when={shown() && !!value}>
           <Portal>
-            <Overlay onPointerUp={hide} style={{ cursor: "pointer" }} />
+            {/* <Overlay onPointerUp={hide} style={{ cursor: "pointer" }} /> */}
             <ImageLargePreview
               ref={wrapperRef}
               style={{ backgroundImage: `url(${value})` }}
             />
           </Portal>
-        )}
+        </Show>
         <DropZone {...(getRootProps({ isDragAccept }) as any)}>
           <input {...getInputProps()} />
           <Instructions>

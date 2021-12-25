@@ -1,4 +1,4 @@
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal, Accessor } from "solid-js";
 import shallow from "zustand/shallow";
 import type { StoreType } from "../types";
 
@@ -12,7 +12,7 @@ export const useVisiblePaths = (store: StoreType) => {
     setPaths(store.getVisiblePaths());
     const unsub = store.useStore.subscribe(
       store.getVisiblePaths,
-      setPaths,
+      (v: any) => setPaths(v),
       shallow
     );
     return () => unsub();

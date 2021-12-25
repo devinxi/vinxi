@@ -1,11 +1,11 @@
-import { createRenderEffect, createSignal } from "solid-js";
+import { createRenderEffect, createSignal, Accessor } from "solid-js";
 
 export function usePopin(margin = 3) {
   let popinRef = {
-    current: null,
+    current: null as HTMLElement | null,
   };
   let wrapperRef = {
-    current: null,
+    current: null as HTMLElement | null,
   };
 
   const [shown, setShow] = createSignal(false);

@@ -2,7 +2,7 @@ import { ValueInput } from "../ValueInput";
 import { Label, Row } from "../UI";
 import { useInputContext } from "../../context";
 import type { StringProps } from "./string-types";
-import { ComponentProps } from "solid-js";
+import { ComponentProps, JSX } from "solid-js";
 
 type BaseStringProps = Pick<
   StringProps,

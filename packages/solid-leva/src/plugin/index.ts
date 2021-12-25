@@ -46,8 +46,8 @@ export {
   useCanvas2d,
   useTransform,
   useInput,
-  useValue,
-  useValues,
+  // useValue,
+  // useValues,
   useInputSetters,
 } from "../hooks";
 export { useInputContext, useStoreContext } from "../context";

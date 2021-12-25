@@ -1,3 +1,2 @@
-/// <reference types="react" />
-export declare function useShallowMemo<T>(fn: () => T, deps: React.DependencyList | undefined): any;
+export declare function useShallowMemo<T>(fn: () => T): void;
 //# sourceMappingURL=useShallowMemo.d.ts.map
