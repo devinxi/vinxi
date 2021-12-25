@@ -1,1 +1,0 @@
-{"version":3,"file":"Color.d.ts","sourceRoot":"","sources":["../../../src/components/Color/Color.tsx"],"names":[],"mappings":"AAOA,OAAO,KAAK,EAAE,UAAU,EAAsB,MAAM,eAAe,CAAC;AAIpE,OAAO,EAAE,GAAG,EAAE,MAAM,UAAU,CAAC;AAM/B,wBAAgB,KAAK,CACnB,KAAK,EAAE,IAAI,CACT,UAAU,EACV,OAAO,GAAG,cAAc,GAAG,UAAU,GAAG,UAAU,GAAG,UAAU,CAChE,eAuEF;AAED,wBAAgB,cAAc,gBAuB7B"}

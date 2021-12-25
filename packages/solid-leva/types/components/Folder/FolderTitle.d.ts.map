@@ -1,1 +1,0 @@
-{"version":3,"file":"FolderTitle.d.ts","sourceRoot":"","sources":["../../../src/components/Folder/FolderTitle.tsx"],"names":[],"mappings":"AAEA,OAAO,EAAE,GAAG,EAAE,MAAM,UAAU,CAAC;AAC/B,oBAAY,gBAAgB,GAAG;IAC7B,IAAI,CAAC,EAAE,MAAM,CAAC;IACd,OAAO,EAAE,OAAO,CAAC;IACjB,MAAM,EAAE,CAAC,IAAI,CAAC,EAAE,OAAO,KAAK,IAAI,CAAC;CAClC,CAAC;AAEF,wBAAgB,WAAW,CAAC,KAAK,EAAE,gBAAgB,eAOlD"}
