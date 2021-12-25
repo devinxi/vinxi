@@ -1,6 +1,3 @@
-[submodule "forks/dom-expressions"]
-	path = forks/dom-expressions
-	url = https://github.com/nksaraf/dom-expressions
 [submodule "packages/vite-plugin-solid"]
 	path = packages/vite-plugin-solid
 	url = https://github.com/devinxi/vite-plugin-solid
