@@ -8,7 +8,7 @@ import { Show } from "solid-js";
 
 function BoardSquare(props: { square: SquareType }) {
   let index = SQUARES[props.square as SquareType];
-  const [controls] = useControls("board", {
+  const controls = useControls("board", {
     xOffset: { value: -9, step: 1 },
     yOffset: { value: -10, step: 1 },
     xSquareSize: { value: 2.5, step: 0.1 },
@@ -27,17 +27,17 @@ function BoardSquare(props: { square: SquareType }) {
       <Square
         square={algebraic(index)}
         position={[
-          x * controls().xSquareSize + controls().xOffset,
+          x * controls.xSquareSize + controls.xOffset,
           0,
-          y * controls().ySquareSize + controls().yOffset,
+          y * controls.ySquareSize + controls.yOffset,
         ]}
       />
       <Show when={piece() !== null}>
         <Piece
           position={[
-            x * controls().xSquareSize + controls().xOffset,
+            x * controls.xSquareSize + controls.xOffset,
             1,
-            y * controls().ySquareSize + controls().yOffset,
+            y * controls.ySquareSize + controls.yOffset,
           ]}
           square={props.square as SquareType}
           piece={piece().type}

@@ -10,20 +10,29 @@ export function createTemplate(path, result, wrap) {
       !(result.exprs.length || result.dynamics.length || result.postExprs.length) &&
       result.decl.declarations.length === 1
     ) {
-      return result.decl.declarations[0].init;
+      let template = result.decl.declarations[0].init;
+
+      return result.dynamicArgs
+        ? t.callExpression(
+            t.callExpression(registerImportMethod(path, config.memoWrapper), [
+              t.arrowFunctionExpression([], template)
+            ]),
+            []
+          )
+        : template;
     } else {
+      let template = t.arrowFunctionExpression(
+        [],
+        t.blockStatement([
+          result.decl,
+          ...result.exprs.concat(wrapDynamics(path, result.dynamics) || [], result.postExprs || []),
+          t.returnStatement(result.id)
+        ])
+      );
       return t.callExpression(
-        t.arrowFunctionExpression(
-          [],
-          t.blockStatement([
-            result.decl,
-            ...result.exprs.concat(
-              wrapDynamics(path, result.dynamics) || [],
-              result.postExprs || []
-            ),
-            t.returnStatement(result.id)
-          ])
-        ),
+        result.dynamicArgs
+          ? t.callExpression(registerImportMethod(path, config.memoWrapper), [template])
+          : template,
         []
       );
     }
@@ -69,13 +78,11 @@ function wrapDynamics(path, dynamics) {
         t.logicalExpression(
           "&&",
           t.binaryExpression("!==", identifier, t.memberExpression(prevId, identifier)),
-          t.assignmentExpression("=", t.memberExpression(prevId, identifier), setAttr(
-            path,
-            elem,
-            key,
-            identifier,
-            { dynamic: true, prevId: prev }
-          ))
+          t.assignmentExpression(
+            "=",
+            t.memberExpression(prevId, identifier),
+            setAttr(path, elem, key, identifier, { dynamic: true, prevId: prev })
+          )
         )
       )
     );

@@ -3,6 +3,8 @@ import { createMemo, createSignal, DEV } from "solid-js";
 import * as demos from "./demos";
 import { Dynamic } from "solid-three";
 import { main } from "./sprinkles.css";
+import { useControls } from "./lib/leva";
+import { button } from "solid-leva";
 
 const defaultComponent = "Basic";
 const Demos = Object.entries(demos).reduce(
@@ -38,6 +40,21 @@ const App = () => {
   //   }),
   //   collisionTolerance,
   // });
+
+  useControls("debug", {
+    vite: button(() => {
+      window.open("/__inspect", "_blank");
+    }),
+  });
+
+  useControls("docs", {
+    solid: button(() => {
+      window.open(
+        "https://www.solidjs.com/tutorial/introduction_basics",
+        "_blank"
+      );
+    }),
+  });
 
   return (
     <>

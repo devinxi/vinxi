@@ -21,7 +21,7 @@ export const [chessBoard, setChessGame] = createStore(
 );
 
 export function Square(props: { square: SquareType; position: any }) {
-  const [controls] = useControls("square", {
+  const controls = useControls("square", {
     width: { value: 2.5, step: 0.1 },
     height: { value: 2.5, step: 0.1 },
     color: folder({
@@ -94,7 +94,7 @@ export function Square(props: { square: SquareType; position: any }) {
       receiveShadow
       position={props.position}
       castShadow
-      geometry={new BoxBufferGeometry(controls().width, 2, controls().height)}
+      geometry={new BoxBufferGeometry(controls.width, 2, controls.height)}
     >
       <meshToonMaterial
         color={
@@ -109,7 +109,7 @@ export function Square(props: { square: SquareType; position: any }) {
           //   : isMovable
           //   ? "blue"
           // :
-          color == "light" ? controls().light : controls().dark
+          color == "light" ? controls.light : controls.dark
         }
       />
     </mesh>

@@ -28,7 +28,7 @@ import { Color, useFrame } from "solid-three";
 import { useGLTF } from "solid-drei";
 import { useRef } from "solid-react-compat";
 import { createEffect, Suspense } from "solid-js";
-import { mergeProps } from "solid-js";
+import { mergeProps, JSX } from "solid-js";
 import { folder, useControls } from "@/lib/leva";
 import { PieceSymbol } from "@/lib/chess/types";
 
@@ -86,7 +86,7 @@ export function Piece(props) {
     props
   );
 
-  const [controls] = useControls("piece", {
+  const controls = useControls("piece", {
     color: folder({ black: "#414141", white: "#c4bdbd" }),
   });
 
@@ -142,7 +142,7 @@ export function Piece(props) {
       >
         <meshLambertMaterial
           reflectivity={10}
-          color={props.color === BLACK ? controls().black : controls().white}
+          color={props.color === BLACK ? controls.black : controls.white}
         />
       </PieceModel>
     </group>
@@ -163,12 +163,20 @@ export function PieceModel(
   return (
     <group ref={(el) => (group.current = el)} {...props} dispose={null}>
       <group name="Scene">
-        <Suspense fallback={null}>
+        <Suspense
+          fallback={
+            <mesh>
+              <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+              <meshBasicMaterial attach="material" color="red" />
+            </mesh>
+          }
+        >
           <mesh
-            {...props}
             name={props.piece}
             castShadow
             receiveShadow
+            position={props.position}
+            rotation={props.rotation}
             geometry={data()?.nodes[props.piece].geometry}
             {...(props.material
               ? { material: data()?.materials[props.material] }

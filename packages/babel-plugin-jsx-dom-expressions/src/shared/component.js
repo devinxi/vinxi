@@ -150,10 +150,11 @@ export default function transformComponent(path) {
   const childResult = transformComponentChildren(path.get("children"), config);
   if (childResult && childResult[0]) {
     if (childResult[1]) {
-      const body =
-        t.isCallExpression(childResult[0]) && t.isFunction(childResult[0].callee)
+      const body = t.isCallExpression(childResult[0])
+        ? t.isFunction(childResult[0].callee)
           ? childResult[0].callee.body
-          : childResult[0].body;
+          : childResult[0]
+        : childResult[0].body;
       runningObject.push(
         t.objectMethod(
           "get",
@@ -167,10 +168,10 @@ export default function transformComponent(path) {
   if (runningObject.length || !props.length) props.push(t.objectExpression(runningObject));
 
   if (props.length > 1 || dynamicSpread) {
-    let mergeProps = registerImportMethod(path, "mergeProps")
+    let mergeProps = registerImportMethod(path, "mergeProps");
     props = [t.callExpression(mergeProps, props)];
   }
-  
+
   let createComponent = registerImportMethod(path, "createComponent");
   const componentArgs = [tagNameToIdentifier(tagName), props[0]];
   exprs.push(t.callExpression(createComponent, componentArgs));

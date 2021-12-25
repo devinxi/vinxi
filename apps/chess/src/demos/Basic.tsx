@@ -57,8 +57,8 @@ export default function App() {
       <ambientLight intensity={0.5} />
       <directionalLight castShadow intensity={1} position={[10, 10, 10]} />
       <spotLight position={[-10, -10, -10]} intensity={1} />
-      {/* <Box position={[-2, 1, 0]} /> */}
-      <Box position={[2, 1, 0]} />
+      <Box position={[-2, 1, 0]} />
+      {/* <Box position={[2, 1, 0]} /> */}
       {/* <Plane /> */}
       {/* <ChessBoard /> */}
       <OrbitControls />

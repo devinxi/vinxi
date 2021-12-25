@@ -1,12 +1,11 @@
 import { createControls } from "solid-leva";
-import { Dynamic } from "solid-three";
+import { ComponentProps, Dynamic } from "solid-three";
 import { OrthographicCamera } from "three";
 
 function ControlledOrthographicCamera({
   name,
   position = [10, -10, 0],
   ...props
-}: { name: string } & React.ComponentProps<typeof OrthographicCamera>) {
   const { width, height } = useThree((s) => ({
     width: s.viewport.width,
     height: s.viewport.height,

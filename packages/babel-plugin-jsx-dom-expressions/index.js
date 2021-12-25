@@ -1928,20 +1928,28 @@ function transformElement$1(path, info) {
       dynamics: [],
       postExprs: [],
       tagName,
-      renderer: "universal"
+      renderer: "universal",
+      dynamicArgs: false,
+      args: null
     };
 
-  let createElement = registerImportMethod(path, "createElement", getRendererConfig(path, "universal").moduleName);
-  results.decl.push(
-    t__namespace.variableDeclarator(
-      results.id,
-      t__namespace.callExpression(createElement, [t__namespace.stringLiteral(tagName)])
-    )
+  let createElement = registerImportMethod(
+    path,
+    "createElement",
+    getRendererConfig(path, "universal").moduleName
   );
 
   transformAttributes(path, results);
   transformChildren(path, results);
-
+  results.decl.unshift(
+    t__namespace.variableDeclarator(
+      results.id,
+      t__namespace.callExpression(
+        createElement,
+        results.args ? [t__namespace.stringLiteral(tagName), results.args] : [t__namespace.stringLiteral(tagName)]
+      )
+    )
+  );
   return results;
 }
 
@@ -1957,7 +1965,11 @@ function transformAttributes(path, results) {
     .forEach(attribute => {
       const node = attribute.node;
       if (t__namespace.isJSXSpreadAttribute(node)) {
-        let spread = registerImportMethod(attribute, "spread", getRendererConfig(path, "universal").moduleName);
+        let spread = registerImportMethod(
+          attribute,
+          "spread",
+          getRendererConfig(path, "universal").moduleName
+        );
         results.exprs.push(
           t__namespace.expressionStatement(
             t__namespace.callExpression(spread, [
@@ -2054,6 +2066,12 @@ function transformAttributes(path, results) {
           );
         } else if (key === "children") {
           children = value;
+        } else if (key === "args") {
+          results.dynamicArgs = isDynamic(attribute.get("value").get("expression"), {
+            checkMember: true,
+            checkTags: true
+          });
+          results.args = attribute.get("value").get("expression").node;
         } else if (
           config.effectWrapper &&
           isDynamic(attribute.get("value").get("expression"), {
@@ -2066,6 +2084,11 @@ function transformAttributes(path, results) {
             t__namespace.expressionStatement(setAttr(attribute, elem, key, value.expression))
           );
         }
+      } else if (key === "args") {
+        results.dynamicArgs = isDynamic(attribute.get("value").get("expression"), {
+          checkMember: true
+        });
+        results.args = attribute.get("value").get("expression").node;
       } else {
         results.exprs.push(t__namespace.expressionStatement(setAttr(attribute, elem, key, value)));
       }
@@ -2076,7 +2099,11 @@ function transformAttributes(path, results) {
 }
 
 function setAttr(path, elem, name, value, { prevId } = {}) {
-  let setProp = registerImportMethod(path, "setProp", getRendererConfig(path, "universal").moduleName);
+  let setProp = registerImportMethod(
+    path,
+    "setProp",
+    getRendererConfig(path, "universal").moduleName
+  );
   if (!value) value = t__namespace.booleanLiteral(true);
   return t__namespace.callExpression(
     setProp,
@@ -2104,32 +2131,47 @@ function transformChildren(path, results) {
         Wrap the usage with a component that would render this element, eg. Canvas`);
     }
     if (child.id) {
-      let insertNode = registerImportMethod(path, "insertNode", getRendererConfig(path, "universal").moduleName);
+      let insertNode = registerImportMethod(
+        path,
+        "insertNode",
+        getRendererConfig(path, "universal").moduleName
+      );
       let insert = child.id;
       if (child.text) {
-        let createTextNode = registerImportMethod(path, "createTextNode", getRendererConfig(path, "universal").moduleName);
         if (multi) {
           results.decl.push(
             t__namespace.variableDeclarator(
               child.id,
-              t__namespace.callExpression(createTextNode, [
-                t__namespace.stringLiteral(htmlEntities.decode(child.template))
-              ])
+              t__namespace.callExpression(
+                registerImportMethod(
+                  path,
+                  "createTextNode",
+                  getRendererConfig(path, "universal").moduleName
+                ),
+                [t__namespace.stringLiteral(htmlEntities.decode(child.template))]
+              )
             )
           );
         } else
-          insert = t__namespace.callExpression(createTextNode, [
-            t__namespace.stringLiteral(htmlEntities.decode(child.template))
-          ]);
+          insert = t__namespace.callExpression(
+            registerImportMethod(
+              path,
+              "createTextNode",
+              getRendererConfig(path, "universal").moduleName
+            ),
+            [t__namespace.stringLiteral(htmlEntities.decode(child.template))]
+          );
       }
-      appends.push(
-        t__namespace.expressionStatement(t__namespace.callExpression(insertNode, [results.id, insert]))
-      );
+      appends.push(t__namespace.expressionStatement(t__namespace.callExpression(insertNode, [results.id, insert])));
       results.decl.push(...child.decl);
       results.exprs.push(...child.exprs);
       results.dynamics.push(...child.dynamics);
     } else if (child.exprs.length) {
-      let insert = registerImportMethod(path, "insert", getRendererConfig(path, "universal").moduleName);
+      let insert = registerImportMethod(
+        path,
+        "insert",
+        getRendererConfig(path, "universal").moduleName
+      );
       if (multi) {
         results.exprs.push(
           t__namespace.expressionStatement(
@@ -2142,9 +2184,7 @@ function transformChildren(path, results) {
         );
       } else {
         results.exprs.push(
-          t__namespace.expressionStatement(
-            t__namespace.callExpression(insert, [results.id, child.exprs[0]])
-          )
+          t__namespace.expressionStatement(t__namespace.callExpression(insert, [results.id, child.exprs[0]]))
         );
       }
     }
@@ -2164,20 +2204,29 @@ function createTemplate(path, result, wrap) {
       !(result.exprs.length || result.dynamics.length || result.postExprs.length) &&
       result.decl.declarations.length === 1
     ) {
-      return result.decl.declarations[0].init;
+      let template = result.decl.declarations[0].init;
+
+      return result.dynamicArgs
+        ? t__namespace.callExpression(
+            t__namespace.callExpression(registerImportMethod(path, config.memoWrapper), [
+              t__namespace.arrowFunctionExpression([], template)
+            ]),
+            []
+          )
+        : template;
     } else {
+      let template = t__namespace.arrowFunctionExpression(
+        [],
+        t__namespace.blockStatement([
+          result.decl,
+          ...result.exprs.concat(wrapDynamics(path, result.dynamics) || [], result.postExprs || []),
+          t__namespace.returnStatement(result.id)
+        ])
+      );
       return t__namespace.callExpression(
-        t__namespace.arrowFunctionExpression(
-          [],
-          t__namespace.blockStatement([
-            result.decl,
-            ...result.exprs.concat(
-              wrapDynamics(path, result.dynamics) || [],
-              result.postExprs || []
-            ),
-            t__namespace.returnStatement(result.id)
-          ])
-        ),
+        result.dynamicArgs
+          ? t__namespace.callExpression(registerImportMethod(path, config.memoWrapper), [template])
+          : template,
         []
       );
     }
@@ -2223,13 +2272,11 @@ function wrapDynamics(path, dynamics) {
         t__namespace.logicalExpression(
           "&&",
           t__namespace.binaryExpression("!==", identifier, t__namespace.memberExpression(prevId, identifier)),
-          t__namespace.assignmentExpression("=", t__namespace.memberExpression(prevId, identifier), setAttr(
-            path,
-            elem,
-            key,
-            identifier,
-            { dynamic: true, prevId: prev }
-          ))
+          t__namespace.assignmentExpression(
+            "=",
+            t__namespace.memberExpression(prevId, identifier),
+            setAttr(path, elem, key, identifier, { dynamic: true, prevId: prev })
+          )
         )
       )
     );
@@ -2388,10 +2435,11 @@ function transformComponent(path) {
   const childResult = transformComponentChildren(path.get("children"), config);
   if (childResult && childResult[0]) {
     if (childResult[1]) {
-      const body =
-        t__namespace.isCallExpression(childResult[0]) && t__namespace.isFunction(childResult[0].callee)
+      const body = t__namespace.isCallExpression(childResult[0])
+        ? t__namespace.isFunction(childResult[0].callee)
           ? childResult[0].callee.body
-          : childResult[0].body;
+          : childResult[0]
+        : childResult[0].body;
       runningObject.push(
         t__namespace.objectMethod(
           "get",
@@ -2408,7 +2456,7 @@ function transformComponent(path) {
     let mergeProps = registerImportMethod(path, "mergeProps");
     props = [t__namespace.callExpression(mergeProps, props)];
   }
-  
+
   let createComponent = registerImportMethod(path, "createComponent");
   const componentArgs = [tagNameToIdentifier(tagName), props[0]];
   exprs.push(t__namespace.callExpression(createComponent, componentArgs));
