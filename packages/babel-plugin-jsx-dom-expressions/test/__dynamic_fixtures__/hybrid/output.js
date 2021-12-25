@@ -67,17 +67,7 @@ const Child = props => {
 
                 _$setProp(_el$5, "position", [0, 0, 0]);
 
-                _$setProp(
-                  _el$5,
-                  "geometry",
-                  (() => {
-                    const _el$11 = _$createElement("boxBufferGeometry");
-
-                    _$setProp(_el$11, "args", [0, 1, 2]);
-
-                    return _el$11;
-                  })()
-                );
+                _$setProp(_el$5, "geometry", _$createElement("boxBufferGeometry", [0, 1, 2]));
 
                 _$effect(_$p =>
                   _$setProp(
@@ -165,17 +155,7 @@ const Component = props => {
 
                 _$setProp(_el$15, "position", [0, 0, 0]);
 
-                _$setProp(
-                  _el$15,
-                  "geometry",
-                  (() => {
-                    const _el$17 = _$createElement("boxBufferGeometry");
-
-                    _$setProp(_el$17, "args", [0, 1, 2]);
-
-                    return _el$17;
-                  })()
-                );
+                _$setProp(_el$15, "geometry", _$createElement("boxBufferGeometry", [0, 1, 2]));
 
                 _$effect(_$p =>
                   _$setProp(
