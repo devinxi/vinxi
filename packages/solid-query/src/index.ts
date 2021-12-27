@@ -1,11 +1,21 @@
-import { QueryObserver, QueryClient } from "react-query/core";
+// Side effects
+import "./setBatchUpdatesFn";
+import "./setLogger";
 
-const client = new QueryClient();
-const observer = new QueryObserver(client, {
-  queryKey: "key",
-  queryFn: () => Promise.resolve("data")
-});
+export { QueryClientProvider, useQueryClient } from "./QueryClientProvider";
+export { QueryErrorResetBoundary, useQueryErrorResetBoundary } from "./QueryErrorResetBoundary";
+export { useIsFetching } from "./useIsFetching";
+export { useIsMutating } from "./useIsMutating";
+export { createMutation as useMutation } from "./useMutation";
+export { createQuery as useQuery } from "./createQuery";
+export { useQueries } from "./useQueries";
+export { useInfiniteQuery } from "./useInfiniteQuery";
+export { useHydrate, Hydrate } from "./Hydrate";
 
-console.log(observer);
+export * from "react-query/core";
 
-export { client, observer };
+// Types
+export * from "./types";
+export type { QueryClientProviderProps } from "./QueryClientProvider";
+export type { QueryErrorResetBoundaryProps } from "./QueryErrorResetBoundary";
+export type { HydrateProps } from "./Hydrate";
