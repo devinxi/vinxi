@@ -5,6 +5,8 @@ import { useQueryClient } from "./QueryClientProvider";
 import { CreateMutateFunction, CreateMutationOptions, CreateMutationResult } from "./types";
 import { MutationFunction, MutationKey } from "react-query/core";
 import { shouldThrowError } from "./utils";
+import { createSignal, createEffect } from "solid-js";
+import { useRef } from "solid-react-compat";
 
 // HOOK
 
@@ -63,7 +65,7 @@ export function createMutation<
   arg3?: CreateMutationOptions<TData, TError, TVariables, TContext>
 ): CreateMutationResult<TData, TError, TVariables, TContext> {
   const mountedRef = useRef(false);
-  const [, forceUpdate] = React.useState(0);
+  const [, forceUpdate] = createSignal(0);
 
   const options = parseMutationArgs(arg1, arg2, arg3);
   const queryClient = useQueryClient();

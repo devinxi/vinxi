@@ -1,5 +1,9 @@
 {
   "extends": "@vinxi/tsconfig/vite-solid.json",
   "include": ["./"],
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false
+  },
   "exclude": ["dist", "build", "node_modules"]
 }

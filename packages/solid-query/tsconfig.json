@@ -4,9 +4,9 @@
   "compilerOptions": {
     "outDir": "./types",
     "rootDir": "./src",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "src/*": ["./*"]
+      "src/*": ["./src/*"]
     }
   },
   "exclude": ["dist", "build", "node_modules"]

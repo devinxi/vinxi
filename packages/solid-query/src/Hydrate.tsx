@@ -1,6 +1,6 @@
 import { useRef } from "solid-react-compat";
 import { hydrate, HydrateOptions } from "react-query/core";
-import { createMemo } from "solid-js";
+import { Component, createMemo } from "solid-js";
 import { useQueryClient } from "./QueryClientProvider";
 
 export function useHydrate(state: unknown, options?: HydrateOptions) {
@@ -15,7 +15,7 @@ export function useHydrate(state: unknown, options?: HydrateOptions) {
   // hydrate can and should be run *during* render here for SSR to work properly
   createMemo(() => {
     if (state) {
-      hydrate(queryClient, state, optionsRef.current);
+      hydrate(queryClient, state, optionsRef.current!);
     }
   }, [queryClient, state]);
 }
@@ -25,7 +25,7 @@ export interface HydrateProps {
   options?: HydrateOptions;
 }
 
-export const Hydrate: React.FC<HydrateProps> = ({ children, options, state }) => {
+export const Hydrate: Component<HydrateProps> = ({ children, options, state }) => {
   useHydrate(state, options);
-  return children as React.ReactElement<any>;
+  return <>{children}</>;
 };

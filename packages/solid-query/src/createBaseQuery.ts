@@ -3,7 +3,7 @@ import { notifyManager } from "react-query/core";
 import { QueryObserver } from "react-query/core";
 import { useQueryErrorResetBoundary } from "./QueryErrorResetBoundary";
 import { useQueryClient } from "./QueryClientProvider";
-import { CreateBaseQueryOptions } from "./types";
+import { CreateBaseQueryOptions, QueryKeyOrSignal } from "./types";
 import { useRef } from "solid-react-compat";
 import {
   createComputed,
@@ -16,13 +16,14 @@ import {
 } from "solid-js";
 import { createStore } from "solid-js/store";
 import { CreateBaseQueryResult } from "./types";
+import { ExtractQueryType } from ".";
 
 export function createBaseQuery<
   TQueryFnData,
   TError,
   TData,
   TQueryData,
-  TQueryKey extends QueryKey
+  TQueryKey extends QueryKeyOrSignal
 >(
   options: CreateBaseQueryOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>,
   Observer: typeof QueryObserver
@@ -31,9 +32,15 @@ export function createBaseQuery<
 
   const queryClient = useQueryClient();
   const errorResetBoundary = useQueryErrorResetBoundary();
-  const [defaultedOptions, setOptions] = createSignal(options);
+  const [dOptions, setOptions] = createSignal(options);
 
   createComputed(() => {
+    options.queryKey =
+      typeof options.queryKeySignal === "function"
+        ? options.queryKeySignal()
+        : (options.queryKeySignal as any);
+
+    console.log(options.queryKey);
     let defaultedOptions = queryClient.defaultQueryObserverOptions(options);
     // Make sure results are optimistically set in fetching state before subscribing or updating options
     defaultedOptions.optimisticResults = true;
@@ -72,48 +79,51 @@ export function createBaseQuery<
       }
     }
 
-    setOptions(defaultedOptions);
+    setOptions(defaultedOptions as any);
   });
 
   const observer = createMemo(
     () =>
-      new Observer<TQueryFnData, TError, TData, TQueryData, TQueryKey>(
+      new Observer<TQueryFnData, TError, TData, TQueryData, ExtractQueryType<TQueryKey>>(
         queryClient,
-        defaultedOptions()
+        dOptions()
       )
   );
 
-  const result = () => observer().getOptimisticResult(defaultedOptions());
+  const getResult = () => observer().getOptimisticResult(dOptions());
 
   // const [result, setResult] = createStore();
 
   const [data, { refetch, mutate }] = createResource(
-    () => defaultedOptions().queryKey,
+    () => dOptions().queryKey,
     () => {
-      let currentResult = result();
+      let currentResult = getResult();
       console.log("heree", currentResult);
       if (currentResult.data) {
-        return data;
+        return currentResult.data;
       }
       let resolve;
       let reject;
-      const promise = new Promise((res, rej) => {
+      const promise = new Promise<TData>((res, rej) => {
         resolve = res;
         reject = rej;
       });
 
-      const unsubscribe = observer().subscribe(
+      let obs = observer();
+
+      const unsubscribe = obs.subscribe(
         // () => {
         //   console.log("heree", observer.getOptimisticResult(defaultedOptions));
         //   setResult(observer.getOptimisticResult(defaultedOptions));
         // }
         () => {
-          console.log("hee");
           // if (mountedRef.current) {
-          let result = observer().getOptimisticResult(defaultedOptions());
-          if (defaultedOptions().notifyOnChangeProps === "tracked") {
-            result = observer().trackResult(result, defaultedOptions());
-          }
+          let result = untrack(() => obs.getOptimisticResult(dOptions()));
+          // if (dOptions().notifyOnChangeProps === "tracked") {
+          //   result = observer().trackResult(result, dOptions());
+          // }
+          console.log("hee", obs);
+
           console.log(result);
 
           if (result.error) {
@@ -169,7 +179,7 @@ export function createBaseQuery<
   createEffect(() => {
     // Do not notify on updates because of changes in the options because
     // these changes should already be reflected in the optimistic result.
-    observer().setOptions(defaultedOptions(), { listeners: false });
+    observer().setOptions(dOptions(), { listeners: false });
   });
 
   // Handle suspense

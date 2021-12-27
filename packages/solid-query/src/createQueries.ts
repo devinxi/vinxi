@@ -1,4 +1,6 @@
 import { QueryFunction, QueriesObserver, notifyManager } from "react-query/core";
+import { createEffect, createMemo } from "solid-js";
+import { useRef } from "solid-react-compat";
 
 import { useQueryClient } from "./QueryClientProvider";
 import { CreateQueryOptions, CreateQueryResult } from "./types";
@@ -111,11 +113,11 @@ export function useQueries<T extends any[]>(
   queries: readonly [...QueriesOptions<T>]
 ): QueriesResults<T> {
   const mountedRef = useRef(false);
-  const [, forceUpdate] = React.useState(0);
+  // const [, forceUpdate] = createSignal(0);
 
   const queryClient = useQueryClient();
 
-  const defaultedQueries = useMemo(
+  const defaultedQueries = createMemo(
     () =>
       queries.map(options => {
         const defaultedOptions = queryClient.defaultQueryObserverOptions(options);
@@ -128,17 +130,17 @@ export function useQueries<T extends any[]>(
     [queries, queryClient]
   );
 
-  const [observer] = React.useState(() => new QueriesObserver(queryClient, defaultedQueries));
+  const observer = createMemo(() => new QueriesObserver(queryClient, defaultedQueries()));
 
-  const result = observer.getOptimisticResult(defaultedQueries);
+  const result = observer().getOptimisticResult(defaultedQueries());
 
   createEffect(() => {
     mountedRef.current = true;
 
-    const unsubscribe = observer.subscribe(
+    const unsubscribe = observer().subscribe(
       notifyManager.batchCalls(() => {
         if (mountedRef.current) {
-          forceUpdate(x => x + 1);
+          // forceUpdate(x => x + 1);
         }
       })
     );
@@ -152,7 +154,7 @@ export function useQueries<T extends any[]>(
   createEffect(() => {
     // Do not notify on updates because of changes in the options because
     // these changes should already be reflected in the optimistic result.
-    observer.setQueries(defaultedQueries, { listeners: false });
+    observer().setQueries(defaultedQueries(), { listeners: false });
   }, [defaultedQueries, observer]);
 
   return result as QueriesResults<T>;

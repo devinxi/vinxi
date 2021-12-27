@@ -395,6 +395,7 @@ importers:
       '@vinxi/vite-preset-solid': 0.0.2
       react-query: '*'
       showdown: ^1.9.1
+      solid-app-router: ^0.1.14
       solid-js: ^1.3.0-beta.10
       solid-react-compat: workspace:^0.0.2
       typescript: ^4.5.3
@@ -406,6 +407,7 @@ importers:
       '@vinxi/tsconfig': link:../tsconfig
       '@vinxi/vite-preset-solid': link:../vite-preset-solid
       showdown: 1.9.1
+      solid-app-router: 0.1.14_solid-js@1.3.0-rc.0
       solid-js: 1.3.0-rc.0
       typescript: 4.5.4
       vite: 2.7.7
@@ -11186,7 +11188,6 @@ packages:
       solid-js: ^1.0.0
     dependencies:
       solid-js: 1.3.0-rc.0
-    dev: false
 
   /solid-js/1.3.0-beta.10:
     resolution: {integrity: sha512-cYIfxC8TBUo/+TWQxKF6vgqK3IiPq0EoHE8Ox+vkSk6TzYkM4UZn1QhpQ9/yj/8fXJ9lbvskr37Q9WH3JGPkQg==}

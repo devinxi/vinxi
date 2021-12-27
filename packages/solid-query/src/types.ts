@@ -6,24 +6,40 @@ import {
   QueryObserverResult,
   QueryKey,
   MutationObserverOptions,
-  MutateFunction
+  MutateFunction,
+  InfiniteData
 } from "react-query/core";
 import { Resource } from "solid-js";
 import { ResourceActions } from "solid-js/types/reactive/signal";
+
+export type QueryKeyOrSignal = QueryKey | (() => QueryKey);
+export type ExtractQueryType<T extends QueryKeyOrSignal> = T extends QueryKey
+  ? T
+  : T extends () => QueryKey
+  ? ReturnType<T>
+  : never;
 
 export interface CreateBaseQueryOptions<
   TQueryFnData = unknown,
   TError = unknown,
   TData = TQueryFnData,
   TQueryData = TQueryFnData,
-  TQueryKey extends QueryKey = QueryKey
-> extends QueryObserverOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey> {}
+  TQueryKey extends QueryKeyOrSignal = QueryKeyOrSignal
+> extends QueryObserverOptions<
+    TQueryFnData,
+    TError,
+    TData,
+    TQueryData,
+    ExtractQueryType<TQueryKey>
+  > {
+  queryKeySignal: TQueryKey;
+}
 
 export interface CreateQueryOptions<
   TQueryFnData = unknown,
   TError = unknown,
   TData = TQueryFnData,
-  TQueryKey extends QueryKey = QueryKey
+  TQueryKey extends QueryKeyOrSignal = QueryKeyOrSignal
 > extends CreateBaseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey> {}
 
 export interface CreateInfiniteQueryOptions<
@@ -31,12 +47,18 @@ export interface CreateInfiniteQueryOptions<
   TError = unknown,
   TData = TQueryFnData,
   TQueryData = TQueryFnData,
-  TQueryKey extends QueryKey = QueryKey
-> extends InfiniteQueryObserverOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey> {}
+  TQueryKey extends QueryKeyOrSignal = QueryKeyOrSignal
+> extends InfiniteQueryObserverOptions<
+    TQueryFnData,
+    TError,
+    TData,
+    TQueryData,
+    ExtractQueryType<TQueryKey>
+  > {}
 
 export type CreateBaseQueryResult<TData = unknown, TError = unknown> = [
-  Resource<QueryObserverResult>,
-  ResourceActions<TData> & { query: QueryObserverResult<TData, TError> }
+  Resource<TData | undefined>,
+  ResourceActions<TData | undefined> & { query: QueryObserverResult<TData, TError> }
 ];
 
 export type CreateQueryResult<TData = unknown, TError = unknown> = CreateBaseQueryResult<
@@ -44,10 +66,10 @@ export type CreateQueryResult<TData = unknown, TError = unknown> = CreateBaseQue
   TError
 >;
 
-export type CreateInfiniteQueryResult<
-  TData = unknown,
-  TError = unknown
-> = InfiniteQueryObserverResult<TData, TError>;
+export type CreateInfiniteQueryResult<TData = unknown, TError = unknown> = [
+  Resource<InfiniteData<TData | undefined>>,
+  ResourceActions<TData | undefined> & { query: InfiniteQueryObserverResult<TData, TError> }
+];
 
 export interface CreateMutationOptions<
   TData = unknown,

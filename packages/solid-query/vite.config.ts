@@ -16,6 +16,26 @@ export default defineConfig({
   },
   plugins: [
     // for the playground, we need to be able to use the solid-three package itself
-    solid()
+    solid(),
+    {
+      configureServer: server => {
+        server.middlewares.use("/api/users", (req, res, next) => {
+          res.write(
+            JSON.stringify({
+              1: {
+                id: 1,
+                name: "Joey"
+              },
+              2: {
+                id: 2,
+                name: "Jamie"
+              }
+            }),
+            "utf-8"
+          );
+          res.end();
+        });
+      }
+    }
   ]
 });

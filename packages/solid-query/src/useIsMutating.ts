@@ -2,21 +2,21 @@ import { notifyManager } from "react-query/core";
 import { QueryKey } from "react-query/core";
 import { MutationFilters, parseMutationFilterArgs } from "./utils";
 import { useQueryClient } from "./QueryClientProvider";
+import { useRef } from "solid-react-compat";
+import { Accessor, createEffect, createSignal } from "solid-js";
 
-export function useIsMutating(filters?: MutationFilters): number;
-export function useIsMutating(queryKey?: QueryKey, filters?: MutationFilters): number;
-export function useIsMutating(arg1?: QueryKey | MutationFilters, arg2?: MutationFilters): number {
+export function useIsMutating(filters?: MutationFilters): Accessor<number>;
+export function useIsMutating(queryKey?: QueryKey, filters?: MutationFilters): Accessor<number>;
+export function useIsMutating(
+  arg1?: QueryKey | MutationFilters,
+  arg2?: MutationFilters
+): Accessor<number> {
   const mountedRef = useRef(false);
   const filters = parseMutationFilterArgs(arg1, arg2);
 
   const queryClient = useQueryClient();
 
-  const [isMutating, setIsMutating] = React.useState(queryClient.isMutating(filters));
-
-  const filtersRef = useRef(filters);
-  filtersRef.current = filters;
-  const isMutatingRef = useRef(isMutating);
-  isMutatingRef.current = isMutating;
+  const [isMutating, setIsMutating] = createSignal(queryClient.isMutating(filters));
 
   createEffect(() => {
     mountedRef.current = true;
@@ -24,8 +24,8 @@ export function useIsMutating(arg1?: QueryKey | MutationFilters, arg2?: Mutation
     const unsubscribe = queryClient.getMutationCache().subscribe(
       notifyManager.batchCalls(() => {
         if (mountedRef.current) {
-          const newIsMutating = queryClient.isMutating(filtersRef.current);
-          if (isMutatingRef.current !== newIsMutating) {
+          const newIsMutating = queryClient.isMutating(filters);
+          if (isMutating() !== newIsMutating) {
             setIsMutating(newIsMutating);
           }
         }

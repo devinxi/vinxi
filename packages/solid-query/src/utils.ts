@@ -9,6 +9,7 @@ import type {
   QueryKey,
   QueryOptions
 } from "react-query/core";
+import { QueryKeyOrSignal, ExtractQueryType } from "./types";
 
 // TYPES
 
@@ -108,11 +109,11 @@ export function timeUntilStale(updatedAt: number, staleTime?: number): number {
 }
 
 export function parseQueryArgs<
-  TOptions extends QueryOptions<any, any, any, TQueryKey>,
-  TQueryKey extends QueryKey = QueryKey
+  TOptions extends QueryOptions<any, any, any, ExtractQueryType<TQueryKey>>,
+  TQueryKey extends QueryKeyOrSignal = QueryKeyOrSignal
 >(
   arg1: TQueryKey | TOptions,
-  arg2?: QueryFunction<any, TQueryKey> | TOptions,
+  arg2?: QueryFunction<any, ExtractQueryType<TQueryKey>> | TOptions,
   arg3?: TOptions
 ): TOptions {
   if (!isQueryKey(arg1)) {
