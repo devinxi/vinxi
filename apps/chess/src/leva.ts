@@ -1,10 +1,5 @@
 import { folder as levaFolder } from "solid-leva";
-import type {
-  FolderInput,
-  FolderSettings,
-  Schema,
-  SchemaToValues,
-} from "solid-leva";
+import type { FolderInput, FolderSettings, Schema, SchemaToValues } from "solid-leva";
 import { createControls } from "solid-leva";
 
 declare type HookSettings = {
@@ -23,11 +18,11 @@ declare type ReturnType<F extends SchemaOrFn> = F extends SchemaOrFn<infer S>
     : SchemaToValues<S>
   : never;
 
-export function useControls<
-  S extends Schema,
-  F extends string,
-  G extends SchemaOrFn<S>
->(folderName: F, schema?: G, settings?: HookSettings | FolderSettings) {
+export function useControls<S extends Schema, F extends string, G extends SchemaOrFn<S>>(
+  folderName: F,
+  schema?: G,
+  settings?: HookSettings | FolderSettings
+) {
   return createControls(folderName, schema, { collapsed: true, ...settings });
 }
 

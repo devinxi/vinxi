@@ -21,18 +21,6 @@ const sheet = project.sheet(
   "Scene"
 );
 
-const newObject = {};
-
-const leva = sheet.object("leva", {
-  visible: true,
-  vector: {
-    x: 0,
-    y: 0,
-    z: 0
-  }
-  // vector: [0, 0, 0]
-});
-
 export function useTheatre() {
   return sheet;
 }
@@ -55,6 +43,7 @@ function TheatreProvider() {
     studio.onSelectionChange(e => {
       if (
         e.find(i => {
+          // @ts-ignore
           return i._cache;
         })
       ) {
