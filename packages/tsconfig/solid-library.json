@@ -9,6 +9,8 @@
     "module": "ESNext",
     "target": "ES6",
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "jsxImportSource": "solid-js",
+    "noImplicitAny": false,
+    "emitDeclarationOnly": true
   }
 }

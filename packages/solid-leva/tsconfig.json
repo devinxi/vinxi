@@ -5,8 +5,6 @@
     "outDir": "./types",
     "rootDir": "./src",
     "jsxImportSource": "solid-js",
-    "noImplicitAny": false,
-    "emitDeclarationOnly": true,
     "baseUrl": "./src",
     "paths": {
       "src/*": ["./*"]

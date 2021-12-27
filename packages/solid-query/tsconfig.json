@@ -4,10 +4,10 @@
   "compilerOptions": {
     "outDir": "./types",
     "rootDir": "./src",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "src/*": ["./src/*"]
+      "src/*": ["./*"]
     }
   },
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["dist", "build", "node_modules", "src/components/Image", "src/components/Monitor"]
 }

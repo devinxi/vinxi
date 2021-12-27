@@ -16,7 +16,7 @@ studio.initialize();
 
 const project = getProject("chess");
 
-export const sheet = project.sheet(
+const sheet = project.sheet(
   // Our sheet is identified as "Scene"
   "Scene"
 );
