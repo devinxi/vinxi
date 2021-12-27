@@ -8,7 +8,7 @@ export function Plane() {
       rotation={[-Math.PI / 2, 0, 0]}
       position-y={-5}
     >
-      <meshStandardMaterial color={"indianred"} />
+      <meshStandardMaterial color={"lightgray"} />
     </mesh>
   );
 }

@@ -108,12 +108,10 @@ function getTree(owner) {
   //   }
   // });
 
-  console.log(node);
   return node;
 }
 
 function getThreeTypeName(o: any) {
-  console.log(o);
   return o.type !== "Object3D" ? firstLowerCase(o.type) : o.prototype;
 }
 

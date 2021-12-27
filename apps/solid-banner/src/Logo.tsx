@@ -11,6 +11,8 @@ export function Model(props) {
           castShadow
           receiveShadow
           geometry={data()?.nodes.Cylinder001.geometry}
+          rotation-y={Math.PI - Math.PI / 12}
+          rotation-x={Math.PI / 2}
 
           // material={nodes.Cylinder002.material}
           // position={[2.92, 1.29, -3.25]}
@@ -22,7 +24,9 @@ export function Model(props) {
           receiveShadow
           geometry={data()?.nodes.Cylinder001.geometry}
           // material={nodes.Cylinder002.material}
-          position={[2.92, 1.29, -3.25]}
+          rotation-x={Math.PI / 2}
+          rotation-y={Math.PI / 12}
+          position={[-1, 0.5, -2]}
         >
           <meshStandardMaterial side={THREE.BackSide} color={"#446b9e"} />
         </mesh>

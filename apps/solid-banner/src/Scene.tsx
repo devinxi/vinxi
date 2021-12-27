@@ -10,12 +10,9 @@ import {
 } from "solid-js";
 import { OrbitControls } from "solid-drei";
 import { JSX } from "solid-three";
-import { Plane } from "./Plane";
-import { useControls } from "./lib/leva";
-import { Board } from "./Board";
-import { useTheatreControls } from "./useTheatreControls";
-
+import { createControls } from "solid-leva";
 import { Model } from "./Logo";
+import { Plane } from "./Plane";
 declare module "solid-js" {
   interface Directives {}
 }
@@ -54,18 +51,12 @@ const PerspectiveCamera = ({
 };
 
 export default function Scene() {
-  const controls = useControls("scene", {
-    camera: [3, 25, 10],
+  const controls = createControls("scene", {
+    camera: [0, 5, 5],
     spotLight: [10, 20, 10]
   });
 
   let [ref, setRef] = createSignal(null);
-
-  let theatreControls = useTheatreControls("camera", {
-    x: 0,
-    y: 25,
-    z: 10
-  });
 
   return (
     <Canvas
@@ -74,36 +65,23 @@ export default function Scene() {
         antialias: true
       }}
     >
-      <PerspectiveCamera position={[theatreControls.x, theatreControls.y, theatreControls.z]} />
-      <ambientLight intensity={0.5} />
+      <PerspectiveCamera position={controls.camera} />
+      <ambientLight intensity={1} />
       {/* <directionalLight castShadow intensity={1} position={[10, 10, 10]} /> */}
-      <spotLight ref={setRef} penumbra={1} position={controls.spotLight} intensity={2} castShadow />
+      <spotLight
+        ref={setRef}
+        penumbra={1}
+        position={controls.spotLight}
+        intensity={1.25}
+        castShadow
+      />
       {/* <Box position={[-5, 5, 0]} /> */}
       {/* <Box position={[5, 5, 0]} /> */}
       {/* <Show when={ref()}>{ref => <spotLightHelper args={[ref]} />}</Show> */}
-      {/* <Plane /> */}
+      <Plane />
       {/* <ChessBoard /> */}
       <OrbitControls />
       <Model />
     </Canvas>
   );
-}
-
-function rotate(ref) {
-  effect: {
-    console.log(ref);
-  }
-
-  useFrame(() => {
-    ref.rotation.z += 0.005;
-  });
-}
-
-function ChessBoard() {
-  let ref;
-
-  // useFrame(() => {
-  //   ref.rotation.y += 0.005;
-  // });
-  return <Board ref={ref} />;
 }
