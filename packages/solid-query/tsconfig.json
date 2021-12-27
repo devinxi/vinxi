@@ -1,0 +1,13 @@
+{
+  "extends": "@vinxi/tsconfig/solid-library.json",
+  "include": ["./src"],
+  "compilerOptions": {
+    "outDir": "./types",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "src/*": ["./*"]
+    }
+  },
+  "exclude": ["dist", "build", "node_modules", "src/components/Image", "src/components/Monitor"]
+}

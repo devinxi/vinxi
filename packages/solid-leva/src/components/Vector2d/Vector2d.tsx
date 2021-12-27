@@ -1,37 +1,41 @@
-import { styled } from "../../styles";
+import { css } from "src/styles";
 import { Vector } from "../Vector";
 import { Label, Row } from "../UI";
 import { Joystick } from "./Joystick";
 import { useInputContext } from "../../context";
+import { JSX, Show } from "solid-js";
 import type { Vector2dProps } from "./vector2d-types";
 
-export const Container = css({
+export const container = css({
   display: "grid",
   columnGap: "$colGap",
   variants: {
     withJoystick: {
       true: { gridTemplateColumns: "$sizes$rowHeight auto" },
-      false: { gridTemplateColumns: "auto" },
-    },
-  },
+      false: { gridTemplateColumns: "auto" }
+    }
+  }
 });
 
 export function Vector2dComponent() {
-  const { label, displayValue, onUpdate, settings } =
-    useInputContext<Vector2dProps>();
+  const input = useInputContext<Vector2dProps>();
   return (
     <Row input>
-      <Label>{label}</Label>
-      <Container withJoystick={!!settings.joystick}>
-        {settings.joystick && (
+      <Label>{input.label}</Label>
+      <div
+        class={container({
+          withJoystick: !!input.settings.joystick
+        })}
+      >
+        <Show when={input.settings.joystick}>
           <Joystick
-            value={displayValue}
-            settings={settings}
-            onUpdate={onUpdate}
+            value={input.displayValue}
+            settings={input.settings}
+            onUpdate={input.onUpdate}
           />
-        )}
-        <Vector value={displayValue} settings={settings} onUpdate={onUpdate} />
-      </Container>
+        </Show>
+        <Vector value={input.displayValue} settings={input.settings} onUpdate={input.onUpdate} />
+      </div>
     </Row>
   );
 }

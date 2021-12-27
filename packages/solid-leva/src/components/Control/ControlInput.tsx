@@ -19,11 +19,7 @@ type ControlInputProps = Omit<DataInput, "__refCount" | "key"> & {
 };
 
 function InputProvider(props) {
-  return (
-    <InputContext.Provider value={props}>
-      {props.children}
-    </InputContext.Provider>
-  );
+  return <InputContext.Provider value={props}>{props.children}</InputContext.Provider>;
 }
 
 export function ControlInput(props: ControlInputProps) {
@@ -44,11 +40,12 @@ export function ControlInput(props: ControlInputProps) {
       onChange={onChange}
       onUpdate={onUpdate}
       settings={props.settings}
+      setSettings={props.setSettings}
       label={props.label}
     >
       <div
         class={inputWrapper({
-          disabled: props.disabled,
+          disabled: props.disabled
         })}
       >
         <Dynamic component={Input} />

@@ -4,9 +4,6 @@
   "compilerOptions": {
     "outDir": "./types",
     "rootDir": "./src",
-    "jsxImportSource": "solid-js",
-    "emitDeclarationOnly": true,
-    "noImplicitAny": false,
     "baseUrl": "./",
     "paths": {
       "src/*": ["./src/*"]

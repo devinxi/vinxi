@@ -135,6 +135,7 @@ export const {
   keyframes,
 } = createStitches({
   prefix: "leva",
+  
   theme: getDefaultTheme(),
   utils: {
     // ...prefixes,

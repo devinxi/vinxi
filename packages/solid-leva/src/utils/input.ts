@@ -1,16 +1,29 @@
-import { dequal } from 'dequal/lite'
-import { getValueType, normalize, sanitize } from '../plugin-system'
-import { CommonOptions, Data, DataInput, DataInputOptions, PanelInputOptions, SpecialInputs, StoreType } from '../types'
+import { dequal } from "dequal/lite";
+import { getValueType, normalize, sanitize } from "../plugin-system";
+import {
+  CommonOptions,
+  Data,
+  DataInput,
+  DataInputOptions,
+  PanelInputOptions,
+  SpecialInputs,
+  StoreType
+} from "../types";
 
 type ParsedOptions = {
-  type?: string
-  input: any
-  options: CommonOptions | DataInputOptions | PanelInputOptions
-}
+  type?: string;
+  input: any;
+  options: CommonOptions | DataInputOptions | PanelInputOptions;
+};
 
-export function parseOptions(_input: any, key: string, mergedOptions = {}, customType?: string): ParsedOptions {
+export function parseOptions(
+  _input: any,
+  key: string,
+  mergedOptions = {},
+  customType?: string
+): ParsedOptions {
   // if input isn't an object then we just need to assing default options to it.
-  if (typeof _input !== 'object' || Array.isArray(_input)) {
+  if (typeof _input !== "object" || Array.isArray(_input)) {
     return {
       type: customType,
       input: _input,
@@ -19,22 +32,22 @@ export function parseOptions(_input: any, key: string, mergedOptions = {}, custo
         label: key,
         optional: false,
         disabled: false,
-        ...mergedOptions,
-      },
-    }
+        ...mergedOptions
+      }
+    };
   }
 
   // if it's a custom input, then the input will be under the __customInput key
   // so we run the parseOptions function on that key and for its type.
-  if ('__customInput' in _input) {
+  if ("__customInput" in _input) {
     /**
      * If a custom input uses a non object arg, the only way to parse options
      * is { ...myPlugin('value'), label: 'my label' }.
      * In that case, the input will be shaped like so:
      * { type, __customInput, label }
      */
-    const { type, __customInput, ...options } = _input
-    return parseOptions(__customInput, key, options, type)
+    const { type, __customInput, ...options } = _input;
+    return parseOptions(__customInput, key, options, type);
   }
 
   // parse generic options from input object
@@ -49,7 +62,7 @@ export function parseOptions(_input: any, key: string, mergedOptions = {}, custo
     onEditEnd,
     transient,
     ...inputWithType
-  } = _input
+  } = _input;
   const commonOptions = {
     render,
     key,
@@ -58,14 +71,14 @@ export function parseOptions(_input: any, key: string, mergedOptions = {}, custo
     transient: transient ?? !!onChange,
     onEditStart,
     onEditEnd,
-    ...mergedOptions,
-  }
+    ...mergedOptions
+  };
 
-  let { type, ...input } = inputWithType
-  type = customType ?? type
+  let { type, ...input } = inputWithType;
+  type = customType ?? type;
 
   if (type in SpecialInputs) {
-    return { type, input, options: commonOptions }
+    return { type, input, options: commonOptions };
   }
 
   return {
@@ -75,9 +88,9 @@ export function parseOptions(_input: any, key: string, mergedOptions = {}, custo
       ...commonOptions,
       onChange,
       optional: optional ?? false,
-      disabled: disabled ?? false,
-    },
-  }
+      disabled: disabled ?? false
+    }
+  };
 }
 
 /**
@@ -89,62 +102,84 @@ export function parseOptions(_input: any, key: string, mergedOptions = {}, custo
  * @param path
  */
 export function normalizeInput(_input: any, key: string, path: string, data: Data) {
-  const parsedInputAndOptions = parseOptions(_input, key)
-  const { type, input: parsedInput, options } = parsedInputAndOptions
+  const parsedInputAndOptions = parseOptions(_input, key);
+  const { type, input: parsedInput, options } = parsedInputAndOptions;
   if (type) {
     if (type in SpecialInputs)
       // If the input is a special input then we return it as it is.
-      return parsedInputAndOptions
+      return parsedInputAndOptions;
 
     // If the type key exists at this point, it must be a forced type or a
     // custom plugin defined by the user.
-    return { type, input: normalize(type, parsedInput, path, data), options }
+    return { type, input: normalize(type, parsedInput, path, data), options };
   }
-  let inputType = getValueType(parsedInput)
-  if (inputType) return { type: inputType, input: normalize(inputType, parsedInput, path, data), options }
+  let inputType = getValueType(parsedInput);
+  if (inputType)
+    return { type: inputType, input: normalize(inputType, parsedInput, path, data), options };
 
-  inputType = getValueType({ value: parsedInput })
+  inputType = getValueType({ value: parsedInput });
 
-  if (inputType) return { type: inputType, input: normalize(inputType, { value: parsedInput }, path, data), options }
+  if (inputType)
+    return {
+      type: inputType,
+      input: normalize(inputType, { value: parsedInput }, path, data),
+      options
+    };
 
   // At this point, the input is not recognized and we return false.
-  return false
+  return false;
 }
 
-export function updateInput(input: DataInput, newValue: any, path: string, store: StoreType, fromPanel: boolean) {
-  const { value, type, settings } = input
-  input.value = sanitizeValue({ type, value, settings }, newValue, path, store)
-  input.fromPanel = fromPanel
+export function updateInput(
+  input: DataInput,
+  newValue: any,
+  path: string,
+  store: StoreType,
+  fromPanel: boolean
+) {
+  const { value, type, settings } = input;
+  input.value = sanitizeValue({ type, value, settings }, newValue, path, store);
+  input.fromPanel = fromPanel;
 }
 
 type SanitizeProps = {
-  type: string
-  value: any
-  settings: object | undefined
-}
+  type: string;
+  value: any;
+  settings: object | undefined;
+};
 
-type ValueErrorType = { type: string; message: string; previousValue: any; error?: Error }
+type ValueErrorType = { type: string; message: string; previousValue: any; error?: Error };
 
-const ValueError = (function (this: ValueErrorType, message: string, value: any, error?: Error) {
-  this.type = 'LEVA_ERROR'
-  this.message = 'LEVA: ' + message
-  this.previousValue = value
-  this.error = error
-} as unknown) as { new(message: string, value: any, error?: Error): ValueErrorType }
+const ValueError = function (this: ValueErrorType, message: string, value: any, error?: Error) {
+  this.type = "LEVA_ERROR";
+  this.message = "LEVA: " + message;
+  this.previousValue = value;
+  this.error = error;
+} as unknown as { new (message: string, value: any, error?: Error): ValueErrorType };
 
-export function sanitizeValue({ type, value, settings }: SanitizeProps, newValue: any, path: string, store: StoreType) {
+export function sanitizeValue(
+  { type, value, settings }: SanitizeProps,
+  newValue: any,
+  path: string,
+  store: StoreType
+) {
   // sanitizeValue can accept a new value in the form of fn(oldValue). This
   // allows inputs to run onUpdate(oldValue => oldValue + 1). However, this
   // issue makes the case of a SELECT input with functions as options:
   // https://github.com/pmndrs/leva/issues/165
   // In that situation, functions passed as options would be ran and we don't
   // want that. So in case of the SELECT input, we never compute the functions.
-  const _newValue = type !== 'SELECT' && typeof newValue === 'function' ? newValue(value) : newValue
-  let sanitizedNewValue
+  const _newValue =
+    type !== "SELECT" && typeof newValue === "function" ? newValue(value) : newValue;
+  let sanitizedNewValue;
   try {
-    sanitizedNewValue = sanitize(type, _newValue, settings, value, path, store)
+    sanitizedNewValue = sanitize(type, _newValue, settings, value, path, store);
   } catch (e) {
-    throw new ValueError(`The value \`${newValue}\` did not result in a correct value.`, value, e as Error)
+    throw new ValueError(
+      `The value \`${newValue}\` did not result in a correct value.`,
+      value,
+      e as Error
+    );
   }
   if (dequal(sanitizedNewValue, value)) {
     /**
@@ -159,7 +194,7 @@ export function sanitizeValue({ type, value, settings }: SanitizeProps, newValue
       `The value \`${newValue}\` did not result in a value update, which remained the same: \`${value}\`.
         You can ignore this warning if this is the intended behavior.`,
       value
-    )
+    );
   }
-  return sanitizedNewValue
+  return sanitizedNewValue;
 }

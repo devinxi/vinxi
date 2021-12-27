@@ -1,11 +1,7 @@
-import { createEffect, JSX } from "solid-js";
+import { createEffect, JSX, Show } from "solid-js";
 import { useInputContext } from "../../context";
 import { parseNumber } from "../../utils";
-import {
-  input,
-  inputContainer as inputContainer,
-  innerLabel,
-} from "./StyledInput";
+import { input, inputContainer as inputContainer, innerLabel } from "./StyledInput";
 
 type ValueInputProps = {
   id?: string;
@@ -35,7 +31,7 @@ export function ValueInput(props: ValueInputProps): JSX.Element {
 
   createEffect(() => {
     const ref = inputRef;
-    const _onUpdate = update((value) => {
+    const _onUpdate = update(value => {
       props.onUpdate(value);
       // emitOnEditEnd();
     });
@@ -52,14 +48,13 @@ export function ValueInput(props: ValueInputProps): JSX.Element {
 
   return (
     <div class={inputContainer()}>
-      {props.innerLabel && typeof props.innerLabel === "string" ? (
-        <label class={innerLabel()}>{props.innerLabel}</label>
-      ) : (
-        props.innerLabel
-      )}
+      {/* <Show when={props.innerLabel && typeof props.innerLabel === "string"}> */}
+      <label class={innerLabel()}>{props.innerLabel}</label>
+      {/* </Show> */}
+      {/* {props.innerLabel} */}
       <input
         class={input({
-          levaType: props.type,
+          levaType: props.type
         })}
         ref={inputRef}
         id={inputId}
@@ -67,10 +62,10 @@ export function ValueInput(props: ValueInputProps): JSX.Element {
         autocomplete="off"
         spell-check="false"
         value={props.value}
-        onInput={(e) => {
+        onInput={e => {
           props.onChange(e.currentTarget.value);
         }}
-        onChange={(e) => {
+        onChange={e => {
           props.onUpdate(e.currentTarget.value);
         }}
         // onFocus={() => emitOnEditStart()}
@@ -83,9 +78,8 @@ export function ValueInput(props: ValueInputProps): JSX.Element {
 
 export function NumberInput(props: ValueInputProps) {
   const _onUpdate = (v: any) => props.onUpdate(parseNumber(v));
-  const onKeyDown = (event) => {
-    const dir =
-      event.key === "ArrowUp" ? 1 : event.key === "ArrowDown" ? -1 : 0;
+  const onKeyDown = event => {
+    const dir = event.key === "ArrowUp" ? 1 : event.key === "ArrowDown" ? -1 : 0;
     if (dir) {
       event.preventDefault();
       const step = event.altKey ? 0.1 : event.shiftKey ? 10 : 1;
@@ -101,6 +95,7 @@ export function NumberInput(props: ValueInputProps) {
       onChange={props.onChange}
       onUpdate={_onUpdate}
       onKeyDown={onKeyDown}
+      innerLabel={props.innerLabel}
     />
   );
 }
