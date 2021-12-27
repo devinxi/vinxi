@@ -1,18 +1,14 @@
 import { levaStore } from "./store";
 import { folder } from "./helpers";
-import type {
-  FolderSettings,
-  Schema,
-  SchemaToValues,
-  StoreType,
-  OnChangeHandler,
-} from "./types";
+import type { FolderSettings, Schema, SchemaToValues, StoreType, OnChangeHandler } from "./types";
 import {
   Accessor,
+  createComputed,
   createEffect,
   createMemo,
+  createRenderEffect,
   createSignal,
-  onCleanup,
+  onCleanup
 } from "solid-js";
 import { createStore, Store } from "solid-js/store";
 import { getValuesForPaths } from "./utils/data";
@@ -36,18 +32,14 @@ type ReturnType<F extends SchemaOrFn> = F extends SchemaOrFn<infer S>
     : Store<SchemaToValues<S>>
   : never;
 
-type HookReturnType<
-  F extends SchemaOrFn | string,
-  G extends SchemaOrFn
-> = F extends SchemaOrFn ? ReturnType<F> : ReturnType<G>;
+type HookReturnType<F extends SchemaOrFn | string, G extends SchemaOrFn> = F extends SchemaOrFn
+  ? ReturnType<F>
+  : ReturnType<G>;
 
 function parseArgs(
   schemaOrFolderName: string | SchemaOrFn,
   settingsOrDepsOrSchema?: HookSettings | DependencyList | SchemaOrFn,
-  depsOrSettingsOrFolderSettings?:
-    | DependencyList
-    | HookSettings
-    | FolderSettings,
+  depsOrSettingsOrFolderSettings?: DependencyList | HookSettings | FolderSettings,
   depsOrSettings?: DependencyList | HookSettings,
   depsOrUndefined?: DependencyList
 ) {
@@ -157,33 +149,25 @@ export function createControls<
     const onEditStartPaths: Record<string, (...args: any) => void> = {};
     const onEditEndPaths: Record<string, (...args: any) => void> = {};
 
-    Object.values(mappedPaths).forEach(
-      ({ path, onChange, onEditStart, onEditEnd, transient }) => {
-        allPaths.push(path);
-        if (!!onChange) {
-          onChangePaths[path] = onChange;
-          if (!transient) {
-            renderPaths.push(path);
-          }
-        } else {
+    Object.values(mappedPaths).forEach(({ path, onChange, onEditStart, onEditEnd, transient }) => {
+      allPaths.push(path);
+      if (!!onChange) {
+        onChangePaths[path] = onChange;
+        if (!transient) {
           renderPaths.push(path);
         }
-
-        if (onEditStart) {
-          onEditStartPaths[path] = onEditStart;
-        }
-        if (onEditEnd) {
-          onEditEndPaths[path] = onEditEnd;
-        }
+      } else {
+        renderPaths.push(path);
       }
-    );
-    return [
-      allPaths,
-      renderPaths,
-      onChangePaths,
-      onEditStartPaths,
-      onEditEndPaths,
-    ] as const;
+
+      if (onEditStart) {
+        onEditStartPaths[path] = onEditStart;
+      }
+      if (onEditEnd) {
+        onEditEndPaths[path] = onEditEnd;
+      }
+    });
+    return [allPaths, renderPaths, onChangePaths, onEditStartPaths, onEditEndPaths] as const;
   });
 
   // Extracts the paths from the initialData and ensures order of paths.
@@ -198,13 +182,11 @@ export function createControls<
    * will call the store data.
    * */
 
-  const [controls, setControls] = createSignal<HookReturnType<F, G>>(
-    data()[0] as any
-  );
+  const [controls, setControls] = createSignal<HookReturnType<F, G>>(data()[0] as any);
 
   const [store, setStore] = createStore<HookReturnType<F, G>>(data()[0] as any);
 
-  createEffect(() => {
+  createComputed(() => {
     let [_, renderPaths] = paths();
     let [initialData] = data();
     levaStore.useStore.subscribe(
@@ -227,7 +209,7 @@ export function createControls<
     levaStore.set(_values, false);
   };
 
-  createEffect(() => {
+  createRenderEffect(() => {
     // We initialize the store with the initialData in createEffect.
     // Note that doing this while rendering (ie in useMemo) would make
     // things easier and remove the need for initializing useValuesForPath but

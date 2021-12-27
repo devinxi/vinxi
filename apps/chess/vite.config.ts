@@ -11,12 +11,12 @@ export default defineConfig({
     icons({ compiler: "solid" }),
     windiCSS({
       scan: {
-        fileExtensions: ["html", "js", "ts", "jsx", "tsx"],
-      },
-    }),
+        fileExtensions: ["html", "js", "ts", "jsx", "tsx"]
+      }
+    })
   ],
   build: {
     target: "esnext",
-    polyfillDynamicImport: false,
-  },
+    polyfillDynamicImport: false
+  }
 });

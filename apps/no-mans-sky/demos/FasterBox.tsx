@@ -16,14 +16,12 @@ export function FasterBox(props: any) {
   return (
     <mesh
       ref={ref}
-      onDoubleClick={(e) => setActive((t) => !t)}
-      onClick={(e) => setDirection((d) => d * -1)}
-      onPointerOver={(e) => setHover(true)}
-      onPointerOut={(e) => setHover(false)}
+      onDoubleClick={e => setActive(t => !t)}
+      onClick={e => setDirection(d => d * -1)}
+      onPointerOver={e => setHover(true)}
+      onPointerOut={e => setHover(false)}
       rotation-y={rotation()}
-      onContextMenu={(e) =>
-        setColor((c) => (c === "orange" ? "plum" : "orange"))
-      }
+      onContextMenu={e => setColor(c => (c === "orange" ? "plum" : "orange"))}
       scale={2}
       position-y={active() ? 2 : 1}
       castShadow

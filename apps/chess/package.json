@@ -27,12 +27,16 @@
     "vite-plugin-windicss": "^1.3.0"
   },
   "dependencies": {
+    "@theatre/core": "^0.4.7",
+    "@theatre/r3f": "^0.4.0-dev.20",
     "@use-gesture/vanilla": "^10.2.4",
     "@vanilla-extract/css": "^1.6.8",
     "@vanilla-extract/vite-plugin": "^3.1.1",
     "bitecs": "^0.3.34",
     "mitt": "^3.0.0",
     "popmotion": "^11.0.3",
+    "react": "^17.0.2",
+    "react-devtools-inline": "^4.22.1",
     "solid-app-router": "^0.1.14",
     "solid-drei": "^0.0.1-alpha.10",
     "solid-js": "1.3.0-beta.10",

@@ -134,7 +134,7 @@ import { lazy } from "solid-js";
 const Basic = {
   descr: "",
   tags: [],
-  Component: lazy(() => import("./Basic")),
+  Component: lazy(() => import("../../chess/src/Scene")),
   dev: true,
   bright: true,
 };

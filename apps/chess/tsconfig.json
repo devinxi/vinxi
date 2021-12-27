@@ -11,6 +11,6 @@
     "paths": {
       "@/lib/*": ["./src/lib/*"]
     },
-    "types": ["vite/client"]
+    "types": ["vite/client", "unplugin-icons/types/solid"]
   }
 }

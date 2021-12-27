@@ -1,4 +1,4 @@
-import { styled } from "../../styles";
+import { css } from "src/styles";
 
 export const JoystickTrigger = css({
   $flexCenter: "",
@@ -18,8 +18,8 @@ export const JoystickTrigger = css({
     backgroundColor: "$accent2",
     height: 4,
     width: 4,
-    borderRadius: 2,
-  },
+    borderRadius: 2
+  }
 });
 
 export const JoystickPlayground = css({
@@ -37,8 +37,8 @@ export const JoystickPlayground = css({
   variants: {
     isOutOfBounds: {
       true: { backgroundColor: "$elevation1" },
-      false: { backgroundColor: "$elevation3" },
-    },
+      false: { backgroundColor: "$elevation3" }
+    }
   },
   "> div": {
     position: "absolute",
@@ -54,18 +54,18 @@ export const JoystickPlayground = css({
       content: '""',
       position: "absolute",
       zindex: 10,
-      backgroundColor: "$highlight1",
+      backgroundColor: "$highlight1"
     },
 
     "&::before": {
       width: "100%",
-      height: 1,
+      height: 1
     },
 
     "&::after": {
       height: "100%",
-      width: 1,
-    },
+      width: 1
+    }
   },
 
   "> span": {
@@ -74,6 +74,6 @@ export const JoystickPlayground = css({
     width: 10,
     height: 10,
     backgroundColor: "$accent2",
-    borderRadius: "50%",
-  },
+    borderRadius: "50%"
+  }
 });

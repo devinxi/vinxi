@@ -19,13 +19,11 @@ export type Input = Omit<DataItem, "__refCount">;
 export function useInput(path: string) {
   const store = useStoreContext();
 
-  const [state, setState] = createSignal<Input | null>(
-    getInputAtPath(store.getData(), path)
-  );
+  const [state, setState] = createSignal<Input | null>(getInputAtPath(store.getData(), path));
 
-  const set = (value) => store.setValueAtPath(path, value, true);
-  const setSettings = (settings) => store.setSettingsAtPath(path, settings);
-  const disable = (flag) => store.disableInputAtPath(path, flag);
+  const set = value => store.setValueAtPath(path, value, true);
+  const setSettings = settings => store.setSettingsAtPath(path, settings);
+  const disable = flag => store.disableInputAtPath(path, flag);
   const emitOnEditStart = () => store.emitOnEditStart(path);
   const emitOnEditEnd = () => store.emitOnEditEnd(path);
 
@@ -48,7 +46,7 @@ export function useInput(path: string) {
       disable,
       storeId: store.storeId,
       emitOnEditStart,
-      emitOnEditEnd,
-    },
+      emitOnEditEnd
+    }
   ] as const;
 }

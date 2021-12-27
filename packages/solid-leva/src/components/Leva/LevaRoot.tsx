@@ -5,11 +5,7 @@ import { useDeepMemo, useTransform, useVisiblePaths } from "../../hooks";
 
 import { root } from "./styles";
 import { mergeTheme, LevaCustomTheme } from "../../styles";
-import {
-  ThemeContext,
-  StoreContext,
-  PanelSettingsContext,
-} from "../../context";
+import { ThemeContext, StoreContext, PanelSettingsContext } from "../../context";
 import { TitleWithFilter } from "./Filter";
 import { StoreType } from "../../types";
 import { createEffect, JSX, createMemo, createSignal, Show } from "solid-js";
@@ -106,6 +102,7 @@ export function LevaRoot(props: LevaRootProps) {
           rootClass={themeContext().className}
           flat={false}
           fill={false}
+          titleBar={true}
         />
       </ThemeContext.Provider>
     </Show>
@@ -116,7 +113,7 @@ type LevaCoreProps = Omit<LevaRootProps, "theme" | "hidden" | "collapsed"> & {
   store: StoreType;
   rootClass: string;
   toggled: boolean;
-  setToggle: (value: boolean) => void;
+  setToggle: (value: boolean | ((v: boolean) => boolean)) => void;
 };
 
 // {
@@ -136,68 +133,54 @@ type LevaCoreProps = Omit<LevaRootProps, "theme" | "hidden" | "collapsed"> & {
 // }
 
 const LevaCore = (props: LevaCoreProps) => {
-  // const paths = useVisiblePaths(props.store);
   const [filter, setFilter] = createSignal("");
-  const [tree, setTree] = createSignal(
-    buildTree(props.store.getVisiblePaths(), filter())
-  );
+  const [tree, setTree] = createSignal(buildTree(props.store.getVisiblePaths(), filter()));
 
   createEffect(() => {
-    setTree(buildTree(props.store.getVisiblePaths(), ""));
+    setTree(buildTree(props.store.getVisiblePaths(), filter()));
     props.store.useStore.subscribe(() => {
-      setTree(buildTree(props.store.getVisiblePaths(), ""));
+      setTree(buildTree(props.store.getVisiblePaths(), filter()));
     });
   });
 
-  // drag
-  // const [rootRef, set] = useTransform<HTMLDivElement>();
-  let rootRef;
-
-  // this generally happens on first render because the store is initialized in createEffect.
-  // const shouldShow = paths.length > 0;
-  // const title =
-  //   typeof props.titleBar === "object"
-  //     ? props.titleBar.title || undefined
-  //     : undefined;
-  // const drag =
-  //   typeof props.titleBar === "object" ? props.titleBar.drag ?? true : true;
-  // const filterEnabled =
-  //   typeof props.titleBar === "object" ? props.titleBar.filter ?? true : true;
+  const [rootRef, set] = useTransform<HTMLDivElement>();
 
   return (
     <PanelSettingsContext.Provider value={{ hideCopyButton: false }}>
       <div
-        ref={rootRef}
+        ref={el => (rootRef.current = el)}
         class={`${root({
           fill: props.fill,
           flat: props.flat,
           oneLineLabels: props.oneLineLabels,
-          hideTitleBar: !props.titleBar,
+          hideTitleBar: false
         })} ${props.rootClass}`}
-        // style={{ display: "block" }}
+        style={{ display: "block" }}
       >
-        {/* {titleBar && (
+        <Show when={props.titleBar}>
           <TitleWithFilter
             onDrag={set}
             setFilter={setFilter}
-            toggle={(flag?: boolean) => setToggle((t) => flag ?? !t)}
-            toggled={toggled}
-            title={title}
-            drag={drag}
-            filterEnabled={filterEnabled}
+            toggle={(flag?: boolean) => props.setToggle(t => flag ?? !t)}
+            toggled={props.toggled}
+            title={
+              typeof props.titleBar === "object" ? props.titleBar.title || undefined : undefined
+            }
+            drag={typeof props.titleBar === "object" ? props.titleBar.drag ?? true : true}
+            filterEnabled={
+              typeof props.titleBar === "object" ? props.titleBar.filter ?? true : true
+            }
           />
-        )} */}
-        {/* {shouldShow && ( */}
+        </Show>
         <StoreContext.Provider value={levaStore}>
           <TreeWrapper
             isRoot={true}
             fill={props.fill}
             flat={props.flat}
             tree={tree()}
-            toggled={true}
+            toggled={props.toggled}
           />
         </StoreContext.Provider>
-        {/* )} */}
       </div>
     </PanelSettingsContext.Provider>
   );

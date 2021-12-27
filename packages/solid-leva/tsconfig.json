@@ -12,14 +12,5 @@
       "src/*": ["./*"]
     }
   },
-  "exclude": [
-    "dist",
-    "build",
-    "node_modules",
-    "src/components/Vector",
-    "src/components/Vector2d",
-    "src/components/Vector3d",
-    "src/components/Image",
-    "src/components/Monitor"
-  ]
+  "exclude": ["dist", "build", "node_modules", "src/components/Image", "src/components/Monitor"]
 }

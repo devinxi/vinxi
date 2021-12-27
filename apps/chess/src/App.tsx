@@ -1,218 +1,97 @@
 // import { Route, Routes } from "solid-app-router";
-import { createMemo, createSignal, DEV } from "solid-js";
-import * as demos from "./demos";
+import { createContext, createEffect, createMemo, createSignal, DEV } from "solid-js";
 import { Dynamic } from "solid-three";
 import { main } from "./sprinkles.css";
 import { useControls } from "./lib/leva";
-import { button } from "solid-leva";
+import { button, LevaPanel, levaStore } from "solid-leva";
+import Scene from "./Scene";
+import React from "react";
 
-const defaultComponent = "Basic";
-const Demos = Object.entries(demos).reduce(
-  (acc, [name, item]) => ({ ...acc, [name]: item }),
-  {}
+import { getProject } from "@theatre/core";
+import studio from "@theatre/studio";
+import { render } from "solid-js/web";
+
+// initialize the studio so the editing tools will show up on the screen
+studio.initialize();
+
+const project = getProject("chess");
+
+export const sheet = project.sheet(
+  // Our sheet is identified as "Scene"
+  "Scene"
 );
 
-const [demo, setDemo] = createSignal(defaultComponent);
+const newObject = {};
 
-const App = () => {
-  let demoComponent = createMemo(() => {
-    return Demos[demo()].Component;
+const leva = sheet.object("leva", {
+  visible: true,
+  vector: {
+    x: 0,
+    y: 0,
+    z: 0
+  }
+  // vector: [0, 0, 0]
+});
+
+export function useTheatre() {
+  return sheet;
+}
+
+function TheatreProvider() {
+  useControls("theatre", {
+    hide: button(() => {
+      studio.ui.hide();
+    }),
+    show: button(() => {
+      studio.ui.restore();
+    }),
+    leva: button(() => {
+      studio.createPane("leva");
+    })
   });
 
-  // console.log(useMotionValue(0));
+  createEffect(() => {
+    let leva = document.getElementById("leva__root");
+    studio.onSelectionChange(e => {
+      if (
+        e.find(i => {
+          return i._cache;
+        })
+      ) {
+        console.log(leva);
+        // leva.style.left = "100px";
+        leva.style.display = "none";
 
-  console.log(DEV);
-  // const { popperStyles, arrowStyles } = getPlacementData({
-  //   popperSize,
-  //   anchorRect,
-  //   arrowSize,
-  //   arrowOffset,
-  //   side,
-  //   sideOffset,
-  //   align,
-  //   alignOffset,
-  //   shouldAvoidCollisions: !disableCollisions,
-  //   collisionBoundariesRect: DOMRect.fromRect({
-  //     width: window.innerWidth,
-  //     height: window.innerHeight,
-  //     x: 0,
-  //     y: 0,
-  //   }),
-  //   collisionTolerance,
-  // });
+        // ref.current.style.display = "none";
+      } else {
+        leva.style.display = "block";
+      }
+    });
+  });
+  return <></>;
+}
 
+const App = () => {
   useControls("debug", {
     vite: button(() => {
       window.open("/__inspect", "_blank");
-    }),
+    })
   });
 
   useControls("docs", {
     solid: button(() => {
-      window.open(
-        "https://www.solidjs.com/tutorial/introduction_basics",
-        "_blank"
-      );
-    }),
+      window.open("https://www.solidjs.com/tutorial/introduction_basics", "_blank");
+    })
   });
 
   return (
     <>
+      <TheatreProvider />
       <main class={main}>
-        <Dynamic component={demoComponent()} />
-        <div
-          onClick={() => {
-            setDemo((a) => (a === "Scale" ? "Basic" : "Scale"));
-          }}
-          class="fixed bottom-10 left-10 w-12 h-12 bg-blue-400 rounded-full scale-100 hover:bg-blue-300 z-10"
-        ></div>
+        <Scene />
       </main>
     </>
   );
 };
-
-const label = {
-  position: "absolute",
-  padding: "10px 20px",
-  bottom: "unset",
-  right: "unset",
-  top: 60,
-  left: 60,
-  maxWidth: 380,
-};
-
-// function HtmlLoader() {
-//   return (
-//     <span style={{ ...label, border: "2px solid #10af90", color: "#10af90" }}>
-//       waiting...
-//     </span>
-//   );
-// }
-
-// function ErrorBoundary({ children, fallback, name }: any) {
-//   const { ErrorBoundary, didCatch, error } = useErrorBoundary();
-//   return didCatch ? (
-//     fallback(error)
-//   ) : (
-//     <ErrorBoundary key={name}>{children}</ErrorBoundary>
-//   );
-// }
-
-// function Intro() {
-//   return (
-//     <Page>
-//       <Suspense fallback={<HtmlLoader />}>
-//         <Switch>
-//           <Route
-//             exact
-//             path="/"
-//             component={visibleComponents[defaultComponent].Component}
-//           />
-//           <Route
-//             exact
-//             path="/demo/:name"
-//             render={({ match }) => {
-//               const Component = visibleComponents[match.params.name].Component;
-//               return (
-//                 <ErrorBoundary
-//                   key={match.params.name}
-//                   fallback={(e: any) => (
-//                     <span
-//                       style={{
-//                         ...label,
-//                         border: "2px solid #ff5050",
-//                         color: "#ff5050"
-//                       }}
-//                     >
-//                       {e}
-//                     </span>
-//                   )}
-//                 >
-//                   <Component />
-//                 </ErrorBoundary>
-//               );
-//             }}
-//           />
-//         </Switch>
-//       </Suspense>
-
-//       <Dots />
-//     </Page>
-//   );
-// }
-
-// function Dots() {
-//   const location = useLocation();
-//   const match: any = useRouteMatch("/demo/:name");
-//   const dev = React.useMemo(
-//     () => new URLSearchParams(location.search).get("dev"),
-//     [location.search]
-//   );
-//   const { bright } = visibleComponents[match?.params.name ?? defaultComponent];
-//   return (
-//     <>
-//       <DemoPanel>
-//         {Object.entries(visibleComponents).map(function mapper([name, item]) {
-//           const style = {
-//             // to complex to optimize
-//             background:
-//               (!match && name === defaultComponent) ||
-//               (match && match.params.name === name)
-//                 ? "salmon"
-//                 : bright
-//                 ? "#2c2d31"
-//                 : "white"
-//           };
-//           return dev ? null : (
-//             <Link key={name} to={`/demo/${name}`}>
-//               <Spot style={style} />
-//             </Link>
-//           );
-//         })}
-//       </DemoPanel>
-//       <span style={{ color: bright ? "#2c2d31" : "white" }}>
-//         {match?.params.name ?? defaultComponent}
-//       </span>
-//     </>
-//   );
-// }
-
-// export default function App() {
-//   return (
-//     <HashRouter>
-//       <Global />
-//       <Intro />
-//     </HashRouter>
-//   );
-// }
-
-// const Page = styled(PageImpl)`
-//   & > h1 {
-//     position: absolute;
-//     top: 70px;
-//     left: 60px;
-//   }
-
-//   & > span {
-//     position: absolute;
-//     bottom: 60px;
-//     right: 60px;
-//   }
-// `;
-
-// const DemoPanel = styled.div`
-//   position: absolute;
-//   bottom: 50px;
-//   left: 50px;
-//   max-width: 250px;
-// `;
-
-// const Spot = styled.div`
-//   display: inline-block;
-//   width: 20px;
-//   height: 20px;
-//   border-radius: 50%;
-//   margin: 8px;
-// `;
 
 export default App;

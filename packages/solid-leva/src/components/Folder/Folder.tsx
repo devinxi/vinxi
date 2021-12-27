@@ -8,7 +8,6 @@ import { useStoreContext } from "../../context";
 import type { Tree } from "../../types";
 import { createEffect, createSignal, For, Show, JSX } from "solid-js";
 import { useTh } from "src/styles";
-import { effect } from "solid-js/web";
 
 type FolderProps = { name: string; path?: string; tree: Tree };
 
@@ -24,34 +23,19 @@ const Folder = ({ name, path, tree }: FolderProps) => {
   const textColor = useTh("colors", "folderTextColor");
 
   createEffect(() => {
-    folderRef!.style.setProperty(
-      "--leva-colors-folderWidgetColor",
-      color || widgetColor
-    );
-    folderRef!.style.setProperty(
-      "--leva-colors-folderTextColor",
-      color || textColor
-    );
+    folderRef!.style.setProperty("--leva-colors-folderWidgetColor", color || widgetColor);
+    folderRef!.style.setProperty("--leva-colors-folderTextColor", color || textColor);
   });
 
   return (
     <div
       class={folder({
-        isRoot: false,
+        isRoot: false
       })}
       ref={folderRef}
     >
-      <FolderTitle
-        name={name!}
-        toggled={toggled()}
-        toggle={() => setToggle((t) => !t)}
-      />
-      <TreeWrapper
-        parent={newPath}
-        tree={tree}
-        isRoot={false}
-        toggled={toggled()}
-      />
+      <FolderTitle name={name!} toggled={toggled()} toggle={() => setToggle(t => !t)} />
+      <TreeWrapper parent={newPath} tree={tree} isRoot={false} toggled={toggled()} />
     </div>
   );
 };
@@ -67,44 +51,36 @@ type TreeWrapperProps = {
 
 export const TreeWrapper = (props: TreeWrapperProps) => {
   const { wrapperRef, contentRef } = useToggle(() => props.toggled);
-  effect: {
-    console.log(props.isRoot);
-  }
+
   return (
     <div
       class={wrapper({
         isRoot: props.isRoot ?? false,
         fill: props.fill,
-        flat: props.flat,
+        flat: props.flat
       })}
       style={
         !props.toggled
           ? { overflow: "hidden", height: 0 }
           : {
               overflow: "visible",
-              height: "auto",
+              height: "auto"
             }
       }
-      ref={(el) => (wrapperRef.current = el)}
+      ref={el => (wrapperRef.current = el)}
     >
       <div
         class={content({
           isRoot: props.isRoot,
-          toggled: props.toggled,
+          toggled: props.toggled
         })}
-        ref={(el) => (contentRef.current = el)}
+        ref={el => (contentRef.current = el)}
       >
         <For each={Object.keys(props.tree)}>
-          {(key) => (
+          {key => (
             <Show
               when={isInput(props.tree[key])}
-              fallback={
-                <Folder
-                  name={key}
-                  path={props.parent}
-                  tree={props.tree[key] as Tree}
-                />
-              }
+              fallback={<Folder name={key} path={props.parent} tree={props.tree[key] as Tree} />}
             >
               <Control
                 key={props.tree[key].path}

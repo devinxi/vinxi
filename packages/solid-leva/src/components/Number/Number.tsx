@@ -7,7 +7,9 @@ import { useInputContext } from "../../context";
 import type { NumberProps } from "./number-types";
 import { multiplyStep } from "../../utils";
 import { innerNumberLabel } from "../ValueInput/StyledInput";
-import { createSignal, Show, JSX } from "solid-js";
+import { createSignal, Show, JSX, createEffect } from "solid-js";
+import { effect } from "src/../../solid-colorful/node_modules/solid-js/web/types";
+import { DragGesture } from "@use-gesture/vanilla";
 
 type DraggableLabelProps = {
   label: string;
@@ -18,72 +20,71 @@ type DraggableLabelProps = {
 
 const DraggableLabel = (props: DraggableLabelProps): JSX.Element => {
   const [dragging, setDragging] = createSignal(false);
-  const bind = useDrag(({ active, delta: [dx], event, memo = 0 }) => {
-    setDragging(active);
-    memo += dx / 2;
-    if (Math.abs(memo) >= 1) {
-      props.onUpdate(
-        (v: any) =>
-          parseFloat(v) + Math.floor(memo) * props.step * multiplyStep(event)
-      );
-      memo = 0;
-    }
-    return memo;
+  let ref;
+
+  createEffect(() => {
+    new DragGesture(ref, ({ active, delta: [dx], event, memo = 0 }) => {
+      setDragging(active);
+      memo += dx / 2;
+      if (Math.abs(memo) >= 1) {
+        props.onUpdate(
+          (v: any) => parseFloat(v) + Math.floor(memo) * props.step * multiplyStep(event)
+        );
+        memo = 0;
+      }
+      return memo;
+    });
   });
 
   return (
-    <label
+    <div
       class={innerNumberLabel({
-        dragging: dragging(),
+        dragging: dragging()
       })}
       title={props.label.length > 1 ? props.label : ""}
+      ref={ref}
       // {...bind()}
     >
       {props.label.slice(0, props.innerLabelTrim)}
-    </label>
+    </div>
   );
 };
 
 export function Number(
-  props: Omit<
-    NumberProps,
-    "setSettings" | "emitOnEditStart" | "emitOnEditEnd"
-  > & {
+  props: Omit<NumberProps, "setSettings" | "emitOnEditStart" | "emitOnEditEnd"> & {
     id?: string;
     label: string;
     innerLabelTrim?: number;
   }
 ): JSX.Element {
-  const InnerLabel = (props.innerLabelTrim ?? 1) > 0 && (
-    <DraggableLabel
-      label={props.label}
-      step={props.settings.step}
-      onUpdate={props.onUpdate}
-      innerLabelTrim={props.innerLabelTrim!}
-    />
-  );
   return (
     <NumberInput
       id={props.id}
       value={String(props.displayValue)}
       onUpdate={props.onUpdate}
       onChange={props.onChange}
-      innerLabel={InnerLabel}
+      innerLabel={
+        <DraggableLabel
+          label={props.label}
+          step={props.settings.step}
+          onUpdate={props.onUpdate}
+          innerLabelTrim={props.innerLabelTrim!}
+        />
+      }
     />
   );
 }
 
 export function NumberComponent(): JSX.Element {
   const props = useInputContext<NumberProps>();
-  const hasRange = () =>
-    props.settings.max !== Infinity && props.settings.min !== -Infinity;
+  const hasRange = () => props.settings.max !== Infinity && props.settings.min !== -Infinity;
 
   return (
     <Row input>
       <Label>{props.label}</Label>
       <div
         class={rangeGrid({
-          hasRange: hasRange(),
+          hasRange: hasRange()
         })}
       >
         <Show when={hasRange()}>
@@ -93,12 +94,7 @@ export function NumberComponent(): JSX.Element {
             {...props.settings}
           />
         </Show>
-        <Number
-          {...props}
-          id={props.id}
-          label="value"
-          innerLabelTrim={hasRange() ? 0 : 1}
-        />
+        <Number {...props} id={props.id} label="value" innerLabelTrim={hasRange() ? 0 : 2} />
       </div>
     </Row>
   );

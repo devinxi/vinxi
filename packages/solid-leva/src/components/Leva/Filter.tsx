@@ -1,15 +1,9 @@
 import { DragGesture } from "@use-gesture/vanilla";
-import { createEffect, createMemo, createSignal, JSX } from "solid-js";
+import { createEffect, createMemo, createSignal, JSX, onCleanup } from "solid-js";
 import { debounce } from "../../utils";
 import { FolderTitleProps } from "../Folder";
 import { Chevron } from "../UI";
-import {
-  filterInput,
-  titleWithFilter,
-  titleContainer,
-  icon,
-  filterWrapper,
-} from "./filterStyles";
+import { filterInput, titleWithFilter, titleContainer, icon, filterWrapper } from "./filterStyles";
 
 type FilterProps = {
   setFilter: (value: string) => void;
@@ -20,14 +14,14 @@ type FilterProps = {
 const FilterInput = (props: FilterProps) => {
   const [value, set] = createSignal("");
   const debouncedOnChange = createMemo<FilterProps["setFilter"]>(() =>
-    debounce(props.setFilter, 250)
+    debounce(props.setFilter, 50)
   );
   const clear = () => {
     props.setFilter("");
     set("");
   };
 
-  const _onChange = (e) => {
+  const _onChange = e => {
     const v = e.currentTarget.value;
     props.toggle(true);
     set(v);
@@ -44,8 +38,8 @@ const FilterInput = (props: FilterProps) => {
         ref={props.ref}
         value={value()}
         placeholder="[Open filter with CMD+SHIFT+L]"
-        onPointerDown={(e) => e.stopPropagation()}
-        onChange={_onChange}
+        onPointerDown={e => e.stopPropagation()}
+        onInput={_onChange}
       />
       <div
         class={icon()}
@@ -82,35 +76,39 @@ export function TitleWithFilter(props: TitleWithFilterProps) {
   const [filterShown, setShowFilter] = createSignal(false);
   let inputRef: HTMLInputElement | undefined;
 
-  // createEffect(() => {
-  //   if (filterShown) inputRef.current?.focus();
-  //   else inputRef.current?.blur();
-  // }, [filterShown]);
+  createEffect(() => {
+    if (filterShown()) inputRef?.focus();
+    else inputRef?.blur();
+  });
 
-  // const bind = useDrag(({ offset: [x, y] }) => onDrag({ x, y }), {
-  //   filterTaps: true,
-  // });
+  let dragRef;
 
-  // createEffect(() => {
-  //   const handleShortcut = (event: KeyboardEvent) => {
-  //     if (event.key === "L" && event.shiftKey && event.metaKey) {
-  //       setShowFilter((f) => !f);
-  //     }
-  //   };
-  //   window.addEventListener("keydown", handleShortcut);
-  //   return () => window.removeEventListener("keydown", handleShortcut);
-  // }, []);
+  createEffect(() => {
+    new DragGesture(dragRef, ({ offset: [x, y] }) => props.onDrag({ x, y }), {
+      filterTaps: true
+    });
+  });
+
+  createEffect(() => {
+    const handleShortcut = (event: KeyboardEvent) => {
+      if (event.key === "L" && event.shiftKey && event.metaKey) {
+        setShowFilter(f => !f);
+      }
+    };
+    window.addEventListener("keydown", handleShortcut);
+    onCleanup(() => window.removeEventListener("keydown", handleShortcut));
+  }, []);
 
   return (
     <>
       <div
         class={titleWithFilter({
-          mode: props.drag ? "drag" : undefined,
+          mode: props.drag ? "drag" : undefined
         })}
       >
         <div
           class={icon({
-            active: !props.toggle,
+            active: !props.toggle
           })}
           onClick={() => props.toggle()}
         >
@@ -118,18 +116,14 @@ export function TitleWithFilter(props: TitleWithFilterProps) {
         </div>
         <div
           class={titleContainer({
-            filterEnabled: props.filterEnabled,
+            filterEnabled: props.filterEnabled
           })}
+          ref={dragRef}
           // {...(drag ? bind() : {})}
           // drag={drag}
         >
           {props.title === undefined && props.drag ? (
-            <svg
-              width="20"
-              height="10"
-              viewBox="0 0 28 14"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="20" height="10" viewBox="0 0 28 14" xmlns="http://www.w3.org/2000/svg">
               <circle cx="2" cy="2" r="2" />
               <circle cx="14" cy="2" r="2" />
               <circle cx="26" cy="2" r="2" />
@@ -144,15 +138,11 @@ export function TitleWithFilter(props: TitleWithFilterProps) {
         {props.filterEnabled && (
           <div
             class={icon({
-              active: filterShown(),
+              active: filterShown()
             })}
-            onClick={() => setShowFilter((f) => !f)}
+            onClick={() => setShowFilter(f => !f)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="20"
-              viewBox="0 0 20 20"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 20 20">
               <path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" />
               <path
                 fill-rule="evenodd"
@@ -165,14 +155,10 @@ export function TitleWithFilter(props: TitleWithFilterProps) {
       </div>
       <div
         class={filterWrapper({
-          toggled: filterShown(),
+          toggled: filterShown()
         })}
       >
-        <FilterInput
-          ref={inputRef}
-          setFilter={props.setFilter}
-          toggle={props.toggle}
-        />
+        <FilterInput ref={inputRef} setFilter={props.setFilter} toggle={props.toggle} />
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import { createResource } from "solid-js";
 import { loadingFn } from "solid-three";
 import { Loader } from "three";
-import { GLTFLoader, DRACOLoader } from "three-stdlib";
+import { GLTFLoader, DRACOLoader, GLTF } from "three-stdlib";
 
 let dracoLoader: DRACOLoader | null = null;
 
@@ -33,7 +33,7 @@ function extensions(
   };
 }
 
-export function useGLTF<T extends string | string[]>(
+export function useGLTF<T extends string | string[], Data extends GLTF>(
   path: T,
   useDraco: boolean | string = true,
   useMeshOpt: boolean = true,
@@ -41,13 +41,13 @@ export function useGLTF<T extends string | string[]>(
 ) {
   return createResource(
     () => path,
-    async (path) => {
+    async path => {
       return (
-        await loadingFn(
-          extensions(useDraco, useMeshOpt, extendLoader),
-          () => {}
-        )(GLTFLoader as any, path as string)
-      )[0];
+        await loadingFn(extensions(useDraco, useMeshOpt, extendLoader), () => {})(
+          GLTFLoader as any,
+          path as string
+        )
+      )[0] as Data;
     }
   );
 }

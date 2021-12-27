@@ -1,10 +1,9 @@
-import { styled } from "@/leva/plugin";
 import * as React from "solid-react-compat";
 
 // TODO remove as any when this is corrected by stitches
-const Svg = styled("svg", {
+const Svg = css("svg", {
   fill: "currentColor",
-  transition: "transform 350ms ease, fill 250ms ease",
+  transition: "transform 350ms ease, fill 250ms ease"
 }) as any;
 
 export function Chevron({

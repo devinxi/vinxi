@@ -6,6 +6,7 @@ export function Plane() {
       receiveShadow
       geometry={new PlaneBufferGeometry(100, 100)}
       rotation={[-Math.PI / 2, 0, 0]}
+      position-y={-5}
     >
       <meshStandardMaterial color={"indianred"} />
     </mesh>

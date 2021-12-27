@@ -3,7 +3,6 @@ import { createEffect, createSignal, Match, Switch } from "solid-js";
 import { button, createControls, folder } from "solid-leva";
 import { Html } from "solid-drei";
 import { animate } from "popmotion";
-import { PieceModel } from "src/chess/models/chess/Piece";
 
 export function Box(props: any) {
   const [hovered, setHover] = createSignal(false);
@@ -14,14 +13,9 @@ export function Box(props: any) {
   let mesh;
   const controls = createControls("box", {
     size: {
-      value: 5,
+      value: 2,
       min: 0,
       max: 10
-    },
-    width: {
-      value: 1,
-      min: -0.1,
-      max: 5
     },
     interval: [10, 20],
     material: folder({
@@ -55,10 +49,6 @@ export function Box(props: any) {
     }
   });
 
-  effect: {
-    console.log(controls.width);
-  }
-
   return (
     <mesh
       ref={mesh}
@@ -68,16 +58,24 @@ export function Box(props: any) {
       onPointerOut={e => setHover(false)}
       rotation-y={rotation()}
       scale={controls.size}
-      position-y={active() ? 2 : 1}
+      position-y={
+        active()
+          ? props.position
+            ? props.position[1] + 10
+            : 2
+          : props.position
+          ? props.position[1]
+          : 1
+      }
       castShadow
       {...props}
     >
       <Html ref={ref}>
         <div>Hello World</div>
       </Html>
-      <Switch fallback={null}>
-        <Match when={controls.shape === "box" && controls.width > 0}>
-          <boxBufferGeometry args={[controls.width, 1, 1]} />
+      <Switch fallback={<boxBufferGeometry args={[10, 1, 1]} />}>
+        <Match when={controls.shape === "box"}>
+          <boxBufferGeometry args={[controls.size, controls.size, controls.size]} />
         </Match>
         <Match when={controls.shape === "cylinder"}>
           <cylinderBufferGeometry args={[1, 1, 1]} />

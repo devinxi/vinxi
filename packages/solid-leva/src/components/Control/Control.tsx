@@ -13,15 +13,14 @@ type ControlProps = { path: string };
 
 const specialComponents = {
   [SpecialInputs.BUTTON]: Button,
-  [SpecialInputs.BUTTON_GROUP]: ButtonGroup,
+  [SpecialInputs.BUTTON_GROUP]: ButtonGroup
   // [SpecialInputs.MONITOR]: Monitor,
 };
 
-export const Control = (props) => {
-  const [
-    input,
-    { set, setSettings, disable, storeId, emitOnEditStart, emitOnEditEnd },
-  ] = useInput(props.path);
+export const Control = props => {
+  const [input, { set, setSettings, disable, storeId, emitOnEditStart, emitOnEditEnd }] = useInput(
+    props.path
+  );
   // if (!input) return null;
 
   // if (inptype in SpecialInputs) {
@@ -34,17 +33,13 @@ export const Control = (props) => {
   //   log(LevaErrors.UNSUPPORTED_INPUT, type, props.path);
   //   return null;
   // }
-  console.log("CREATING CONTROL", input());
+
 
   return (
     <Switch>
       <Match when={!input()}>{null}</Match>
       <Match when={input()!.type in SpecialInputs ? input() : undefined}>
-        <Dynamic
-          component={specialComponents[input()!.type]}
-          path={props.path}
-          {...input()}
-        />
+        <Dynamic component={specialComponents[input()!.type]} path={props.path} {...input()} />
       </Match>
       <Match when={input()!.type in Plugins ? input() : undefined}>
         <ControlInput
