@@ -15,7 +15,6 @@ import { useControls } from "./lib/leva";
 import { Board } from "./Board";
 import { useTheatreControls } from "./useTheatreControls";
 
-import { Model } from "./Logo";
 declare module "solid-js" {
   interface Directives {}
 }
@@ -81,10 +80,10 @@ export default function Scene() {
       {/* <Box position={[-5, 5, 0]} /> */}
       {/* <Box position={[5, 5, 0]} /> */}
       {/* <Show when={ref()}>{ref => <spotLightHelper args={[ref]} />}</Show> */}
-      {/* <Plane /> */}
-      {/* <ChessBoard /> */}
+
+      <Plane />
+      <ChessBoard />
       <OrbitControls />
-      <Model />
     </Canvas>
   );
 }
