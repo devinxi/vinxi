@@ -1,65 +1,13 @@
 // import { Route, Routes } from "solid-app-router";
-import { createContext, createEffect, createMemo, createSignal, DEV } from "solid-js";
-import { Dynamic } from "solid-three";
 import { main } from "./sprinkles.css";
 import { useControls } from "./lib/leva";
-import { button, LevaPanel, levaStore } from "solid-leva";
+import { button } from "solid-leva";
 import Scene from "./Scene";
 
-import { getProject } from "@theatre/core";
-import studio from "@theatre/studio";
-import { render } from "solid-js/web";
 import { StockfishEngine } from "./game";
 import { QueryClient, QueryClientProvider } from "solid-query";
-
-// initialize the studio so the editing tools will show up on the screen
-studio.initialize();
-
-const project = getProject("chess");
-
-const sheet = project.sheet(
-  // Our sheet is identified as "Scene"
-  "Scene"
-);
-
-export function useTheatre() {
-  return sheet;
-}
-
-function TheatreProvider() {
-  useControls("theatre", {
-    hide: button(() => {
-      studio.ui.hide();
-    }),
-    show: button(() => {
-      studio.ui.restore();
-    }),
-    leva: button(() => {
-      studio.createPane("leva");
-    })
-  });
-
-  createEffect(() => {
-    let leva = document.getElementById("leva__root");
-    studio.onSelectionChange(e => {
-      if (
-        e.find(i => {
-          // @ts-ignore
-          return i._cache;
-        })
-      ) {
-        console.log(leva);
-        // leva.style.left = "100px";
-        leva.style.display = "none";
-
-        // ref.current.style.display = "none";
-      } else {
-        leva.style.display = "block";
-      }
-    });
-  });
-  return <></>;
-}
+import { Router } from "solid-app-router";
+import { TheatreProvider } from "./theatre";
 
 const App = () => {
   useControls("debug", {
@@ -76,11 +24,17 @@ const App = () => {
 
   return (
     <QueryClientProvider client={new QueryClient()}>
-      <TheatreProvider />
-      <StockfishEngine />
-      <main class={main}>
-        <Scene />
-      </main>
+      <Router>
+        <TheatreProvider />
+        <StockfishEngine />
+        <main class={main}>
+          <Scene />
+          {/* <Routes>
+            <Route path={"/game"} component={Scene} />
+            <Route path={"/"} component={Dir} />
+          </Routes> */}
+        </main>
+      </Router>
     </QueryClientProvider>
   );
 };

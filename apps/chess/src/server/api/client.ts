@@ -44,7 +44,7 @@ export class BeamerClient {
       return { ok: false, error: await resp.text(), status: resp.status };
     }
 
-    const roomInfo = await resp.json();
+    const roomInfo = (await resp.json()) as any;
 
     console.log("Requested room:", roomInfo, resp.status);
     return { ok: true, data: roomInfo };

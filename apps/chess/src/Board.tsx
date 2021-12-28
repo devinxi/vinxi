@@ -6,7 +6,7 @@ import { chessBoard } from "./game";
 import { useControls } from "@/lib/lib/leva";
 import { getPiece } from "@/lib/lib/chess/state";
 import { For, Show } from "solid-js";
-import { useTheatre } from "./App";
+import { useTheatre } from "./theatre";
 
 export const BoardSquare = ({ square }: { square: SquareType }) => {
   let index = SQUARES[square as SquareType];

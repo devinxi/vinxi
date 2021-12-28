@@ -1,35 +1,36 @@
 import { Canvas, useFrame, useThree } from "solid-three";
 import {
   ComponentProps,
-  createComputed,
   createEffect,
   createRenderEffect,
   createSignal,
+  Match,
   onCleanup,
   PropsWithChildren,
   Show,
-  untrack
+  Switch,
+  untrack,
+  useContext
 } from "solid-js";
 import { Html, OrbitControls } from "solid-drei";
 import { JSX } from "solid-three";
 import { Plane } from "./Plane";
 import { useControls } from "./lib/leva";
 import { Board } from "./Board";
-import { useTheatreControls } from "./useTheatreControls";
-import { BeamerClient } from "./server/api/client";
-import { generateClientId } from "./server/api/id";
-
+import { Link } from "solid-app-router";
+import { useTheatreControls } from "./theatre";
+import { Portal } from "solid-js/web";
+import { RoomProvider, RoomContext } from "./room";
+import { chessBoard, setChessGame } from "./game";
+import { ascii, getFen, loadFen } from "./lib/chess/state";
 declare module "solid-js" {
   interface Directives {}
 }
 
-const urlSearchParams = new URLSearchParams(window.location.search);
+export const urlSearchParams = new URLSearchParams(window.location.search);
 
 const roomCode = urlSearchParams.get("room") || "";
-const beamerServerUrl =
-  urlSearchParams.get("apiserver") || location.origin.indexOf("http://localhost") !== -1
-    ? "http://localhost:8787"
-    : "https://beamerserver-a.guido.workers.dev";
+export const beamerServerUrl = "https://chess.vinxi.workers.dev";
 
 const PerspectiveCamera = ({
   position = [10, 5, 10],
@@ -93,83 +94,101 @@ export default function Scene() {
       {/* <Box position={[5, 5, 0]} /> */}
       {/* <Show when={ref()}>{ref => <spotLightHelper args={[ref]} />}</Show> */}
 
-      <ChessGame
-        {...{
-          quickJoin: !!urlSearchParams.get("room"),
-          roomCode: roomCode,
-          beamerServerUrl: beamerServerUrl
-        }}
-      />
+      <RoomProvider>
+        <ChessRoom></ChessRoom>
+      </RoomProvider>
       <Plane />
       <OrbitControls />
     </Canvas>
   );
 }
 
-const ChessGame = ({ quickJoin, roomCode, beamerServerUrl }) => {
-  let quickJoinUrl = () =>
-    document.location.origin +
-    document.location.pathname +
-    "?" +
-    new URLSearchParams({ room: roomCode }).toString();
+function createGame() {
+  const room = useContext(RoomContext);
+  createEffect(() => {
+    room.addEventListener("message", e => {
+      console.log(e.data);
+      if (e.data.type === "game_state") {
+        setChessGame(loadFen(e.data.board));
+      }
+    });
+  });
 
-  const [role, setRole] = createSignal("" as "host" | "peer");
-  const [client, setClient] = createSignal<BeamerClient | null>(null);
+  return room;
+}
 
-  const clientId = generateClientId();
+let send;
 
-  async function hostRoom() {
-    setRole("host");
-    setClient(new BeamerClient(beamerServerUrl, role()));
-    const roomResponse = await client()!.requestRoom();
+export function makeChessMove(availableMove) {
+  send({
+    type: "chess_move",
+    move: availableMove
+  });
+  // setChessGame((s: any) => makeMove(s, sanToMove(s, availableMove!.san)));
+}
 
-    // console.log(roomResponse);
-    // if (roomResponse.ok) {
-    let roomCode = roomResponse.data.room.roomCode;
-    await client().joinRoom("hostuser", roomCode, clientId);
-    // } else {
-    // console.error(roomResponse);
-    // }
-  }
+export function ChessRoom() {
+  const room = createGame();
 
-  async function joinRoom() {
-    setRole("host");
-    setClient(new BeamerClient(beamerServerUrl, role()));
-    await client().joinRoom("gamepad", roomCode, clientId);
-  }
-
-  createComputed(() => {
-    if (quickJoin) {
-      joinRoom();
+  // let moveNumber = 0;
+  createEffect(() => {
+    if (room.client()) {
+      send = room.client().sendJson.bind(room.client());
     }
+    // let moves = chessBoard.move_number;
+    // console.log(moveNumber, moves, room.client());
+    // if (moveNumber !== moves && room.client()) {
+    //   moveNumber = moves;
+    //   room.client().sendJson({
+    //     type: "game_state",
+    //     board: getFen(chessBoard)
+    //   });
+    // }
+    // console.log(moveNumber, moves, room.client());
   });
 
   return (
     <>
-      {/* <Html>
-        <div>Hello World</div>
-        <button onClick={() => hostRoom()}>New Game</button>
-      </Html> */}
-      <ChessBoard />
+      <Portal>
+        <div class="fixed top-2 left-2 flex flex-col items-center justify-center">
+          <div class="bg-gray-200 bg-opacity-50 space-y-3 rounded-md px-6 py-6 flex flex-col items-center justify-center">
+            {/* <div>hello {room.playerName()}</div> */}
+            <Switch>
+              <Match when={room.roomCode()}>
+                <div class="text-lg text-gray-700">
+                  <span class="font-bold">{chessBoard.turn === "b" ? "Black" : "White"}</span>'s
+                  turn
+                </div>
+                <pre class="text-xs text-gray-700">{ascii(chessBoard.board)}</pre>
+                <button class="text-xs" onClick={room.copyLink}>
+                  (Click to copy) <br /> https://solid-chess.vercel.app/?room={room.roomCode()}
+                </button>
+              </Match>
+            </Switch>
+            <button
+              onClick={() => room.hostRoom()}
+              class="bg-gradient-to-r from-red-100 to-red-200 text-red-800 px-3 text-lg uppercase rounded"
+            >
+              new game
+            </button>
+            {/* <button onClick={() => room.setPlayerName("hella")}>set name</button> */}
+            {/* <Show when={room.client()}>
+              <button
+                onClick={() =>
+                  room.client().sendJson({
+                    type: "game_state",
+                    board: getFen(chessBoard)
+                  })
+                }
+              >
+                send message
+              </button>
+            </Show> */}
+            {/* <div>{room.quickJoinUrl()}</div> */}
+          </div>
+        </div>
+      </Portal>
+      <Board />
     </>
   );
-};
-
-function rotate(ref) {
-  effect: {
-    console.log(ref);
-  }
-
-  useFrame(() => {
-    ref.rotation.z += 0.005;
-  });
-}
-
-function ChessBoard() {
-  let ref;
-
-  // useFrame(() => {
-  //   ref.rotation.y += 0.005;
-  // });
-  return <Board ref={ref} />;
 }

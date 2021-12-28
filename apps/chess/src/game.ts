@@ -4,6 +4,8 @@ import { BLACK, DEFAULT_POSITION } from "@/lib/lib/chess/constants";
 import { createEffect, createSignal, onCleanup } from "solid-js";
 import { Engine } from "./lib/chess/engine";
 import { getEngineMove } from "./lib/chess/state";
+import { useControls } from "./lib/leva";
+import { makeChessMove } from "./Scene";
 
 const engine = new Engine();
 
@@ -18,11 +20,14 @@ console.log(
 );
 
 export function StockfishEngine() {
+  let controls = useControls("game", {
+    engine: false
+  });
   createEffect(() => {
-    if (chessBoard.turn === BLACK) {
+    if (chessBoard.turn === BLACK && controls.engine) {
       let timer = setTimeout(async () => {
         const move = await getEngineMove(engine, chessBoard);
-        setChessGame(makeMove(chessBoard, move));
+        makeChessMove(move);
       }, 1000);
       onCleanup(() => clearTimeout(timer));
     }

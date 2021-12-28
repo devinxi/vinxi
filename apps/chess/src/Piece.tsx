@@ -19,8 +19,7 @@ import { useRef } from "solid-react-compat";
 import { Show, Suspense } from "solid-js";
 import { mergeProps, JSX } from "solid-js";
 import { folder, useControls } from "@/lib/lib/leva";
-import { useTheatre } from "./App";
-import { useTheatreControls } from "./useTheatreControls";
+import { useTheatreControls } from "./theatre";
 
 type GLTFResult = GLTF & {
   nodes: {

@@ -7,6 +7,7 @@ import { BoxBufferGeometry } from "three";
 import { useHover } from "./lib/useHover";
 import { chessBoard, selectedSquare, setChessGame, setSelectedSquare } from "./game";
 import { Html } from "solid-drei";
+import { makeChessMove } from "./Scene";
 
 export function Square(props: { square: SquareType; position: any }) {
   const controls = useControls("square", {
@@ -64,7 +65,7 @@ export function Square(props: { square: SquareType; position: any }) {
       {...bind}
       onPointerDown={e => {
         if (isMovable()) {
-          setChessGame((s: any) => makeMove(s, sanToMove(s, data().availableMove!.san)));
+          makeChessMove(sanToMove(chessBoard, data().availableMove!.san));
           setSelectedSquare("none");
         }
         if (data().piece?.color === turn()) {
@@ -77,7 +78,7 @@ export function Square(props: { square: SquareType; position: any }) {
       castShadow
       geometry={new BoxBufferGeometry(controls.width, 2, controls.height)}
     >
-      <Html transform >{props.square}</Html>
+      <Html transform>{props.square}</Html>
       <meshToonMaterial
         color={
           isMovable() && isSquareHovered()

@@ -1,8 +1,8 @@
-import { createApp } from "./src/app";
-import { Env } from "./src/environment";
-export { RoomDurableObject } from "./src/durableObjects/room/room";
-export { RoomHubDurableObject } from "./src/durableObjects/hub/roomHub";
-export { RateLimiterDurableObject } from "./src/durableObjects/ratelimit/ratelimiter";
+import { createApp } from "./app";
+import { Env } from "./environment";
+export { RoomDurableObject } from "./durableObjects/room/room";
+export { RoomHubDurableObject } from "./durableObjects/hub/roomHub";
+export { RateLimiterDurableObject } from "./durableObjects/ratelimit/ratelimiter";
 
 const app = createApp();
 

@@ -1,8 +1,4 @@
-type = "javascript"
-account_id = "---"
-workers_dev = true
-zone_id = "---"
-compatibility_date = "2021-10-02"
+
 
 [durable_objects]
 bindings = [
@@ -12,17 +8,11 @@ bindings = [
 
 [[migrations]]
 tag = "v1" # Should be unique for each entry
-new_classes = ["RoomDurableObject"] # Array of new classes
+new_classes = ["DurableObjectExample"] # Array of new classes
 
-[build]
-command = "npm run build"
+[[migrations]]
+tag = "v2" # Should be unique for each entry
+renamed_classes = [{from = "DurableObjectExample", to = "RoomDurableObject" }] # Array of rename directives
+new_classes = ["RoomHubDurableObject"] # Array of new classes
 
-[build.upload]
-dir = "dist"
-format = "modules"
-main = "./worker.mjs"
-# format = "service-worker"
 
-[site]
-entry-point = "./"
-bucket = "./dist/static"
