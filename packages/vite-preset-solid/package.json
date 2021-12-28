@@ -4,8 +4,10 @@
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "types": "index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "scripts": {
     "build:cjs": "esbuild src/index.ts --format=cjs --platform=node --bundle --external:vite-plugin-solid --external:vite-plugin-inspect --external:@rollup/plugin-babel --external:babel-plugin-solid-labels --external:vite-tsconfig-paths > dist/index.js",

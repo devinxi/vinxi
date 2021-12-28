@@ -141,40 +141,40 @@ export function createBaseQuery<
     }
   );
 
-  // createEffect(() => {
-  //   mountedRef.current = true;
+  createEffect(() => {
+    mountedRef.current = true;
 
-  //   errorResetBoundary.clearReset();
+    errorResetBoundary.clearReset();
 
-  //   const unsubscribe = observer().subscribe(
-  //     // () => {
-  //     //   console.log("heree", observer.getOptimisticResult(defaultedOptions));
-  //     //   setResult(observer.getOptimisticResult(defaultedOptions));
-  //     // }
-  //     notifyManager.batchCalls(() => {
-  //       if (mountedRef.current) {
-  //         let result = observer().getOptimisticResult(defaultedOptions());
-  //         if (defaultedOptions().notifyOnChangeProps === "tracked") {
-  //           result = observer().trackResult(result, defaultedOptions());
-  //         }
-  //         console.log("hereee", result);
+    const unsubscribe = observer().subscribe(
+      // () => {
+      //   console.log("heree", observer.getOptimisticResult(defaultedOptions));
+      //   setResult(observer.getOptimisticResult(defaultedOptions));
+      // }
+      notifyManager.batchCalls(() => {
+        if (mountedRef.current) {
+          let result = observer().getOptimisticResult(dOptions());
+          if (dOptions().notifyOnChangeProps === "tracked") {
+            result = observer().trackResult(result, dOptions());
+          }
+          // console.log("hereee", result);
 
-  //         // mutate(result);
-  //       }
-  //     })
-  //   );
+          mutate(() => result.data);
+        }
+      })
+    );
 
-  //   // Update result to make sure we did not miss any query updates
-  //   // between creating the observer and subscribing to it.
-  //   effect: {
-  //     observer().updateResult();
-  //   }
+    // Update result to make sure we did not miss any query updates
+    // between creating the observer and subscribing to it.
+    effect: {
+      observer().updateResult();
+    }
 
-  //   onCleanup(() => {
-  //     mountedRef.current = false;
-  //     unsubscribe();
-  //   });
-  // });
+    onCleanup(() => {
+      mountedRef.current = false;
+      unsubscribe();
+    });
+  });
 
   createEffect(() => {
     // Do not notify on updates because of changes in the options because

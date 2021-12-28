@@ -12,27 +12,35 @@ let config = {
     {
       name: "dom",
       moduleName: "solid-js/web",
-      elements: [...HTMLElements, ...SVGElements],
+      elements: [...HTMLElements, ...SVGElements]
     },
     {
       name: "universal",
       moduleName: "solid-three",
-      elements: [],
-    },
-  ],
+      elements: []
+    }
+  ]
 };
 
-let plugin = () => {
+let plugin = ({
+  solid,
+  babel,
+  tsconfigPaths: tsconfigPathsOptions,
+  inspect: inspectOptions,
+  ...config
+}) => {
   return [
-    tsconfigPaths(),
+    tsconfigPaths(tsconfigPathsOptions),
     undestructurePlugin("ts"),
     solidPlugin({
-      solid: config as any,
+      ...config,
+      solid: { ...config, ...solid } as any,
       babel: {
-        plugins: [require("babel-plugin-solid-labels")],
-      },
+        ...babel,
+        plugins: [require("babel-plugin-solid-labels"), ...babel.plugins]
+      }
     }),
-    inspect(),
+    inspect(inspectOptions)
   ];
 };
 
