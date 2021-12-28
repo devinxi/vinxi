@@ -12,7 +12,7 @@
 // import { IdEvent } from "src/Event/IdEvent";
 
 import { IPosition, IResult, IAnalysis } from "./analysis";
-import { EvaluationEvent, BestMoveEvent, IdEvent, OptionEvent, Event } from "./event";
+import { EvaluationEvent, BestMoveEvent, IdEvent, OptionEvent } from "./event";
 import { Handler } from "./handler";
 import { StockfishProcess } from "./process";
 
@@ -57,7 +57,6 @@ export interface ISearchConfig {
   movetime?: number;
   infinite?: null;
 }
-
 
 type EventCallback = (event: Event) => void;
 
@@ -111,7 +110,7 @@ export class Engine {
     this.isStarted = false;
 
     this.process.listen((output: string) => {
-      console.log(output)
+      console.log(output);
       this.handler.handle(output);
     });
   }
@@ -146,7 +145,7 @@ export class Engine {
       }
     });
 
-    this.go(position, config, (bestMove) => {
+    this.go(position, config, bestMove => {
       this.stop();
       removeListener();
       if (lastAnalysis !== undefined) {
@@ -154,7 +153,7 @@ export class Engine {
           analysis: lastAnalysis,
           bestMove: bestMove.getBestMove(),
           config,
-          position,
+          position
         };
         callback(result);
       }
@@ -194,7 +193,9 @@ export class Engine {
    * @param {Function} callback
    * @return {void}
    */
-  public getOptions(callback: (options: IEngineOption[], id: Record<string, string>) => void): void {
+  public getOptions(
+    callback: (options: IEngineOption[], id: Record<string, string>) => void
+  ): void {
     this.options = [];
     this.id = {};
     this.process.execute("uci");
@@ -225,8 +226,8 @@ export class Engine {
    * @return {Function} removeListener
    */
   public on(name: string, callback: EventCallback): () => void {
-    this.handler.on(name, callback);
-    return () => this.handler.removeListener(name, callback);
+    this.handler.addEventListener(name, callback);
+    return () => this.handler.removeEventListener(name, callback);
   }
 
   /**
@@ -237,7 +238,9 @@ export class Engine {
    * @return {void}
    */
   public once(name: string, callback: EventCallback): void {
-    this.handler.once(name, callback);
+    this.handler.addEventListener(name, callback, {
+      once: true
+    });
   }
 
   /**
@@ -255,8 +258,8 @@ export class Engine {
    * @return {void}
    */
   public setOptions(config: Record<string, string>) {
-    Object.entries(config).forEach(
-      ([key, value]) => this.process.execute(`setoption name ${key} value ${value}`)
+    Object.entries(config).forEach(([key, value]) =>
+      this.process.execute(`setoption name ${key} value ${value}`)
     );
   }
 
@@ -266,7 +269,10 @@ export class Engine {
    * @param {Function} callback
    * @return {void}
    */
-  public start(callback: (options: IEngineOption[], id: Record<string, string>) => void, config?: Record<string, string>): void {
+  public start(
+    callback: (options: IEngineOption[], id: Record<string, string>) => void,
+    config?: Record<string, string>
+  ): void {
     if (this.isStarted) {
       return callback(this.options, this.id);
     }
@@ -306,6 +312,6 @@ export class Engine {
    */
   public destroy(): void {
     this.process.kill();
-    this.handler.removeAllListeners();
+    // this.handler.removeEventListener("*");
   }
 }

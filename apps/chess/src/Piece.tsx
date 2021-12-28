@@ -13,12 +13,12 @@ import { GLTF } from "three-stdlib";
 // import { useAtom } from "jotai";
 // import { $ } from "src/atoms";
 // import { useHover } from "../../lib/useHover";
-import { BISHOP, BLACK, KING, KNIGHT, PAWN, QUEEN, ROOK } from "src/chess";
+import { BISHOP, BLACK, KING, KNIGHT, PAWN, QUEEN, ROOK } from "@/lib/lib/chess";
 import { useGLTF } from "solid-drei";
 import { useRef } from "solid-react-compat";
 import { Show, Suspense } from "solid-js";
 import { mergeProps, JSX } from "solid-js";
-import { folder, useControls } from "@/lib/leva";
+import { folder, useControls } from "@/lib/lib/leva";
 import { useTheatre } from "./App";
 import { useTheatreControls } from "./useTheatreControls";
 

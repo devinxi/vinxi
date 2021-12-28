@@ -1,10 +1,10 @@
 import { Piece } from "./Piece";
-import { algebraic, file, rank, SQUARES } from "src/chess";
-import { Square as SquareType } from "src/chess";
+import { algebraic, file, rank, SQUARES } from "@/lib/lib/chess";
+import { Square as SquareType } from "@/lib/lib/chess";
 import { Square } from "./Square";
 import { chessBoard } from "./game";
-import { useControls } from "@/lib/leva";
-import { getPiece } from "src/chess/state";
+import { useControls } from "@/lib/lib/leva";
+import { getPiece } from "@/lib/lib/chess/state";
 import { For, Show } from "solid-js";
 import { useTheatre } from "./App";
 
@@ -35,6 +35,13 @@ export const BoardSquare = ({ square }: { square: SquareType }) => {
           y * controls.ySquareSize + controls.offset[1]
         ]}
       />
+      <group
+        position={[
+          x * controls.xSquareSize + controls.offset[0],
+          0,
+          y * controls.ySquareSize + controls.offset[1]
+        ]}
+      ></group>
       <Show when={piece() !== null}>
         <Piece
           position={[

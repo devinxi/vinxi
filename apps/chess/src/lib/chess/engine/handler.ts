@@ -1,16 +1,22 @@
-import { EventEmitter } from "eventemitter3";
 import { IAnalysis } from "./analysis";
 import { IEngineId, IEngineOption } from ".";
-import { OutputEvent, ReadyEvent, UciOkEvent, IdEvent, BestMoveEvent, OptionEvent, EvaluationEvent, Event } from "./event";
+import {
+  OutputEvent,
+  ReadyEvent,
+  UciOkEvent,
+  IdEvent,
+  BestMoveEvent,
+  OptionEvent,
+  EvaluationEvent
+} from "./event";
 import { Parser } from "./parser";
-
 
 /**
  * @class Handler
  * @extends EventEmitter
  * @module Handler
  */
-export class Handler extends EventEmitter {
+export class Handler extends EventTarget {
   /**
    * @public
    * @method
@@ -21,14 +27,15 @@ export class Handler extends EventEmitter {
     this.emitEvent(new OutputEvent(output));
 
     if (Parser.parseIsReady(output)) {
-      return this.emitEvent(new ReadyEvent);
+      return this.emitEvent(new ReadyEvent());
     }
 
     if (Parser.parseUciOk(output)) {
-      return this.emitEvent(new UciOkEvent);
+      return this.emitEvent(new UciOkEvent());
     }
 
     const engineid: IEngineId | null = Parser.parseId(output);
+    console.log(engineid);
     if (engineid !== null) {
       return this.emitEvent(new IdEvent(engineid));
     }
@@ -55,7 +62,7 @@ export class Handler extends EventEmitter {
         currmove: Parser.parseCurrmove(output),
         currmovenumber: Parser.parseCurrmoveNumber(output),
         moves: Parser.parseMoves(output),
-        score: Parser.parseScore(output),
+        score: Parser.parseScore(output)
       };
       return this.emitEvent(new EvaluationEvent(analysis));
     }
@@ -68,6 +75,6 @@ export class Handler extends EventEmitter {
    * @return {void}
    */
   protected emitEvent(event: Event): void {
-    this.emit(event.getName(), event);
+    this.dispatchEvent(event);
   }
 }

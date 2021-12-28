@@ -5,11 +5,12 @@ import { main } from "./sprinkles.css";
 import { useControls } from "./lib/leva";
 import { button, LevaPanel, levaStore } from "solid-leva";
 import Scene from "./Scene";
-import React from "react";
 
 import { getProject } from "@theatre/core";
 import studio from "@theatre/studio";
 import { render } from "solid-js/web";
+import { StockfishEngine } from "./game";
+import { QueryClient, QueryClientProvider } from "solid-query";
 
 // initialize the studio so the editing tools will show up on the screen
 studio.initialize();
@@ -74,12 +75,13 @@ const App = () => {
   });
 
   return (
-    <>
+    <QueryClientProvider client={new QueryClient()}>
       <TheatreProvider />
+      <StockfishEngine />
       <main class={main}>
         <Scene />
       </main>
-    </>
+    </QueryClientProvider>
   );
 };
 

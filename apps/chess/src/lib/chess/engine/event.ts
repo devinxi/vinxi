@@ -1,30 +1,29 @@
 import { IAnalysis } from "./analysis";
 import { IEngineId, IEngineOption } from ".";
 
-/**
- * @abstract
- * @class Event
- * @module Event
- */
-export abstract class Event {
-  /**
-   * @constructor
-   * @param {string} name
-   */
-  constructor(protected name: string) {
-    this.name = name;
-  }
+// /**
+//  * @abstract
+//  * @class Event
+//  * @module Event
+//  */
+// export abstract class Event {
+//   /**
+//    * @constructor
+//    * @param {string} name
+//    */
+//   constructor(protected name: string) {
+//     this.name = name;
+//   }
 
-  /**
-   * @public
-   * @method
-   * @return {string}
-   */
-  public getName(): string {
-    return this.name;
-  }
-}
-
+//   /**
+//    * @public
+//    * @method
+//    * @return {string}
+//    */
+//   public getName(): string {
+//     return this.name;
+//   }
+// }
 
 /**
  * @class EvaluationEvent
@@ -89,7 +88,6 @@ export class BestMoveEvent extends Event {
   }
 }
 
-
 /**
  * @class OptionEvent
  * @extends Event
@@ -115,7 +113,6 @@ export class OptionEvent extends Event {
     return this.option;
   }
 }
-
 
 /**
  * @class OutputEvent
@@ -157,7 +154,6 @@ export class ReadyEvent extends Event {
   }
 }
 
-
 /**
  * @class UciOkEvent
  * @extends Event
@@ -171,7 +167,6 @@ export class UciOkEvent extends Event {
     super("uciok");
   }
 }
-
 
 /**
  * @class IdEvent
@@ -198,7 +193,3 @@ export class IdEvent extends Event {
     return this.id;
   }
 }
-
-
-
-

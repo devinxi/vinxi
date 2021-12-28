@@ -1,0 +1,28 @@
+type = "javascript"
+account_id = "---"
+workers_dev = true
+zone_id = "---"
+compatibility_date = "2021-10-02"
+
+[durable_objects]
+bindings = [
+  { name = "ROOM_DURABLE_OBJECT", class_name = "RoomDurableObject" },
+  { name = "ROOM_HUB_DURABLE_OBJECT", class_name = "RoomHubDurableObject" }
+]
+
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["RoomDurableObject"] # Array of new classes
+
+[build]
+command = "npm run build"
+
+[build.upload]
+dir = "dist"
+format = "modules"
+main = "./worker.mjs"
+# format = "service-worker"
+
+[site]
+entry-point = "./"
+bucket = "./dist/static"

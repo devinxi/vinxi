@@ -1,17 +1,12 @@
-import { folder, useControls } from "@/lib/leva";
-import { Chess, Square as SquareType } from "src/chess";
-import { squareColor } from "src/chess/utils";
-import {
-  generateMoves,
-  getPiece,
-  makeMove,
-  makePretty,
-  sanToMove
-} from "src/chess/state";
+import { folder, useControls } from "@/lib/lib/leva";
+import { Chess, Square as SquareType } from "@/lib/lib/chess";
+import { squareColor } from "@/lib/lib/chess/utils";
+import { generateMoves, getPiece, makeMove, makePretty, sanToMove } from "@/lib/lib/chess/state";
 import { createMemo, createSignal } from "solid-js";
 import { BoxBufferGeometry } from "three";
 import { useHover } from "./lib/useHover";
 import { chessBoard, selectedSquare, setChessGame, setSelectedSquare } from "./game";
+import { Html } from "solid-drei";
 
 export function Square(props: { square: SquareType; position: any }) {
   const controls = useControls("square", {
@@ -82,6 +77,7 @@ export function Square(props: { square: SquareType; position: any }) {
       castShadow
       geometry={new BoxBufferGeometry(controls.width, 2, controls.height)}
     >
+      <Html transform >{props.square}</Html>
       <meshToonMaterial
         color={
           isMovable() && isSquareHovered()
