@@ -44,12 +44,6 @@ const PerspectiveCamera = ({
     <perspectiveCamera far={1000} near={0.1} fov={75} position={position as any} />
   ) as unknown as THREE.PerspectiveCamera;
 
-  // @ts-ignore
-
-  // if (ref) {
-
-  // }
-
   createRenderEffect(() => {
     cam.aspect = size().width / size().height;
     cam.updateProjectionMatrix();
@@ -88,12 +82,7 @@ export default function Scene() {
     >
       <PerspectiveCamera position={[theatreControls.x, theatreControls.y, theatreControls.z]} />
       <ambientLight intensity={0.5} />
-      {/* <directionalLight castShadow intensity={1} position={[10, 10, 10]} /> */}
       <spotLight ref={setRef} penumbra={1} position={controls.spotLight} intensity={2} castShadow />
-      {/* <Box position={[-5, 5, 0]} /> */}
-      {/* <Box position={[5, 5, 0]} /> */}
-      {/* <Show when={ref()}>{ref => <spotLightHelper args={[ref]} />}</Show> */}
-
       <RoomProvider>
         <ChessRoom></ChessRoom>
       </RoomProvider>
@@ -171,20 +160,6 @@ export function ChessRoom() {
             >
               new game
             </button>
-            {/* <button onClick={() => room.setPlayerName("hella")}>set name</button> */}
-            {/* <Show when={room.client()}>
-              <button
-                onClick={() =>
-                  room.client().sendJson({
-                    type: "game_state",
-                    board: getFen(chessBoard)
-                  })
-                }
-              >
-                send message
-              </button>
-            </Show> */}
-            {/* <div>{room.quickJoinUrl()}</div> */}
           </div>
         </div>
       </Portal>

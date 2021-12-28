@@ -5,11 +5,7 @@ import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import icons from "unplugin-icons/vite";
 export default defineConfig({
   plugins: [
-    solid({
-      babel: {
-        plugins: []
-      }
-    }),
+    solid({}),
     vanillaExtractPlugin(),
     icons({ compiler: "solid" }),
     windiCSS({
