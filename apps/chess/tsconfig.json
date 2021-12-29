@@ -9,8 +9,9 @@
     "jsxImportSource": "solid-js",
     "baseUrl": "./",
     "paths": {
-      "@/lib/*": ["./src/*"]
+      "@/lib/*": ["./src/*"],
+      "solid-mdx": ["./solid-mdx.tsx"]
     },
-    "types": ["vite/client", "unplugin-icons/types/solid"]
+    "types": ["vite/client", "solid-mdx/client", "unplugin-icons/types/solid"]
   }
 }
