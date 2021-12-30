@@ -14,7 +14,10 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "moduleResolution": "node"
+    "allowJs": true,
+    "checkJs": false,
+    "moduleResolution": "node",
+    "downlevelIteration": true
   },
   "exclude": ["node_modules"]
 }

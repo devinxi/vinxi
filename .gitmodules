@@ -4,3 +4,6 @@
 [submodule "packages/magiql"]
 	path = packages/magiql
 	url = https://github.com/nksaraf/magiql
+[submodule "packages/solidpress"]
+	path = packages/solidpress
+	url = https://github.com/devinxi/solidpress

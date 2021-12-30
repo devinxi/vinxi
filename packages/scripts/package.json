@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "main": "index.js",
-  "private": true,
   "files": [
     "jest",
     "eslint-preset.js"

@@ -1,12 +1,6 @@
 import { babel } from "@rollup/plugin-babel";
 
-function addImportDeclarationToProgram(
-  types,
-  program,
-  specifier,
-  imported,
-  source
-) {
+function addImportDeclarationToProgram(types, program, specifier, imported, source) {
   program.node.body.unshift(
     types.importDeclaration(
       [types.importSpecifier(specifier, types.identifier(imported))],
@@ -19,10 +13,7 @@ function addStatementToFunction(types, path, statement) {
   if (path.node.body.type === "BlockStatement") {
     path.node.body.body.unshift(statement);
   } else {
-    path.node.body = types.blockStatement([
-      statement,
-      types.returnStatement(path.node.body),
-    ]);
+    path.node.body = types.blockStatement([statement, types.returnStatement(path.node.body)]);
   }
 }
 
@@ -41,27 +32,21 @@ function getMergePropsUniqueName(types, path, program) {
           mergePropsUniqueName = specifier.local;
           return;
         }
-    },
+    }
   });
 
   // If not found, create one
   if (!mergePropsUniqueName) {
     mergePropsUniqueName = program.scope.generateUidIdentifier("mergeProps");
     mergePropsUniqueName.unique = true;
-    addImportDeclarationToProgram(
-      types,
-      program,
-      mergePropsUniqueName,
-      "mergeProps",
-      "solid-js"
-    );
+    addImportDeclarationToProgram(types, program, mergePropsUniqueName, "mergeProps", "solid-js");
   }
 
   return mergePropsUniqueName;
 }
 
 const functionVisitor =
-  (types) =>
+  types =>
   (path, { opts }) => {
     {
       const { mode = "vanilla-js" } = opts;
@@ -77,12 +62,7 @@ const functionVisitor =
         if (type !== "ArrowFunctionExpression") return;
         if (path.parent.type !== "VariableDeclarator") return;
         const bindings = path.context.scope.bindings;
-        if (
-          !(
-            path.parent.id.name.charAt(0) ===
-            path.parent.id.name.charAt(0).toUpperCase()
-          )
-        ) {
+        if (!(path.parent.id.name.charAt(0) === path.parent.id.name.charAt(0).toUpperCase())) {
           if (!path.parent.id.typeAnnotation) return;
           const typeAnnotation = path.parent.id.typeAnnotation.typeAnnotation;
           if (typeAnnotation.type !== "TSTypeReference") return;
@@ -103,10 +83,7 @@ const functionVisitor =
             if (!typeQualificationBinding) return;
             const importSpecifier = typeQualificationBinding.path.node;
             if (importSpecifier.type !== "ImportDefaultSpecifier") return;
-            if (
-              typeQualificationBinding.path.parent.source.value !== "solid-js"
-            )
-              return;
+            if (typeQualificationBinding.path.parent.source.value !== "solid-js") return;
           } else return;
         }
       }
@@ -121,10 +98,7 @@ const functionVisitor =
         if (importSpecifier.type !== "ImportSpecifier") return;
         if (importSpecifier.imported.name !== "component") return;
 
-        if (
-          wrappingFunctionBinding.path.parent.source.value !==
-          "babel-plugin-solid-undestructure"
-        )
+        if (wrappingFunctionBinding.path.parent.source.value !== "babel-plugin-solid-undestructure")
           return;
         if (wrappingFunctionBinding.references === 1)
           wrappingFunctionBinding.path.parentPath.remove();
@@ -140,12 +114,11 @@ const functionVisitor =
     if (
       !firstParam ||
       (firstParam.type !== "ObjectPattern" &&
-        (firstParam.type !== "AssignmentPattern" ||
-          firstParam.left.type !== "ObjectPattern"))
+        (firstParam.type !== "AssignmentPattern" || firstParam.left.type !== "ObjectPattern"))
     )
       return;
 
-    const program = path.findParent((path) => path.isProgram());
+    const program = path.findParent(path => path.isProgram());
     const newPropsIdentifier = program.scope.generateUidIdentifier("props");
 
     let defaultPropsWhole = types.objectExpression([]);
@@ -158,7 +131,7 @@ const functionVisitor =
       const callExpression = types.callExpression(mergePropsUniqueName, [
         defaultPropsWhole,
         defaultPropsObject,
-        newPropsIdentifier,
+        newPropsIdentifier
       ]);
       const assignmentStatement = types.expressionStatement(
         types.assignmentExpression("=", newPropsIdentifier, callExpression)
@@ -171,9 +144,7 @@ const functionVisitor =
 
     for (const DestructredProperty of propsDestructredProperties) {
       if (DestructredProperty.type === "RestElement")
-        throw new Error(
-          "babel-plugin-solid-undestructure error: Rest elements are not supported."
-        );
+        throw new Error("babel-plugin-solid-undestructure error: Rest elements are not supported.");
       if (
         // Nested destructuring
         (DestructredProperty.value.type !== "Identifier" &&
@@ -194,7 +165,7 @@ const functionVisitor =
           const callExpression = types.callExpression(mergePropsUniqueName, [
             defaultPropsWhole,
             defaultPropsObject,
-            newPropsIdentifier,
+            newPropsIdentifier
           ]);
           const assignmentStatement = types.expressionStatement(
             types.assignmentExpression("=", newPropsIdentifier, callExpression)
@@ -203,10 +174,7 @@ const functionVisitor =
         }
 
         defaultPropsObject.properties.push(
-          types.objectProperty(
-            DestructredProperty.value.left,
-            DestructredProperty.value.right
-          )
+          types.objectProperty(DestructredProperty.value.left, DestructredProperty.value.right)
         );
       }
 
@@ -216,20 +184,17 @@ const functionVisitor =
         DestructredKeyIdentifier
       );
 
-      const DestructredName =
-        DestructredProperty.value.name || DestructredProperty.value.left.name;
+      const DestructredName = DestructredProperty.value.name || DestructredProperty.value.left.name;
 
       path.scope.crawl();
       const componentScopeBindings = path.scope.bindings;
-      const { referencePaths, constantViolations } =
-        componentScopeBindings[DestructredName];
+      const { referencePaths, constantViolations } = componentScopeBindings[DestructredName];
 
       for (const referencePath of referencePaths)
         referencePath.replaceWith(undestructuredPropExpression);
 
       for (const constantViolation of constantViolations)
-        constantViolation.node &&
-          (constantViolation.node.left = undestructuredPropExpression);
+        constantViolation.node && (constantViolation.node.left = undestructuredPropExpression);
     }
 
     path.node.params[0] = newPropsIdentifier;
@@ -239,43 +204,42 @@ export function babelPluginUndestructure({ types }) {
   const visitor = {
     FunctionDeclaration: functionVisitor(types),
     FunctionExpression: functionVisitor(types),
-    ArrowFunctionExpression: functionVisitor(types),
+    ArrowFunctionExpression: functionVisitor(types)
   };
 
   return {
     name: "babel-plugin-solid-undestructure",
-    visitor,
+    visitor
   };
 }
 
-export const undestructurePlugin = (mode) => {
+export default (mode = "ts") => {
   if (!mode || mode === "ts")
     return [
       {
         ...babel({
           plugins: [
             ["@babel/plugin-syntax-typescript", { isTSX: true }],
-            [babelPluginUndestructure, { mode: "ts" }],
+            [babelPluginUndestructure, { mode: "ts" }]
           ],
-          extensions: [".tsx"],
+          extensions: [".tsx"]
         }),
-        enforce: "pre",
+        name: "babel-plugin-solid-undestructure-ts",
+        enforce: "pre"
       },
       {
         ...babel({
-          plugins: [
-            "@babel/plugin-syntax-typescript",
-            [babelPluginUndestructure, { mode: "ts" }],
-          ],
-          extensions: [".ts"],
+          plugins: ["@babel/plugin-syntax-typescript", [babelPluginUndestructure, { mode: "ts" }]],
+          extensions: [".ts"]
         }),
-        enforce: "pre",
-      },
+        name: "babel-plugin-solid-undestructure-tsx",
+        enforce: "pre"
+      }
     ];
-  else if (mode === "vanilla-js")
-    return ["babel-plugin-solid-undestructure", { mode: "vanilla-js" }];
-  else
-    throw new Error(
-      "babel-plugin-solid-undestructure error: Invalid mode. Mode must be either 'ts' or 'vanilla-js'"
-    );
+  // else if (mode === "vanilla-js")
+  //   return ["babel-plugin-solid-undestructure", { mode: "vanilla-js" }];
+  // else
+  //   throw new Error(
+  //     "babel-plugin-solid-undestructure error: Invalid mode. Mode must be either 'ts' or 'vanilla-js'"
+  //   );
 };

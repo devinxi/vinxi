@@ -1,6 +1,6 @@
 {
   "name": "solid-mdx",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -14,8 +14,7 @@
   "scripts": {
     "build": "tsc --emitDeclarationOnly && ./build.js",
     "dev": "./build.js -watch -debug",
-    "clean": "rm -rf .turbo && rm -rf dist && rm -rf node_modules",
-    "prepublishOnly": "rm -rf dist npm run build"
+    "clean": "rm -rf .turbo && rm -rf dist && rm -rf node_modules"
   },
   "dependencies": {
     "resolve": "^1.20.0",
@@ -24,10 +23,11 @@
   "devDependencies": {
     "@vinxi/tsconfig": "^0.0.2",
     "estrella": "^1.4.1",
+    "solid-js": "^1.2.6",
     "vite": "^2.7.9"
   },
   "peerDependencies": {
-    "vite": "*",
-    "solid-js": "^1.2.6"
+    "solid-js": "^1.2.6",
+    "vite": "*"
   }
 }
