@@ -1,39 +1,20 @@
-import { HTMLElements, SVGElements } from "./elements";
-import solidPlugin from "@vinxi/vite-plugin-solid";
-import inspect from "vite-plugin-inspect";
-import { undestructurePlugin } from "./vite-plugin-solid-undestructure";
-import tsconfigPaths from "vite-tsconfig-paths";
+import solidPlugin from "./solid";
+import undestructurePlugin from "./solid-undestructure";
+import tsconfigPaths from "./tsconfig-paths";
+import inspect from "./inspect";
+import { PluginOption } from "vite";
 
-let config = {
-  moduleName: "solid-js/web",
-  // @ts-ignore
-  generate: "dynamic",
-  renderers: [
-    {
-      name: "dom",
-      moduleName: "solid-js/web",
-      elements: [...HTMLElements, ...SVGElements],
-    },
-    {
-      name: "universal",
-      moduleName: "solid-three",
-      elements: [],
-    },
-  ],
-};
-
-let plugin = () => {
+let plugin = ({
+  tsconfigPaths: tsconfigPathsOptions = {},
+  inspect: inspectOptions = { enabled: true },
+  ...config
+} = {}) => {
   return [
-    tsconfigPaths(),
-    undestructurePlugin("ts"),
-    solidPlugin({
-      solid: config as any,
-      babel: {
-        plugins: [require("babel-plugin-solid-labels")],
-      },
-    }),
-    inspect(),
-  ];
+    tsconfigPaths(tsconfigPathsOptions),
+    undestructurePlugin(),
+    solidPlugin(config),
+    inspect(inspectOptions)
+  ] as PluginOption[];
 };
 
 export default plugin;

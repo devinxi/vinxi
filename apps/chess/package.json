@@ -17,16 +17,20 @@
   "module": "./dist/solid-three.es.js",
   "license": "MIT",
   "devDependencies": {
+    "@babel/parser": "^7.16.6",
     "@iconify/json": "^1.1.443",
+    "@mdx-js/mdx": "^1.6.22",
     "@theatre/studio": "^0.4.7",
     "@types/three": "0.135.0",
     "@vanilla-extract/vite-plugin": "^3.1.1",
     "@vinxi/vite-preset-solid": "^0.0.2",
+    "estree-to-babel": "^4.8.0",
     "iconify": "^1.3.0",
     "solid-refresh": "^0.3.2",
     "unplugin-icons": "^0.12.23",
     "vite": "^2.7.7",
-    "vite-plugin-windicss": "^1.3.0"
+    "vite-plugin-windicss": "^1.3.0",
+    "xdm": "^3.3.1"
   },
   "dependencies": {
     "@solid-primitives/clipboard": "^1.2.7",

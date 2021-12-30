@@ -1,10 +1,9 @@
 {
-  "extends": "@vinxi/tsconfig/solid-library.json",
+  "extends": "@vinxi/tsconfig/base.json",
   "include": ["./src"],
   "compilerOptions": {
     "outDir": "./types",
-    "rootDir": "./src",
-    "target": "esnext"
+    "rootDir": "./src"
   },
   "exclude": ["dist", "build", "node_modules"]
 }

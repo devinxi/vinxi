@@ -6,7 +6,6 @@ import { Devtools, render } from "./solid-dev";
 
 import { useControls } from "./lib/leva";
 
-
 render(() => {
   const controls = useControls("debug", {
     devtools: false

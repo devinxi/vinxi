@@ -3,6 +3,7 @@ import solid from "@vinxi/vite-preset-solid";
 import windiCSS from "vite-plugin-windicss";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import icons from "unplugin-icons/vite";
+
 export default defineConfig({
   plugins: [
     solid({}),
@@ -10,12 +11,9 @@ export default defineConfig({
     icons({ compiler: "solid" }),
     windiCSS({
       scan: {
-        fileExtensions: ["html", "js", "ts", "jsx", "tsx"]
+        fileExtensions: ["html", "js", "ts", "md", "mdx", "jsx", "tsx"]
       }
-    }),
-    {
-      configResolved: config => {}
-    }
+    })
   ],
 
   build: {

@@ -3,7 +3,6 @@ import { main } from "./sprinkles.css";
 import { useControls } from "./lib/leva";
 import { button } from "solid-leva";
 import Scene from "./Scene";
-
 import { StockfishEngine } from "./game";
 import { QueryClient, QueryClientProvider } from "solid-query";
 import { Router } from "solid-app-router";
