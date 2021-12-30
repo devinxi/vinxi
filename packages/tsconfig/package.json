@@ -12,6 +12,7 @@
     "node12.json",
     "node14.json",
     "nextjs.json",
-    "react-library.json"
+    "react-library.json",
+    "*.json"
   ]
 }
