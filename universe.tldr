@@ -1,0 +1,251 @@
+{
+  "document": {
+    "id": "doc",
+    "name": "New Document",
+    "version": 15.3,
+    "pages": {
+      "page": {
+        "id": "page",
+        "name": "Page 1",
+        "childIndex": 1,
+        "shapes": {
+          "56497501-87e5-4e3f-0172-9a4dc180d350": {
+            "id": "56497501-87e5-4e3f-0172-9a4dc180d350",
+            "type": "rectangle",
+            "name": "Rectangle",
+            "parentId": "page",
+            "childIndex": 1,
+            "point": [
+              203.45,
+              563.89
+            ],
+            "size": [
+              449.1,
+              106.38
+            ],
+            "rotation": 0,
+            "style": {
+              "color": "black",
+              "size": "medium",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1
+            },
+            "label": "solid-query",
+            "labelPoint": [
+              0.5,
+              0.5
+            ]
+          },
+          "f592f674-8203-45d1-027e-afaf158977bb": {
+            "id": "f592f674-8203-45d1-027e-afaf158977bb",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 4,
+            "point": [
+              293.94,
+              760.89
+            ],
+            "rotation": 0,
+            "text": " - createQuery\n- createMutation \n- useIsFetching\n- QueryProvider\n- refetchQueries",
+            "style": {
+              "color": "black",
+              "size": "medium",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "start"
+            }
+          },
+          "991d5a86-1e3e-4614-2764-a67acb72f5b5": {
+            "id": "991d5a86-1e3e-4614-2764-a67acb72f5b5",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 5,
+            "point": [
+              755.3941011119846,
+              711.6709528853813
+            ],
+            "rotation": 0,
+            "text": " ",
+            "style": {
+              "color": "black",
+              "size": "medium",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "start"
+            }
+          },
+          "82cbd0f1-6613-4eb9-1089-8acb0b2fafa6": {
+            "id": "82cbd0f1-6613-4eb9-1089-8acb0b2fafa6",
+            "type": "rectangle",
+            "name": "Rectangle",
+            "parentId": "page",
+            "childIndex": 4,
+            "point": [
+              777.48,
+              569.24
+            ],
+            "size": [
+              449.1,
+              106.38
+            ],
+            "rotation": 0,
+            "style": {
+              "color": "black",
+              "size": "medium",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1
+            },
+            "label": "solid-three",
+            "labelPoint": [
+              0.5,
+              0.5
+            ]
+          },
+          "eb8e3314-e563-4fe2-3408-420d0b163105": {
+            "id": "eb8e3314-e563-4fe2-3408-420d0b163105",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 5,
+            "point": [
+              875.2,
+              692.38
+            ],
+            "rotation": 0,
+            "text": " - createQuery\n- createMutation \n- useIsFetching\n- QueryProvider",
+            "style": {
+              "color": "black",
+              "size": "medium",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "start"
+            }
+          },
+          "78ad471b-b6d1-4666-1de8-df3d6688d384": {
+            "id": "78ad471b-b6d1-4666-1de8-df3d6688d384",
+            "type": "rectangle",
+            "name": "Rectangle",
+            "parentId": "page",
+            "childIndex": 4,
+            "point": [
+              212.87,
+              33.85
+            ],
+            "size": [
+              449.1,
+              106.38
+            ],
+            "rotation": 0,
+            "style": {
+              "color": "black",
+              "size": "medium",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1
+            },
+            "label": "magiql",
+            "labelPoint": [
+              0.5,
+              0.5
+            ]
+          },
+          "fbeca2b1-76d9-4195-3e87-427d76fdfc42": {
+            "id": "fbeca2b1-76d9-4195-3e87-427d76fdfc42",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 4,
+            "point": [
+              297.42,
+              234.41
+            ],
+            "rotation": 0,
+            "text": " - createQuery\n- createMutation \n- useIsFetching\n- GraphQLProvider\n- refetchQueries",
+            "style": {
+              "color": "black",
+              "size": "medium",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "start"
+            }
+          },
+          "4f5131d0-b0f4-4247-2b24-71efbf8ef5a7": {
+            "id": "4f5131d0-b0f4-4247-2b24-71efbf8ef5a7",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 6,
+            "point": [
+              174.9,
+              168.1
+            ],
+            "rotation": 0,
+            "text": "GraphQL Client with Relay principles",
+            "style": {
+              "color": "black",
+              "size": "medium",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "start"
+            }
+          },
+          "8ec3a776-053b-4229-269f-5a6046b004ff": {
+            "id": "8ec3a776-053b-4229-269f-5a6046b004ff",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 7,
+            "point": [
+              236.85,
+              691.21
+            ],
+            "rotation": 0,
+            "text": "Server State management",
+            "style": {
+              "color": "black",
+              "size": "medium",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "start"
+            }
+          }
+        },
+        "bindings": {}
+      }
+    },
+    "pageStates": {
+      "page": {
+        "id": "page",
+        "selectedIds": [
+          "56497501-87e5-4e3f-0172-9a4dc180d350"
+        ],
+        "camera": {
+          "point": [
+            0,
+            0
+          ],
+          "zoom": 1
+        },
+        "editingId": null
+      }
+    },
+    "assets": {}
+  },
+  "assets": {}
+}
