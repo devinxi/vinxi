@@ -4,9 +4,6 @@
 [submodule "packages/magiql"]
 	path = packages/magiql
 	url = https://github.com/nksaraf/magiql
-[submodule "external/solidpress"]
-	path = external/solidpress
-	url = https://github.com/devinxi/solidpress
 [submodule "packages/solid-ink"]
 	path = packages/solid-ink
 	url = https://github.com/devinxi/ink
