@@ -1,6 +1,3 @@
-[submodule "packages/vite-plugin-solid"]
-	path = packages/vite-plugin-solid
-	url = https://github.com/devinxi/vite-plugin-solid
 [submodule "packages/magiql"]
 	path = packages/magiql
 	url = https://github.com/nksaraf/magiql
