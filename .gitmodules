@@ -10,3 +10,6 @@
 [submodule "packages/solid-import-jsx"]
 	path = packages/solid-import-jsx
 	url = https://github.com/devinxi/import-jsx
+[submodule "packages/vite-plugin-docs"]
+	path = packages/vite-plugin-docs
+	url = https://github.com/devinxi/vite-plugin-docs
