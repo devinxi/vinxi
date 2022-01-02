@@ -224,9 +224,148 @@
               "font": "script",
               "textAlign": "start"
             }
+          },
+          "8b9b6089-2fd6-4fb0-3622-42ecd323981b": {
+            "id": "8b9b6089-2fd6-4fb0-3622-42ecd323981b",
+            "type": "rectangle",
+            "name": "Rectangle",
+            "parentId": "page",
+            "childIndex": 8,
+            "point": [
+              1894.84,
+              -684.43
+            ],
+            "size": [
+              258.11,
+              74.82
+            ],
+            "rotation": 0,
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1
+            },
+            "label": "api extractor",
+            "labelPoint": [
+              0.5,
+              0.5
+            ]
+          },
+          "9f9edfe7-82f1-4194-3ae4-863d9f03ca2b": {
+            "id": "9f9edfe7-82f1-4194-3ae4-863d9f03ca2b",
+            "type": "rectangle",
+            "name": "Rectangle",
+            "parentId": "page",
+            "childIndex": 9,
+            "point": [
+              2476.93,
+              -689.42
+            ],
+            "size": [
+              278.53,
+              74.18
+            ],
+            "rotation": 0,
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1
+            },
+            "label": "graphql API",
+            "labelPoint": [
+              0.5,
+              0.5
+            ]
+          },
+          "11d48f97-79fc-4ba7-05f7-3f5898f0d7f3": {
+            "id": "11d48f97-79fc-4ba7-05f7-3f5898f0d7f3",
+            "type": "arrow",
+            "name": "Arrow",
+            "parentId": "page",
+            "childIndex": 10,
+            "point": [
+              2168.95,
+              -659.67
+            ],
+            "rotation": 0,
+            "bend": 0,
+            "handles": {
+              "start": {
+                "id": "start",
+                "index": 0,
+                "point": [
+                  0,
+                  0
+                ],
+                "canBind": true,
+                "bindingId": "fde5d1b0-f880-45b6-3d47-0908be9ca830"
+              },
+              "end": {
+                "id": "end",
+                "index": 1,
+                "point": [
+                  291.98,
+                  20.59
+                ],
+                "canBind": true,
+                "bindingId": "02f9bc80-dd65-4369-10a2-807577bbe421"
+              },
+              "bend": {
+                "id": "bend",
+                "index": 2,
+                "point": [
+                  145.99,
+                  10.29
+                ]
+              }
+            },
+            "decorations": {
+              "end": "arrow"
+            },
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1
+            },
+            "label": "api-extractor model\nparser",
+            "labelPoint": [
+              0.5,
+              0.5
+            ]
           }
         },
-        "bindings": {}
+        "bindings": {
+          "fde5d1b0-f880-45b6-3d47-0908be9ca830": {
+            "id": "fde5d1b0-f880-45b6-3d47-0908be9ca830",
+            "type": "arrow",
+            "fromId": "11d48f97-79fc-4ba7-05f7-3f5898f0d7f3",
+            "toId": "8b9b6089-2fd6-4fb0-3622-42ecd323981b",
+            "handleId": "start",
+            "point": [
+              0.47,
+              0.28
+            ],
+            "distance": 16
+          },
+          "02f9bc80-dd65-4369-10a2-807577bbe421": {
+            "id": "02f9bc80-dd65-4369-10a2-807577bbe421",
+            "type": "arrow",
+            "fromId": "11d48f97-79fc-4ba7-05f7-3f5898f0d7f3",
+            "toId": "9f9edfe7-82f1-4194-3ae4-863d9f03ca2b",
+            "handleId": "end",
+            "point": [
+              0.51,
+              0.73
+            ],
+            "distance": 16
+          }
+        }
       }
     },
     "pageStates": {
