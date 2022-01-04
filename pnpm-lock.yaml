@@ -286,6 +286,23 @@ importers:
       twind: 0.9.1
       typescript: 4.5.4
 
+  packages/ossos:
+    specifiers:
+      '@vinxi/vite-preset-solid': workspace:^0.0.2
+      gl-matrix: ^3.4.3
+      three: ^0.135.0
+      typescript: ^4.5.2
+      vite: ^2.6.14
+      vite-plugin-docs: workspace:^0.0.1
+    dependencies:
+      '@vinxi/vite-preset-solid': link:../vite-preset-solid
+      gl-matrix: 3.4.3
+      vite-plugin-docs: link:../vite-plugin-docs
+    devDependencies:
+      three: 0.135.0
+      typescript: 4.5.4
+      vite: 2.7.10
+
   packages/scripts:
     specifiers:
       '@types/jest': ^26.0.22
@@ -358,7 +375,7 @@ importers:
     specifiers:
       '@vinxi/tsconfig': 0.0.2
       '@vinxi/vite-preset-solid': ^0.0.2
-      solid-js: ^1.3.0-beta.10
+      solid-js: 1.3.0-beta.10
       solid-react-compat: 0.0.2
       solid-three: ^0.0.2
       three: 0.135.0
@@ -371,7 +388,7 @@ importers:
     devDependencies:
       '@vinxi/tsconfig': link:../tsconfig
       '@vinxi/vite-preset-solid': link:../vite-preset-solid
-      solid-js: 1.3.0-rc.0
+      solid-js: 1.3.0-beta.10
       solid-three: link:../solid-three
       three: 0.135.0
       typescript: 4.5.4
@@ -649,7 +666,7 @@ importers:
       rollup: ^2.61.1
       rollup-plugin-dts: ^4.0.1
       solid-app-router: ^0.1.14
-      solid-js: ^1.3.0-beta.10
+      solid-js: 1.3.0-beta.10
       solid-mdx: workspace:^0.0.5
       three: 0.135.0
       tsm: ^2.2.1
@@ -675,8 +692,8 @@ importers:
       remark-gfm: 3.0.1
       rollup: 2.62.0
       rollup-plugin-dts: 4.1.0_rollup@2.62.0+typescript@4.5.4
-      solid-app-router: 0.1.14_solid-js@1.3.0-rc.0
-      solid-js: 1.3.0-rc.0
+      solid-app-router: 0.1.14_solid-js@1.3.0-beta.10
+      solid-js: 1.3.0-beta.10
       solid-mdx: link:../solid-mdx
       three: 0.135.0
       tsm: 2.2.1
@@ -12199,6 +12216,10 @@ packages:
       assert-plus: 1.0.0
     dev: true
 
+  /gl-matrix/3.4.3:
+    resolution: {integrity: sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==}
+    dev: false
+
   /glob-base/0.3.0:
     resolution: {integrity: sha1-27Fk9iIbHAscz4Kuoyi0l98Oo8Q=}
     engines: {node: '>=0.10.0'}
@@ -19328,6 +19349,14 @@ packages:
       solid-js: 1.2.6
     dev: false
 
+  /solid-app-router/0.1.14_solid-js@1.3.0-beta.10:
+    resolution: {integrity: sha512-fnX+jCB5sDMbjq3od9qGtQNdlvHP2c6DG5STvMHVXyNuSEN+MdO7WJtZ58OpVpq6zWS4FYeYAh7NMEa7C2CcOA==}
+    peerDependencies:
+      solid-js: ^1.0.0
+    dependencies:
+      solid-js: 1.3.0-beta.10
+    dev: true
+
   /solid-app-router/0.1.14_solid-js@1.3.0-rc.0:
     resolution: {integrity: sha512-fnX+jCB5sDMbjq3od9qGtQNdlvHP2c6DG5STvMHVXyNuSEN+MdO7WJtZ58OpVpq6zWS4FYeYAh7NMEa7C2CcOA==}
     peerDependencies:
@@ -19337,6 +19366,10 @@ packages:
 
   /solid-js/1.2.6:
     resolution: {integrity: sha512-NvPHJ5Vj5f+ZJWIioickrC55seovSkDtm5NzSpnoUk3z4tATv0STpy5iuGNEn51ZORUcwpZzrMAtOCGziXU1XA==}
+
+  /solid-js/1.3.0-beta.10:
+    resolution: {integrity: sha512-cYIfxC8TBUo/+TWQxKF6vgqK3IiPq0EoHE8Ox+vkSk6TzYkM4UZn1QhpQ9/yj/8fXJ9lbvskr37Q9WH3JGPkQg==}
+    dev: true
 
   /solid-js/1.3.0-rc.0:
     resolution: {integrity: sha512-Bbu++UTrevR76a6BYRpLf7buK04xy3CjhShIO/AwyhNuZtdN22cvq6qHhuSpvxzlxPCIG5HPG+bZAd5D+z1HXg==}
