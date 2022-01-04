@@ -13,3 +13,6 @@
 [submodule "packages/ossos"]
 	path = packages/ossos
 	url = https://github.com/devinxi/ossos
+[submodule "packages/solid-mdx"]
+	path = packages/solid-mdx
+	url = https://github.com/nksaraf/solid-mdx
