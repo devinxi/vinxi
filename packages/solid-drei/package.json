@@ -27,7 +27,7 @@
   "devDependencies": {
     "@vinxi/tsconfig": "0.0.2",
     "@vinxi/vite-preset-solid": "^0.0.2",
-    "solid-js": "^1.3.0-beta.10",
+    "solid-js": "1.3.0-beta.10",
     "solid-three": "^0.0.2",
     "three": "0.135.0",
     "typescript": "^4.5.3",

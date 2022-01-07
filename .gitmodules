@@ -3,10 +3,19 @@
 	url = https://github.com/nksaraf/magiql
 [submodule "packages/solid-ink"]
 	path = packages/solid-ink
-	url = https://github.com/devinxi/ink
+	url = https://github.com/devinxi/solid-ink
 [submodule "packages/solid-import-jsx"]
 	path = packages/solid-import-jsx
 	url = https://github.com/devinxi/import-jsx
 [submodule "packages/vite-plugin-docs"]
 	path = packages/vite-plugin-docs
 	url = https://github.com/devinxi/vite-plugin-docs
+[submodule "packages/ossos"]
+	path = packages/ossos
+	url = https://github.com/devinxi/ossos
+[submodule "packages/solid-mdx"]
+	path = packages/solid-mdx
+	url = https://github.com/nksaraf/solid-mdx
+[submodule "packages/tldraw"]
+	path = packages/tldraw
+	url = https://github.com/devinxi/solid-tldraw
