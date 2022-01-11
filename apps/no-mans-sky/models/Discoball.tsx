@@ -1,5 +1,5 @@
 import * as React, { Suspense, createEffect } from "solid-js";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useThree } from "solid-three";
 import { useGesture } from "@use-gesture/react";
 import { useSpring, a } from "@react-spring/three";
 

@@ -7,7 +7,7 @@ import * as React, { useRef } from "solid-js";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 import { AnimationClip } from "three";
-import { useFrame } from "@react-three/fiber";
+import { useFrame } from "solid-three";
 import { useControls } from "@/leva";
 
 type GLTFResult = GLTF & {

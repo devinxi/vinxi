@@ -32,7 +32,7 @@ export default ({
     solid: { ...solidConfig, ...solid } as any,
     babel: {
       ...babel,
-      plugins: [require("babel-plugin-solid-labels"), ...babel.plugins]
+      plugins: [...babel.plugins, require("babel-plugin-solid-labels")]
     }
   }) as PluginOption;
 };

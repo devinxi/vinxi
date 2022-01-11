@@ -21,8 +21,8 @@ import { Link } from "solid-app-router";
 import { useTheatreControls } from "./theatre";
 import { Portal } from "solid-js/web";
 import { RoomProvider, RoomContext } from "./room";
-import { chessBoard, setChessGame } from "./game";
-import { ascii, getFen, loadFen } from "./lib/chess/state";
+import { gameApp } from "./game";
+import { ascii, getFen, loadFen, makeMove, sanToMove } from "./lib/chess/state";
 declare module "solid-js" {
   interface Directives {}
 }
@@ -98,7 +98,7 @@ function createGame() {
     room.addEventListener("message", e => {
       console.log(e.data);
       if (e.data.type === "game_state") {
-        setChessGame(loadFen(e.data.board));
+        gameApp.chessBoard = loadFen(e.data.board);
       }
     });
   });
@@ -109,11 +109,14 @@ function createGame() {
 let send;
 
 export function makeChessMove(availableMove) {
-  send({
-    type: "chess_move",
-    move: availableMove
-  });
-  // setChessGame((s: any) => makeMove(s, sanToMove(s, availableMove!.san)));
+  if (send) {
+    send({
+      type: "chess_move",
+      move: availableMove
+    });
+  } else {
+    gameApp.chessBoard = makeMove(gameApp.chessBoard, availableMove);
+  }
 }
 
 export function ChessRoom() {
@@ -145,10 +148,12 @@ export function ChessRoom() {
             <Switch>
               <Match when={room.roomCode()}>
                 <div class="text-lg text-gray-700">
-                  <span class="font-bold">{chessBoard.turn === "b" ? "Black" : "White"}</span>'s
-                  turn
+                  <span class="font-bold">
+                    {gameApp.chessBoard.turn === "b" ? "Black" : "White"}
+                  </span>
+                  's turn
                 </div>
-                <pre class="text-xs text-gray-700">{ascii(chessBoard.board)}</pre>
+                <pre class="text-xs text-gray-700">{ascii(gameApp.chessBoard.board)}</pre>
                 <button class="text-xs" onClick={room.copyLink}>
                   (Click to copy) <br /> https://solid-chess.vercel.app/?room={room.roomCode()}
                 </button>

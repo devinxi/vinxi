@@ -8,10 +8,11 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "baseUrl": "./",
+    "experimentalDecorators": true,
     "paths": {
       "@/lib/*": ["./src/*"],
       "solid-mdx": ["./solid-mdx.tsx"]
     },
-    "types": ["vite/client", "solid-mdx/client", "unplugin-icons/types/solid"]
+    "types": ["vite/client", "unplugin-icons/types/solid"]
   }
 }

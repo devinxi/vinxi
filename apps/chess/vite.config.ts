@@ -6,7 +6,19 @@ import icons from "unplugin-icons/vite";
 
 export default defineConfig({
   plugins: [
-    solid({}),
+    solid({
+      babel: {
+        plugins: [
+          [
+            "@babel/plugin-proposal-decorators",
+            {
+              legacy: true
+            }
+          ],
+          ["@babel/plugin-proposal-class-properties"]
+        ]
+      }
+    }),
     vanillaExtractPlugin(),
     icons({ compiler: "solid" }),
     windiCSS({

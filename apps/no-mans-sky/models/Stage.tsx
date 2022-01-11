@@ -1,25 +1,25 @@
 import * as React from "solid-react-compat";
 import * as THREE from "three";
 import { ContactShadows } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { useThree } from "solid-three";
 
 const presets = {
   rembrandt: {
     main: [1, 2, 1],
-    fill: [-2, -0.5, -2],
+    fill: [-2, -0.5, -2]
   },
   portrait: {
     main: [-1, 2, 0.5],
-    fill: [-1, 0.5, -1.5],
+    fill: [-1, 0.5, -1.5]
   },
   upfront: {
     main: [0, 2, 1],
-    fill: [-1, 0.5, -1.5],
+    fill: [-1, 0.5, -1.5]
   },
   soft: {
     main: [-2, 4, 4],
-    fill: [-1, 0.5, -1.5],
-  },
+    fill: [-1, 0.5, -1.5]
+  }
 };
 
 type ControlsProto = { update(): void; target: THREE.Vector3 };
@@ -55,15 +55,15 @@ export function Stage({
   ...props
 }: Props) {
   const config = presets[preset];
-  const camera = useThree((state) => state.camera);
-  // @ts-expect-error new in @react-three/fiber@7.0.5
-  const defaultControls = useThree((state) => state.controls) as ControlsProto;
+  const camera = useThree(state => state.camera);
+  // @ts-expect-error new in solid-three@7.0.5
+  const defaultControls = useThree(state => state.controls) as ControlsProto;
   const outer = React.useRef<THREE.Group>(null!);
   const inner = React.useRef<THREE.Group>(null!);
   const [{ radius, width, height }, set] = React.useState({
     radius: 0,
     width: 0,
-    height: 0,
+    height: 0
   });
 
   React.useLayoutEffect(() => {
@@ -115,21 +115,13 @@ export function Stage({
       <ambientLight intensity={intensity / 3} />
       <spotLight
         penumbra={1}
-        position={[
-          config.main[0] * radius,
-          config.main[1] * radius,
-          config.main[2] * radius,
-        ]}
+        position={[config.main[0] * radius, config.main[1] * radius, config.main[2] * radius]}
         intensity={intensity * 2}
         castShadow={shadows}
         shadow-bias={shadowBias}
       />
       <pointLight
-        position={[
-          config.fill[0] * radius,
-          config.fill[1] * radius,
-          config.fill[2] * radius,
-        ]}
+        position={[config.fill[0] * radius, config.fill[1] * radius, config.fill[2] * radius]}
         intensity={intensity}
       />
     </group>

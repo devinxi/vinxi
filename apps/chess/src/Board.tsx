@@ -2,7 +2,7 @@ import { Piece } from "./Piece";
 import { algebraic, file, rank, SQUARES } from "@/lib/lib/chess";
 import { Square as SquareType } from "@/lib/lib/chess";
 import { Square } from "./Square";
-import { chessBoard } from "./game";
+import { gameApp } from "./game";
 import { useControls } from "@/lib/lib/leva";
 import { getPiece } from "@/lib/lib/chess/state";
 import { For, Show } from "solid-js";
@@ -22,7 +22,7 @@ export const BoardSquare = ({ square }: { square: SquareType }) => {
   let x = file(index);
 
   const piece = () => {
-    return getPiece(chessBoard, square);
+    return getPiece(gameApp.chessBoard, square);
   };
 
   return (

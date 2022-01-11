@@ -213,12 +213,13 @@ export function babelPluginUndestructure({ types }) {
   };
 }
 
-export default (mode = "ts") => {
+export default (mode = "ts", { plugins, presets }) => {
   if (!mode || mode === "ts")
     return [
       {
         ...babel({
           plugins: [
+            ...plugins,
             ["@babel/plugin-syntax-typescript", { isTSX: true }],
             [babelPluginUndestructure, { mode: "ts" }]
           ],
@@ -229,7 +230,11 @@ export default (mode = "ts") => {
       },
       {
         ...babel({
-          plugins: ["@babel/plugin-syntax-typescript", [babelPluginUndestructure, { mode: "ts" }]],
+          plugins: [
+            ...plugins,
+            "@babel/plugin-syntax-typescript",
+            [babelPluginUndestructure, { mode: "ts" }]
+          ],
           extensions: [".ts"]
         }),
         name: "babel-plugin-solid-undestructure-tsx",

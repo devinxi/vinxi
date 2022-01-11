@@ -8,10 +8,14 @@ let plugin = ({
   tsconfigPaths: tsconfigPathsOptions = {},
   inspect: inspectOptions = { enabled: true },
   ...config
+}: {
+  tsconfigPaths?: any;
+  inspect?: any;
+  babel?: any;
 } = {}) => {
   return [
     tsconfigPaths(tsconfigPathsOptions),
-    undestructurePlugin(),
+    undestructurePlugin("ts", config.babel ?? {}),
     solidPlugin(config),
     inspect(inspectOptions)
   ] as PluginOption[];

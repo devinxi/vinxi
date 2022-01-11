@@ -33,6 +33,8 @@
     "xdm": "^3.3.1"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-decorators": "^7.16.7",
     "@solid-primitives/clipboard": "^1.2.7",
     "@theatre/core": "^0.4.7",
     "@theatre/r3f": "^0.4.0-dev.20",
@@ -45,7 +47,7 @@
     "react": "^17.0.2",
     "solid-app-router": "^0.1.14",
     "solid-drei": "^0.0.2",
-    "solid-js": "1.3.0-rc.0",
+    "solid-js": "1.3.1",
     "solid-leva": "^0.0.2",
     "solid-query": "^0.0.6",
     "solid-react-compat": "^0.0.2",

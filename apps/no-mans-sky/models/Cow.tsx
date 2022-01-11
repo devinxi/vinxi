@@ -60,7 +60,7 @@ interface GLTFActions extends AnimationClip {
 import { Loader } from "three";
 // @ts-ignore
 import { GLTFLoader, DRACOLoader, MeshoptDecoder } from "three-stdlib";
-import { useFrame, useGraph, useLoader } from "@react-three/fiber";
+import { useFrame, useGraph, useLoader } from "solid-three";
 import { useKeyboardInput } from "src/Keyboard";
 
 function onEnter<T extends string>(

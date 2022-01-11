@@ -19,3 +19,6 @@
 [submodule "packages/tldraw"]
 	path = packages/tldraw
 	url = https://github.com/devinxi/solid-tldraw
+[submodule "packages/webext"]
+	path = packages/webext
+	url = https://github.com/devinxi/webext

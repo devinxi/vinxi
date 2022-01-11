@@ -2,14 +2,22 @@ import { folder, useControls } from "@/lib/lib/leva";
 import { Chess, Square as SquareType } from "@/lib/lib/chess";
 import { squareColor } from "@/lib/lib/chess/utils";
 import { generateMoves, getPiece, makeMove, makePretty, sanToMove } from "@/lib/lib/chess/state";
-import { createMemo, createSignal } from "solid-js";
-import { BoxBufferGeometry } from "three";
+import { ComponentProps, createMemo, createSignal } from "solid-js";
+import { BoxBufferGeometry, Color } from "three";
 import { useHover } from "./lib/useHover";
-import { chessBoard, selectedSquare, setChessGame, setSelectedSquare } from "./game";
+import { gameApp } from "./game";
 import { Html } from "solid-drei";
 import { makeChessMove } from "./Scene";
 
-export function Square(props: { square: SquareType; position: any }) {
+const Colors = {
+  gold: new Color("gold"),
+  white: new Color("white"),
+  black: new Color("black"),
+  red: new Color("red"),
+  blue: new Color("blue"),
+  green: new Color("green")
+};
+export function Square(props: { square: SquareType } & ComponentProps<"mesh">) {
   const controls = useControls("square", {
     width: { value: 2.5, step: 0.1 },
     height: { value: 2.5, step: 0.1 },
@@ -23,13 +31,13 @@ export function Square(props: { square: SquareType; position: any }) {
 
   const getMoves = square => {
     if (square === "none") return [];
-    let moves = generateMoves(chessBoard, { square: square });
-    return moves.map(move => makePretty(chessBoard, move));
+    let moves = generateMoves(gameApp.chessBoard, { square: square });
+    return moves.map(move => makePretty(gameApp.chessBoard, move));
   };
 
   const data = createMemo(() => {
-    let piece = getPiece(chessBoard, props.square);
-    let moves = getMoves(selectedSquare() ?? "none");
+    let piece = getPiece(gameApp.chessBoard, props.square);
+    let moves = getMoves(gameApp.selectedSquare ?? "none");
 
     return {
       piece: piece,
@@ -40,22 +48,25 @@ export function Square(props: { square: SquareType; position: any }) {
 
   const [isSquareHovered, setIsSquareHovered] = createSignal();
 
-  const isSelected = () => selectedSquare() === props.square;
+  const isSelected = () => gameApp.selectedSquare === props.square;
 
+  // const isSquareHovered = () => gameApp.hoveredSquare === props.square;
   const [isHovered, bind] = useHover({
     onPointerEnter: e => {
       setIsSquareHovered(true);
+      gameApp.hoveredSquare = props.square;
       e.stopPropagation();
     },
     onPointerLeave: e => {
       setIsSquareHovered(false);
+      gameApp.hoveredSquare = "none";
       // e.stopPropagation();
     }
   });
 
   const isMovable = () => (data().availableMove ? true : false);
 
-  const turn = () => chessBoard.turn;
+  const turn = () => gameApp.chessBoard.turn;
 
   const isSelectable = () => (data().piece ? data().piece.color === turn() : false);
   const isKilling = () => isMovable() && data().piece && data().piece.color !== turn();
@@ -65,35 +76,35 @@ export function Square(props: { square: SquareType; position: any }) {
       {...bind}
       onPointerDown={e => {
         if (isMovable()) {
-          makeChessMove(sanToMove(chessBoard, data().availableMove!.san));
-          setSelectedSquare("none");
+          makeChessMove(sanToMove(gameApp.chessBoard, data().availableMove!.san));
+          gameApp.selectedSquare = "none";
         }
         if (data().piece?.color === turn()) {
-          setSelectedSquare(props.square);
+          gameApp.selectedSquare = props.square;
         }
         e.stopPropagation();
       }}
       receiveShadow
-      position={props.position}
       castShadow
-      geometry={new BoxBufferGeometry(controls.width, 2, controls.height)}
+      {...props}
     >
+      <boxBufferGeometry args={[controls.width, 2, controls.height]} />
       <Html transform>{props.square}</Html>
       <meshToonMaterial
         color={
           isMovable() && isSquareHovered()
-            ? "green"
+            ? Colors.green
             : isSquareHovered() && isSelectable()
-            ? "gold"
+            ? Colors.gold
             : isSelected()
-            ? "gold"
+            ? Colors.gold
             : isKilling()
-            ? "red"
+            ? Colors.red
             : isMovable()
-            ? "blue"
+            ? Colors.blue
             : color == "light"
-            ? controls.light
-            : controls.dark
+            ? Colors.white
+            : Colors.black
         }
       />
     </mesh>
