@@ -4,11 +4,19 @@
   "compilerOptions": {
     "outDir": "./types",
     "rootDir": "./src",
+    "lib": ["dom", "esnext"],
     "jsxImportSource": "solid-js",
     "baseUrl": "./src",
     "paths": {
       "src/*": ["./*"]
     }
   },
-  "exclude": ["dist", "build", "node_modules", "src/components/Image", "src/components/Monitor"]
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules",
+    "src/components/Image",
+    "src/components/Monitor",
+    "**/*.test.ts"
+  ]
 }

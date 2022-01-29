@@ -4,6 +4,7 @@
   "compilerOptions": {
     "outDir": "./types",
     "rootDir": "./src",
+    "lib": ["dom", "esnext"],
     "baseUrl": "./src",
     "paths": {
       "src/*": ["./*"]

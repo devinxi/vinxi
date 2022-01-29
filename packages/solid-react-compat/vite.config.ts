@@ -1,5 +1,4 @@
 import { defineConfig } from "vite";
-import solid from "@vinxi/vite-preset-solid";
 
 export default defineConfig({
   build: {
@@ -21,8 +20,4 @@ export default defineConfig({
     },
     polyfillDynamicImport: false,
   },
-  plugins: [
-    // for the playground, we need to be able to use the solid-three package itself
-    solid(),
-  ],
 });

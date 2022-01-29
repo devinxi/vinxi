@@ -10,20 +10,20 @@ let solidConfig = {
     {
       name: "dom",
       moduleName: "solid-js/web",
-      elements: [...HTMLElements, ...SVGElements]
+      elements: [...HTMLElements, ...SVGElements],
     },
     {
       name: "universal",
       moduleName: "solid-three",
-      elements: []
-    }
-  ]
+      elements: [],
+    },
+  ],
 };
 
 export default ({
   solid = {},
   babel = {
-    plugins: []
+    plugins: [],
   },
   ...config
 } = {}) => {
@@ -32,7 +32,7 @@ export default ({
     solid: { ...solidConfig, ...solid } as any,
     babel: {
       ...babel,
-      plugins: [...babel.plugins, require("babel-plugin-solid-labels")]
-    }
+      plugins: [...(babel.plugins ?? []), require("babel-plugin-solid-labels")],
+    },
   }) as PluginOption;
 };

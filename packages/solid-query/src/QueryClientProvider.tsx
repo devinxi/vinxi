@@ -1,5 +1,12 @@
 import { QueryClient } from "react-query/core";
-import { Component, Context, createContext, createEffect, onCleanup, useContext } from "solid-js";
+import {
+  Component,
+  Context,
+  createContext,
+  createEffect,
+  onCleanup,
+  useContext,
+} from "solid-js";
 
 declare global {
   interface Window {
@@ -17,13 +24,13 @@ const QueryClientSharingContext = createContext<boolean>(false);
 // all use the same **instance** of context, regardless
 // of module scoping.
 function getQueryClientContext(contextSharing: boolean) {
-  if (contextSharing && typeof window !== "undefined") {
-    if (!window.ReactQueryClientContext) {
-      window.ReactQueryClientContext = defaultContext;
-    }
+  // if (contextSharing && typeof window !== "undefined") {
+  //   if (!window.ReactQueryClientContext) {
+  //     window.ReactQueryClientContext = defaultContext;
+  //   }
 
-    return window.ReactQueryClientContext;
-  }
+  //   return window.ReactQueryClientContext;
+  // }
 
   return defaultContext;
 }
@@ -48,7 +55,7 @@ export interface QueryClientProviderProps {
 export const QueryClientProvider: Component<QueryClientProviderProps> = ({
   client,
   contextSharing = false,
-  children
+  children,
 }) => {
   createEffect(() => {
     client.mount();
