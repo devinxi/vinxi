@@ -2,7 +2,7 @@ import "./App.css";
 import { Canvas, prepare, useFrame } from "solid-three";
 import { createSignal, JSX } from "solid-js";
 import { Mesh } from "three";
-import { PlanetMesh } from "./lib/terrain/lib/PlanetMesh";
+// import { PlanetMesh } from "./lib/terrain/lib/PlanetMesh";
 
 function Box() {
   let mesh: Mesh | undefined;
@@ -14,8 +14,8 @@ function Box() {
     <mesh
       ref={mesh}
       scale={2}
-      onPointerEnter={e => setHovered(true)}
-      onPointerLeave={e => setHovered(false)}
+      onPointerEnter={(e) => setHovered(true)}
+      onPointerLeave={(e) => setHovered(false)}
     >
       <boxBufferGeometry />
       <meshStandardMaterial color={hovered() ? "#60a5fa" : "#3b82f6"} />
@@ -23,8 +23,8 @@ function Box() {
   );
 }
 
-const mesh = new PlanetMesh();
-console.log(mesh);
+// const mesh = new PlanetMesh();
+// console.log(mesh);
 
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
           width="480px"
           height="360px"
           camera={{
-            position: [0, -600, 600]
+            position: [0, -600, 600],
           }}
         >
           <ambientLight intensity={0.3} />
