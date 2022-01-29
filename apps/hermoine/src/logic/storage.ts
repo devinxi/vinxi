@@ -1,15 +1,19 @@
-import { storage } from "webextension-polyfill";
+import "webextension-polyfill";
+
+declare global {
+  const browser: typeof chrome;
+}
 
 export const storageLocal = {
   removeItem(key: string) {
-    return storage.local.remove(key);
+    return browser.storage.local.remove(key);
   },
 
   setItem(key: string, value: string) {
-    return storage.local.set({ [key]: value });
+    return browser.storage.local.set({ [key]: value });
   },
 
   async getItem(key: string) {
-    return (await storage.local.get(key))[key];
+    return (await browser.storage.local.get(key))[key];
   }
 };

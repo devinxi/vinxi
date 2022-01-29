@@ -10,6 +10,12 @@ export const sharedConfig: UserConfig = {
   root: r("src"),
   resolve: {
     alias: {
+      // "~/options/solid/src/lib": `${r("src/options/solid/src/lib/index.ts")}`,
+      // "~/options/solid/src/components/*": `${r("src/options/solid/src/components/*")}`,
+      // "~/options/solid/src/components": `${r("src/options/solid/src/components/index.ts")}`,
+      // "~/options/solid/src/hooks": `${r("src/options/solid/src/hooks/index")}`,
+      // "~/options/solid/src/types": `${r("src/options/solid/src/types/")}`,
+      mobx: `${r("src/logic/mobx")}`,
       "~/": `${r("src")}/`
     }
   },

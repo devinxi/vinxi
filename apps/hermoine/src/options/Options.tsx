@@ -25,74 +25,75 @@ export function Options() {
       <div class="mt-4">
         Powered by Vite <PixelArtsIcon class="align-middle" />
       </div>
-      <Embedded />
+
+      {/* <Embedded /> */}
     </main>
   );
 }
 
-import { Tldraw as ReactTLDraw, TldrawApp } from "@tldraw/tldraw";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { createSignal } from "solid-js";
+// import { Tldraw as ReactTLDraw, TldrawApp } from "@tldraw/tldraw";
+// import * as React from "react";
+// import * as ReactDOM from "react-dom";
+// import { createSignal } from "solid-js";
 
-export function Embedded(): JSX.Element {
-  return (
-    <div style={{ padding: "2% 10%", width: "calc(100% - 100px)" }}>
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "500px",
-          overflow: "hidden",
-          marginBottom: "32px"
-        }}
-      >
-        <ReactPortal />
-        {/* <Tldraw id="small5" /> */}
-      </div>
+// export function Embedded(): JSX.Element {
+//   return (
+//     <div style={{ padding: "2% 10%", width: "calc(100% - 100px)" }}>
+//       <div
+//         style={{
+//           position: "relative",
+//           width: "100%",
+//           height: "500px",
+//           overflow: "hidden",
+//           marginBottom: "32px"
+//         }}
+//       >
+//         <ReactPortal />
+//         {/* <Tldraw id="small5" /> */}
+//       </div>
 
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "500px",
-          overflow: "hidden"
-        }}
-      >
-        {/* <Tldraw id="embedded" /> */}
-      </div>
-    </div>
-  );
-}
+//       <div
+//         style={{
+//           position: "relative",
+//           width: "100%",
+//           height: "500px",
+//           overflow: "hidden"
+//         }}
+//       >
+//         {/* <Tldraw id="embedded" /> */}
+//       </div>
+//     </div>
+//   );
+// }
 
-function ReactPortal() {
-  let [app, setApp] = createSignal(null as TldrawApp | null);
-  let [svg, setSvg] = createSignal("" as string | null);
-  const ref = (<div></div>) as unknown as HTMLDivElement;
+// function ReactPortal() {
+//   let [app, setApp] = createSignal(null as TldrawApp | null);
+//   let [svg, setSvg] = createSignal("" as string | null);
+//   const ref = (<div></div>) as unknown as HTMLDivElement;
 
-  ReactDOM.render(
-    React.createElement(ReactTLDraw, {
-      id: "embedded",
-      onChange: console.log,
-      showUI: true,
-      showMenu: false,
-      showPages: false,
-      showStyles: true,
-      showTools: true,
-      showZoom: true,
-      onMount: setApp
-    }),
-    ref
-  );
+//   ReactDOM.render(
+//     React.createElement(ReactTLDraw, {
+//       id: "embedded",
+//       onChange: console.log,
+//       showUI: true,
+//       showMenu: false,
+//       showPages: false,
+//       showStyles: true,
+//       showTools: true,
+//       showZoom: true,
+//       onMount: setApp
+//     }),
+//     ref
+//   );
 
-  createEffect(() => {
-    setSvg(app()?.copySvg() ?? "");
-  });
+//   createEffect(() => {
+//     setSvg(app()?.copySvg() ?? "");
+//   });
 
-  return (
-    <div>
-      {ref}
-      <div innerHTML={svg()!}></div>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       {ref}
+//       <div innerHTML={svg()!}></div>
+//     </div>
+//   );
+// }
