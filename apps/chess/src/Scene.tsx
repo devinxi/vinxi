@@ -1,4 +1,4 @@
-import { Canvas, useFrame, useThree } from "solid-three";
+import { Canvas, useThree } from "solid-three";
 import {
   ComponentProps,
   createEffect,
@@ -7,29 +7,25 @@ import {
   Match,
   onCleanup,
   PropsWithChildren,
-  Show,
   Switch,
   untrack,
   useContext
 } from "solid-js";
-import { Html, OrbitControls } from "solid-drei";
+import { OrbitControls } from "solid-drei";
 import { JSX } from "solid-three";
 import { Plane } from "./Plane";
 import { useControls } from "./lib/leva";
 import { Board } from "./Board";
-import { Link } from "solid-app-router";
 import { useTheatreControls } from "./theatre";
 import { Portal } from "solid-js/web";
 import { RoomProvider, RoomContext } from "./room";
 import { gameApp } from "./game";
-import { ascii, getFen, loadFen, makeMove, sanToMove } from "./lib/chess/state";
-declare module "solid-js" {
-  interface Directives {}
-}
+import { ascii, loadFen, makeMove } from "./lib/chess/state";
 
 export const urlSearchParams = new URLSearchParams(window.location.search);
 
 const roomCode = urlSearchParams.get("room") || "";
+
 export const beamerServerUrl = "https://chess.vinxi.workers.dev";
 
 const PerspectiveCamera = ({
@@ -41,7 +37,12 @@ const PerspectiveCamera = ({
   const size = useThree(({ size }) => size);
 
   let cam = (
-    <perspectiveCamera far={1000} near={0.1} fov={75} position={position as any} />
+    <perspectiveCamera
+      far={1000}
+      near={0.1}
+      fov={75}
+      position={position as any}
+    />
   ) as unknown as THREE.PerspectiveCamera;
 
   createRenderEffect(() => {
@@ -80,9 +81,17 @@ export default function Scene() {
         antialias: true
       }}
     >
-      <PerspectiveCamera position={[theatreControls.x, theatreControls.y, theatreControls.z]} />
+      <PerspectiveCamera
+        position={[theatreControls.x, theatreControls.y, theatreControls.z]}
+      />
       <ambientLight intensity={0.5} />
-      <spotLight ref={setRef} penumbra={1} position={controls.spotLight} intensity={2} castShadow />
+      <spotLight
+        ref={setRef}
+        penumbra={1}
+        position={controls.spotLight}
+        intensity={2}
+        castShadow
+      />
       <RoomProvider>
         <ChessRoom></ChessRoom>
       </RoomProvider>
@@ -122,21 +131,10 @@ export function makeChessMove(availableMove) {
 export function ChessRoom() {
   const room = createGame();
 
-  // let moveNumber = 0;
   createEffect(() => {
     if (room.client()) {
       send = room.client().sendJson.bind(room.client());
     }
-    // let moves = chessBoard.move_number;
-    // console.log(moveNumber, moves, room.client());
-    // if (moveNumber !== moves && room.client()) {
-    //   moveNumber = moves;
-    //   room.client().sendJson({
-    //     type: "game_state",
-    //     board: getFen(chessBoard)
-    //   });
-    // }
-    // console.log(moveNumber, moves, room.client());
   });
 
   return (
@@ -144,7 +142,6 @@ export function ChessRoom() {
       <Portal>
         <div class="fixed top-2 left-2 flex flex-col items-center justify-center">
           <div class="bg-gray-200 bg-opacity-50 space-y-3 rounded-md px-6 py-6 flex flex-col items-center justify-center">
-            {/* <div>hello {room.playerName()}</div> */}
             <Switch>
               <Match when={room.roomCode()}>
                 <div class="text-lg text-gray-700">
@@ -153,9 +150,12 @@ export function ChessRoom() {
                   </span>
                   's turn
                 </div>
-                <pre class="text-xs text-gray-700">{ascii(gameApp.chessBoard.board)}</pre>
+                <pre class="text-xs text-gray-700">
+                  {ascii(gameApp.chessBoard.board)}
+                </pre>
                 <button class="text-xs" onClick={room.copyLink}>
-                  (Click to copy) <br /> https://solid-chess.vercel.app/?room={room.roomCode()}
+                  (Click to copy) <br /> https://solid-chess.vercel.app/?room=
+                  {room.roomCode()}
                 </button>
               </Match>
             </Switch>
