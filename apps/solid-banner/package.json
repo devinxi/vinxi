@@ -1,6 +1,5 @@
 {
   "name": "solid-banner-demo",
-  "version": "0.0.1",
   "private": true,
   "description": "",
   "scripts": {
@@ -19,7 +18,7 @@
   "devDependencies": {
     "@iconify/json": "^1.1.443",
     "@types/three": "0.135.0",
-    "@vinxi/vite-preset-solid": "^0.0.2",
+    "@vinxi/vite-preset-solid": "^0.0.3",
     "iconify": "^1.3.0",
     "unplugin-icons": "^0.12.23",
     "vite": "^2.7.1",
@@ -29,11 +28,11 @@
     "@vanilla-extract/css": "^1.6.8",
     "@vanilla-extract/vite-plugin": "^3.1.1",
     "solid-app-router": "^0.1.14",
-    "solid-drei": "^0.0.2",
+    "solid-drei": "^0.0.3",
     "solid-js": "^1.3.0-beta.10",
     "solid-leva": "^0.0.2",
     "solid-react-compat": "^0.0.2",
-    "solid-three": "^0.0.2",
+    "solid-three": "^0.0.3",
     "solid-use": "^0.3.3",
     "three": "0.135.0",
     "three-stdlib": "^2.6.1"

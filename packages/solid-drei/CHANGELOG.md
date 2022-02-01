@@ -1,5 +1,13 @@
 # solid-drei
 
+## 0.0.3
+
+### Patch Changes
+
+- c648e15: fix dependencies in package json
+- Updated dependencies [c3ee88e]
+  - solid-three@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes

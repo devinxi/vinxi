@@ -1,6 +1,16 @@
 # solid-banner-demo
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [c3ee88e]
+- Updated dependencies [c648e15]
+  - solid-three@0.0.3
+  - solid-drei@0.0.3
+
 ## 0.0.1
+
 ### Patch Changes
 
 - Updated dependencies [91678f0]

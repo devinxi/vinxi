@@ -1,5 +1,11 @@
 # solid-query
 
+## 0.0.7
+
+### Patch Changes
+
+- c3ee88e: create solid-mdx and make it work with other things
+
 ## 0.0.6
 
 ### Patch Changes
