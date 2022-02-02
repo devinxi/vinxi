@@ -1,6 +1,5 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { CounterButton } from "@vinxi/vite-solid-lib";
 
 function App() {
   return (
@@ -9,9 +8,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Turborepo Admin</h1>
         <p>This app is powered by Vite.</p>
-        <p>
-          <CounterButton />
-        </p>
+
         <p>
           Edit <code>App.tsx</code> and save to test HMR updates.
         </p>
