@@ -1,4 +1,11 @@
-import { render, Box, Text, createSignal, createEffect } from "solid-ink";
+import {
+  render,
+  Box,
+  Text,
+  createSignal,
+  createEffect,
+  useApp
+} from "solid-ink";
 import TextInput from "./components/text-input";
 import { filter } from "fuzzaldrin";
 import { globby } from "globby";
@@ -20,6 +27,8 @@ const SearchQuery = () => {
       value: file
     }));
 
+  const app = useApp();
+
   return (
     <Box flexDirection="column">
       <Box flexDirection="row">
@@ -33,9 +42,18 @@ const SearchQuery = () => {
           onSubmit={console.log}
         />
       </Box>
-      <SelectInput items={searchResults().slice(5)} onSelect={console.log} />
+      <SelectInput
+        items={searchResults().slice(5)}
+        onSelect={() => app.exit()}
+      />
     </Box>
   );
 };
 
-render(() => <SearchQuery />);
+render(() => <SearchQuery />)
+  .waitUntilExit()
+  .then(e => {
+    console.log("ereee");
+    process.exit();
+  })
+  .catch(e => console.error(e));

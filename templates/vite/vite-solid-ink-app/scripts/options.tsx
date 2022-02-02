@@ -25,4 +25,6 @@ const SearchQuery = () => {
   return <SelectInput items={items} onSelect={handleSelect} />;
 };
 
-render(() => <SearchQuery />);
+render(() => <SearchQuery />)
+  .waitUntilExit()
+  .then(console.log);
